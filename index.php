@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 echo "<table border='1'>";
                 echo "<tr><th>Squadra</th><th>PT</th><th>G</th><th>V</th><th>N</th><th>P</th><th>DR</th></tr>";
                 while ($row = $result->fetch_assoc()) {
-                    echo "<tr>" . "<td>".$row['squadra']."</td>" . "<td>".$row['PT']."</td>" . "<td>".$row['G']."</td>" . "<td>".$row['V']."</td>" . "<td>".$row['N']."</td>" . "<td>".$row['P']."</td>" . "<td>".$row['DR']."</td>" . "</tr>";
+                    echo "<tr>" . "<td class='logo-cell'><img " . $row['logo'] . "></td>" . "<td>".$row['squadra']."</td>" . "<td>".$row['PT']."</td>" . "<td>".$row['G']."</td>" . "<td>".$row['V']."</td>" . "<td>".$row['N']."</td>" . "<td>".$row['P']."</td>" . "<td>".$row['DR']."</td>" . "</tr>";
                 }
                 echo "</table><br>";
             } else {
