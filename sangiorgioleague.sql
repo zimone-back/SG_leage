@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 02, 2025 alle 15:36
+-- Creato il: Lug 02, 2025 alle 21:16
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -64,6 +64,37 @@ CREATE TABLE `giocatori` (
   `Nome` varchar(30) DEFAULT NULL,
   `Cognome` varchar(30) DEFAULT NULL,
   `Cod_squadre` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `giornate`
+--
+
+CREATE TABLE `giornate` (
+  `ID_giornata` int(11) NOT NULL,
+  `Numero` int(11) DEFAULT NULL,
+  `Cod_campionato` int(11) DEFAULT NULL,
+  `Data_inizio` date DEFAULT NULL,
+  `Data_fine` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `partite`
+--
+
+CREATE TABLE `partite` (
+  `ID_partita` int(11) NOT NULL,
+  `Cod_giornata` int(11) DEFAULT NULL,
+  `Squadra_casa` int(11) DEFAULT NULL,
+  `Squadra_ospite` int(11) DEFAULT NULL,
+  `Gol_casa` int(11) DEFAULT NULL,
+  `Gol_ospite` int(11) DEFAULT NULL,
+  `Data` datetime DEFAULT NULL,
+  `Stato` enum('da giocare','in corso','terminata') DEFAULT 'da giocare'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -140,6 +171,22 @@ ALTER TABLE `giocatori`
   ADD KEY `Cod_squadre` (`Cod_squadre`);
 
 --
+-- Indici per le tabelle `giornate`
+--
+ALTER TABLE `giornate`
+  ADD PRIMARY KEY (`ID_giornata`),
+  ADD KEY `Cod_campionato` (`Cod_campionato`);
+
+--
+-- Indici per le tabelle `partite`
+--
+ALTER TABLE `partite`
+  ADD PRIMARY KEY (`ID_partita`),
+  ADD KEY `Cod_giornata` (`Cod_giornata`),
+  ADD KEY `Squadra_casa` (`Squadra_casa`),
+  ADD KEY `Squadra_ospite` (`Squadra_ospite`);
+
+--
 -- Indici per le tabelle `presidenti`
 --
 ALTER TABLE `presidenti`
@@ -168,6 +215,20 @@ ALTER TABLE `cont_goal`
 --
 ALTER TABLE `giocatori`
   ADD CONSTRAINT `giocatori_ibfk_1` FOREIGN KEY (`Cod_squadre`) REFERENCES `squadre` (`ID_squadre`);
+
+--
+-- Limiti per la tabella `giornate`
+--
+ALTER TABLE `giornate`
+  ADD CONSTRAINT `giornate_ibfk_1` FOREIGN KEY (`Cod_campionato`) REFERENCES `campionati` (`ID_campionato`);
+
+--
+-- Limiti per la tabella `partite`
+--
+ALTER TABLE `partite`
+  ADD CONSTRAINT `partite_ibfk_1` FOREIGN KEY (`Cod_giornata`) REFERENCES `giornate` (`ID_giornata`),
+  ADD CONSTRAINT `partite_ibfk_2` FOREIGN KEY (`Squadra_casa`) REFERENCES `squadre` (`ID_squadre`),
+  ADD CONSTRAINT `partite_ibfk_3` FOREIGN KEY (`Squadra_ospite`) REFERENCES `squadre` (`ID_squadre`);
 
 --
 -- Limiti per la tabella `squadre`
