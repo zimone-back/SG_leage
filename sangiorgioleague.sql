@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Giu 30, 2025 alle 20:19
+-- Creato il: Lug 02, 2025 alle 15:36
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -20,6 +20,63 @@ SET time_zone = "+00:00";
 --
 -- Database: `sangiorgioleague`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `campionati`
+--
+
+CREATE TABLE `campionati` (
+  `ID_campionato` int(11) NOT NULL,
+  `Nome` varchar(50) DEFAULT NULL,
+  `Nazione` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `campionati`
+--
+
+INSERT INTO `campionati` (`ID_campionato`, `Nome`, `Nazione`) VALUES
+(1, 'sangiorgileague', 'Italia');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `cont_goal`
+--
+
+CREATE TABLE `cont_goal` (
+  `ID_cont_goal` int(11) NOT NULL,
+  `Cod_giocatori` int(11) DEFAULT NULL,
+  `Goal` int(11) DEFAULT NULL,
+  `Data` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `giocatori`
+--
+
+CREATE TABLE `giocatori` (
+  `ID_giocatori` int(11) NOT NULL,
+  `Nome` varchar(30) DEFAULT NULL,
+  `Cognome` varchar(30) DEFAULT NULL,
+  `Cod_squadre` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `presidenti`
+--
+
+CREATE TABLE `presidenti` (
+  `ID_presidenti` int(11) NOT NULL,
+  `Nome` varchar(30) DEFAULT NULL,
+  `Cognome` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -63,6 +120,32 @@ INSERT INTO `squadre` (`ID_squadre`, `Nome`, `Città`, `Cod_presidenti`, `Cod_ca
 --
 
 --
+-- Indici per le tabelle `campionati`
+--
+ALTER TABLE `campionati`
+  ADD PRIMARY KEY (`ID_campionato`);
+
+--
+-- Indici per le tabelle `cont_goal`
+--
+ALTER TABLE `cont_goal`
+  ADD PRIMARY KEY (`ID_cont_goal`),
+  ADD KEY `Cod_giocatori` (`Cod_giocatori`);
+
+--
+-- Indici per le tabelle `giocatori`
+--
+ALTER TABLE `giocatori`
+  ADD PRIMARY KEY (`ID_giocatori`),
+  ADD KEY `Cod_squadre` (`Cod_squadre`);
+
+--
+-- Indici per le tabelle `presidenti`
+--
+ALTER TABLE `presidenti`
+  ADD PRIMARY KEY (`ID_presidenti`);
+
+--
 -- Indici per le tabelle `squadre`
 --
 ALTER TABLE `squadre`
@@ -73,6 +156,18 @@ ALTER TABLE `squadre`
 --
 -- Limiti per le tabelle scaricate
 --
+
+--
+-- Limiti per la tabella `cont_goal`
+--
+ALTER TABLE `cont_goal`
+  ADD CONSTRAINT `cont_goal_ibfk_1` FOREIGN KEY (`Cod_giocatori`) REFERENCES `giocatori` (`ID_giocatori`);
+
+--
+-- Limiti per la tabella `giocatori`
+--
+ALTER TABLE `giocatori`
+  ADD CONSTRAINT `giocatori_ibfk_1` FOREIGN KEY (`Cod_squadre`) REFERENCES `squadre` (`ID_squadre`);
 
 --
 -- Limiti per la tabella `squadre`
