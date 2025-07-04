@@ -46,7 +46,7 @@
             <label for="scelta" class="form-label">Campionato:</label>
             <select name="scelta" id="scelta" class="form-select" required>
               <option value="">Seleziona</option>
-              <option value="sangiorgioleague">San Giorgio League 2025</option>
+              <option value="sangiorgileague">San Giorgio League 2025</option>
             </select>
           </div>
           <button type="submit" class="btn btn-outline-primary w-100">Mostra Classifiche Complete</button>
