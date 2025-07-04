@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 02, 2025 alle 21:16
+-- Creato il: Lug 04, 2025 alle 02:17
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -53,6 +53,16 @@ CREATE TABLE `cont_goal` (
   `Data` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `cont_goal`
+--
+
+INSERT INTO `cont_goal` (`ID_cont_goal`, `Cod_giocatori`, `Goal`, `Data`) VALUES
+(1, 1, 7, '2025-06-15'),
+(2, 2, 5, '2025-06-15'),
+(3, 3, 3, '2025-06-15'),
+(4, 4, 3, '2025-06-15');
+
 -- --------------------------------------------------------
 
 --
@@ -65,6 +75,16 @@ CREATE TABLE `giocatori` (
   `Cognome` varchar(30) DEFAULT NULL,
   `Cod_squadre` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `giocatori`
+--
+
+INSERT INTO `giocatori` (`ID_giocatori`, `Nome`, `Cognome`, `Cod_squadre`) VALUES
+(1, 'Rossini', '', 7),
+(2, 'Danese', '', 7),
+(3, 'Resta', '', 10),
+(4, 'Ramirez', '', 8);
 
 -- --------------------------------------------------------
 

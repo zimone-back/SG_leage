@@ -39,7 +39,10 @@
         $data_ricerca = empty($data_input) ? $data_oggi : $data_input;
     }
     if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($scelta)) {
-        $stmt = $conn->prepare("SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1");
+        $stmt = $conn->prepare("SELECT campionati.ID_campionato 
+                                       FROM campionati 
+                                       WHERE campionati.Nome = ? 
+                                       LIMIT 1");
         $stmt->bind_param("s", $scelta);
         $stmt->execute();
         $resultCampionato = $stmt->get_result();
@@ -49,8 +52,7 @@
             $idCampionato = $rowCampionato['ID_campionato'];
 
             $stmt = $conn->prepare("SELECT * FROM giornate 
-                                           WHERE Cod_campionato = ? 
-                                           AND ? BETWEEN Data_inizio AND Data_fine
+                                           WHERE Cod_campionato = ? AND ? BETWEEN Data_inizio AND Data_fine
                                            LIMIT 1");
             $stmt->bind_param("is", $idCampionato, $data_ricerca);
             $stmt->execute();
@@ -62,11 +64,11 @@
                 echo "<h2>Partite della giornata {$giornata['Numero']} - {$scelta}</h2>";
                 echo "<p>Dal {$giornata['Data_inizio']} al {$giornata['Data_fine']}</p>";
 
-                $stmt = $conn->prepare("SELECT p.*, s1.Nome AS squadra_casa, s2.Nome AS squadra_ospite,s1.Girone AS girone
-                                               FROM partite p
-                                               JOIN squadre s1 ON p.Squadra_casa = s1.ID_squadre
-                                               JOIN squadre s2 ON p.Squadra_ospite = s2.ID_squadre
-                                               WHERE p.Cod_giornata = ?");
+                $stmt = $conn->prepare("SELECT partite.*, squadre.Nome AS squadra_casa, squadre_ospite.Nome AS squadra_ospite, squadre.Girone AS girone
+                                               FROM partite
+                                               JOIN squadre ON partite.Squadra_casa = squadre.ID_squadre
+                                               JOIN squadre AS squadre_ospite ON partite.Squadra_ospite = squadre_ospite.ID_squadre
+                                               WHERE partite.Cod_giornata = ?");
                 $stmt->bind_param("i", $giornata['ID_giornata']);
                 $stmt->execute();
                 $resultPartite = $stmt->get_result();
