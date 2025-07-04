@@ -19,14 +19,6 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="partite.php">Partite</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Notizie.php">Notizie</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Classifica.php">Classifica</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Eventi_passati.php">Eventi Passati</a></li>
-                </ul>
-            </div>
         </div>
     </nav>
 
