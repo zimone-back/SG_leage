@@ -388,6 +388,7 @@ body::after {
 }
     elseif (isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori'])) {
       $scelta = $conn->real_escape_string($_POST['scelta']);
+
       echo "<h1 class='text-center mb-4'>$scelta</h1>";
       
       echo "<form method='POST' class='d-flex justify-content-center gap-3 mb-4'>";
@@ -398,6 +399,83 @@ body::after {
       
       echo "<div class='text-center'>";
       echo "</div>";
+
+
+      $query_campionato = "SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1";
+      $stmt = $conn->prepare($query_campionato);
+      $stmt->bind_param("s", $scelta);
+      $stmt->execute();
+      $result_campionato = $stmt->get_result();
+
+      if ($result_campionato->num_rows > 0) {
+        $id_campionato = $result_campionato->fetch_assoc()['ID_campionato'];
+
+        $query_gironi = "SELECT DISTINCT Girone FROM squadre WHERE Cod_campionato = ? ORDER BY Girone";
+        $stmt = $conn->prepare($query_gironi);
+        $stmt->bind_param("i", $id_campionato);
+        $stmt->execute();
+        $result_gironi = $stmt->get_result();
+
+        $gironi = [];
+        while ($row = $result_gironi->fetch_assoc()) {
+          $gironi[] = $row['Girone'];
+        }
+
+        if (!empty($gironi)) {
+          foreach ($gironi as $girone) {
+            echo "<div class='classifica-container mb-5'>";
+            echo "<div class='classifica-header'>Girone $girone</div>";
+            echo "<div class='table-responsive'>";
+            echo "<table class='classifica-table'>";
+            echo "<thead><tr>
+                    <th>Squadra</th>
+                    <th>PT</th>
+                    <th>G</th>
+                    <th>V</th>
+                    <th>N</th>
+                    <th>P</th>
+                    <th>DR</th>
+                  </tr></thead><tbody>";
+
+            $query_classifica = "SELECT Nome AS squadra, PT, G, V, N, P, DR
+                               FROM squadre 
+                               WHERE Cod_campionato = ? AND Girone = ?
+                               ORDER BY PT DESC, DR DESC";
+            $stmt = $conn->prepare($query_classifica);
+            $stmt->bind_param("is", $id_campionato, $girone);
+            $stmt->execute();
+            $result_classifica = $stmt->get_result();
+
+            $posizione = 0;
+            $num_squadre = $result_classifica->num_rows;
+            while ($row = $result_classifica->fetch_assoc()) {
+              $posizione++;
+              $rowClass = '';
+              if ($posizione < 5) {
+                $rowClass = 'primo';
+              } elseif ($posizione >= $num_squadre - 1) {
+                $rowClass = 'retrocessione';
+              }
+              
+              echo "<tr class='" . $rowClass . "'>
+                      <td class='text-start'>" . $row['squadra'] . "</td>
+                      <td><strong>" . $row['PT'] . "</strong></td>
+                      <td>" . $row['G'] . "</td>
+                      <td>" . $row['V'] . "</td>
+                      <td>" . $row['N'] . "</td>
+                      <td>" . $row['P'] . "</td>
+                      <td>" . $row['DR'] . "</td>
+                    </tr>";
+            }
+            echo "</tbody></table></div></div>";
+          }
+        } else {
+          echo "<div class='alert alert-warning'>Nessun girone trovato per questo campionato.</div>";
+        }
+      } else {
+        echo "<div class='alert alert-danger'>Campionato non trovato.</div>";
+      }
+
     }
     elseif (isset($_POST['Classifica'])) {
       $scelta = $conn->real_escape_string($_POST['scelta']);
