@@ -10,6 +10,58 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
+<style>
+    body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("./immagini/logosgl.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: -2;
+    background-size: cover;
+    object-fit: cover;
+    background-attachment: scroll;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+    body::before {
+        background-size: 100% auto;
+        min-height: 100vh;
+    }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+    body::before {
+        background-size: auto 100%; 
+        min-width: 100vw;
+    }
+}
+
+/* Regolazione desktop */
+@media (min-width: 768px) {
+    body::before {
+        background-size: contain;
+        background-color: #f8f9fa;
+    }
+    body::after {
+        background: rgba(255,255,255,0.7);
+    }
+}
+</style>
 
 <body class="bg-light">
 
