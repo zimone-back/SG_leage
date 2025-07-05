@@ -64,38 +64,26 @@
     border-top: 1px solid #e9ecef;
 }
 
-/* Stile posizioni specifiche */
 .classifica-table tbody tr.primo {
     background-color: #e6f7ff;
 }
 
-/* Prima posizione */
 .classifica-table tbody tr:nth-child(1) {
     font-weight: bold;
     background-color: #d4edff;
 }
 
-/* Seconda e terza posizione */
-.classifica-table tbody tr:nth-child(2),
-.classifica-table tbody tr:nth-child(3) {
+.classifica-table tbody tr:nth-child(2), .classifica-table tbody tr:nth-child(3), .classifica-table tbody tr:nth-child(4)  {
     font-weight: 600;
     background-color: #e6f7ff;
 }
 
-/* Quarta posizione (nessun grassetto speciale) */
-.classifica-table tbody tr:nth-child(4) {
-    font-weight: 600;
-    background-color: #e6f7ff;
-}
-
-/* Retrocessioni */
 .classifica-table tbody tr.retrocessione {
     background-color: #fff0f0;
     color: #d32f2f;
     font-weight: 500;
 }
 
-/* Zebratura per migliorare leggibilità */
 .classifica-table tbody tr:nth-child(even):not(.primo):not(.retrocessione) {
     background-color: #f8f9fa;
 }
