@@ -9,81 +9,109 @@
   <link rel="stylesheet" href="./style.css">
   <style>
     body {
-        padding-top: 10px;
-        background-color: #f8f9fa;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-   
-    .classifica-container {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        margin-bottom: 30px;
+    padding-top: 10px;
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.classifica-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.classifica-header {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.classifica-table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.classifica-table thead th {
+    background-color: #2c4fa6;
+    color: white;
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 600;
+    vertical-align: middle;
+    position: sticky;
+    top: 0;
+}
+
+.classifica-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.classifica-table tbody tr:hover {
+    background-color: #f1f5ff;
+}
+
+.classifica-table td {
+    padding: 10px 8px;
+    text-align: center;
+    vertical-align: middle;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Stile posizioni specifiche */
+.classifica-table tbody tr.primo {
+    background-color: #e6f7ff;
+}
+
+/* Prima posizione */
+.classifica-table tbody tr:nth-child(1) {
+    font-weight: bold;
+    background-color: #d4edff;
+}
+
+/* Seconda e terza posizione */
+.classifica-table tbody tr:nth-child(2),
+.classifica-table tbody tr:nth-child(3) {
+    font-weight: 600;
+    background-color: #e6f7ff;
+}
+
+/* Quarta posizione (nessun grassetto speciale) */
+.classifica-table tbody tr:nth-child(4) {
+    font-weight: 600;
+    background-color: #e6f7ff;
+}
+
+/* Retrocessioni */
+.classifica-table tbody tr.retrocessione {
+    background-color: #fff0f0;
+    color: #d32f2f;
+    font-weight: 500;
+}
+
+/* Zebratura per migliorare leggibilità */
+.classifica-table tbody tr:nth-child(even):not(.primo):not(.retrocessione) {
+    background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+    .classifica-table th, 
+    .classifica-table td {
+        padding: 8px 5px;
+        font-size: 0.9rem;
     }
     
     .classifica-header {
-        background-color: #1e3a8a;
-        color: white;
-        padding: 15px;
-        text-align: center;
-        font-weight: bold;
-        font-size: 1.2rem;
+        font-size: 1rem;
+        padding: 10px;
     }
-    
-    .classifica-table {
-        width: 100%;
-        margin-bottom: 0;
-    }
-    
-    .classifica-table thead th {
-        background-color: #2c4fa6;
-        color: white;
-        padding: 12px 8px;
-        text-align: center;
-        font-weight: 600;
-        vertical-align: middle;
-    }
-    
-    .classifica-table tbody tr {
-        transition: background-color 0.2s;
-    }
-    
-    .classifica-table tbody tr:hover {
-        background-color: #f1f5ff;
-    }
-    
-    .classifica-table td {
-        padding: 10px 8px;
-        text-align: center;
-        vertical-align: middle;
-        border-top: 1px solid #e9ecef;
-    }
-    
-    
-    .primo {
-        background-color: #e6f7ff;
-        font-weight: bold;
-    }
-    
-    /* Stile per le prime tre posizioni */
-    .classifica-table tbody tr:nth-child(-n+3) {
-        font-weight: 500;
-    }
-    
-   
-    .retrocessione {
-        background-color: #fff0f0;
-        color: #d32f2f;
-    }
-    
-    @media (max-width: 768px) {
-        .classifica-table th, .classifica-table td {
-            padding: 8px 5px;
-            font-size: 0.9rem;
-        }
-    }
+}
   </style>
 </head>
 
