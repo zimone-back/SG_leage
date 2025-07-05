@@ -126,19 +126,7 @@
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if (isset($_POST['Classifica'])) {
-        ?>
-        <form method="post" class="card p-3 shadow-sm mb-4">
-          <input type="hidden" name="Classifica" value="1">
-          <div class="mb-3">
-            <label for="scelta" class="form-label">Campionato:</label>
-            <select name="scelta" id="scelta" class="form-select" required>
-              <option value="">Seleziona</option>
-              <option value="sangiorgileague">San Giorgio League 2025</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-outline-primary w-100">Mostra Classifiche Complete</button>
-        </form>
-        <?php
+
 
         if (!empty($_POST['scelta'])) {
           include 'connessione.php';

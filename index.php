@@ -57,7 +57,7 @@
                 </a>
             </div>
             <div class="col-12 col-md-6">
-                <a href="Eventi_passati.php" class="text-decoration-none text-dark">
+                <a href="Eventi_passati1.php" class="text-decoration-none text-dark">
                     <div class="card shadow-sm p-3">
                         <h5><i class="bi bi-clock-history me-2"></i>Eventi Passati</h5>
                         <p class="mb-0">Rivivi le competizioni concluse e i vincitori.</p>
