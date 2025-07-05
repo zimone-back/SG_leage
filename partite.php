@@ -5,26 +5,7 @@
 </head>
 
 <body>
-    <h1>Partite</h1>
-    <nav>
-        <a href="index.php">Home</a>&nbsp;&nbsp;&nbsp;
-        <a href="Notizie.php">Notizie</a>&nbsp;&nbsp;&nbsp;
-        <a href="Classifica.php">Classifica</a>&nbsp;&nbsp;&nbsp;
-        <a href="Eventi_passati.php">Eventi passati</a>
-    </nav>
-
-    <form action="" method="post">
-        <label for="scelta">Campionato:</label>
-        <select name="scelta" id="scelta" required>
-            <option value="">Seleziona</option>
-            <option value="sangiorgileague" <?= (isset($scelta) && $scelta == 'sangiorgileague') ? 'selected' : '' ?>>San Giorgio League</option>
-        </select>
-
-        <label for="data_giornata">Data giornata:</label>
-        <input type="date" name="data_giornata" id="data_giornata" value="<?= $data_ricerca ?>">
-
-        <input type="submit" value="Cerca partite">
-    </form>
+    <h1>qui andrà il calendario dell evento in corso</h1>
     <?php
     include 'connessione.php';
 
