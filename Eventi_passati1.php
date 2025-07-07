@@ -254,7 +254,7 @@
       
       
       echo '<form method="POST" class="text-center">';
-      echo '  <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
+      echo '  <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
       echo '    <img src="./immagini/logoprimario.jpg" alt="Logo" width="40" height="40">';
       echo '    <span class="fw-bold fs-5">San Giorgio League 2025</span>';
       echo '  </button>';
