@@ -359,7 +359,7 @@ body::after {
     echo "<div class='card-body'>";
     echo "<form method='POST'>";
     echo "<div class='d-grid gap-3'>";
-    echo "<button type='submit' name='scelta' value='sangiorgileague' class='btn btn-primary btn-lg'>";
+    echo "<button type='submit' name='scelta' value='San Giorgio League 2025' class='btn btn-primary btn-lg'>";
     echo "<i class='bi bi-archive-fill'></i> San Giorgio League 2025";
     echo "</button>";
     
