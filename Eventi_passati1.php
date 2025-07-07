@@ -211,9 +211,17 @@
 </head>
 
 <body class="bg-light">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="
+    background: rgba(30, 58, 138, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  ">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#">San Giorgio League</a>
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2 hvr-grow-rotate">
+        San Giorgio League
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -242,30 +250,54 @@
     <?php
     include 'connessione.php';
     if (!isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori'])) {
-      echo '<div class="event-card animate__animated animate__fadeIn">';
-      echo '<div class="card-header text-center">';
-      echo '<h4 class="mb-0"><i class="bi bi-trophy me-2"></i>Campionati disponibili</h4>';
-      echo '</div>';
-      echo '<div class="card-body">';
-      echo '<div class="alert alert-info">';
-      echo '<h5 class="alert-heading"><i class="bi bi-info-circle-fill me-2"></i>Esplora la storia del torneo</h5>';
-      echo '<p class="mb-0">Seleziona una competizione conclusa per visualizzare classifiche finali, statistiche e tutti i dati storici</p>';
-      echo '</div>';
-      
-      
-      echo '<form method="POST" class="text-center">';
-      echo '  <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
-      echo '    <img src="./immagini/logoprimario.jpg" alt="Logo" width="40" height="40">';
-      echo '    <span class="fw-bold fs-5">San Giorgio League 2025</span>';
-      echo '  </button>';
-      echo '</form>';
+      echo '<div class="card shadow-lg border-0 animate__animated animate__fadeIn animate__delay-1s" style="border-radius: 16px; overflow: hidden;">';
+      echo '  <div class="card-header text-white text-center py-3 position-relative" style="';
+      echo '    background: linear-gradient(135deg, #1e3a8a, #2c4fa6);';
+      echo '    border-bottom: none;';
+      echo '    box-shadow: 0 4px 12px rgba(0,0,0,0.1);';
+      echo '  ">';
+      echo '    <h4 class="mb-0 fw-bold"><i class="bi bi-trophy-fill me-2" style="color: gold;"></i>Campionati disponibili</h4>';
+      echo '  </div>';
 
-      
-      echo '<div class="alert alert-warning mt-3">';
-      echo '<i class="bi bi-exclamation-triangle-fill me-2"></i>Solo le competizioni concluse sono disponibili in questa sezione';
-      echo '</div>';
-      echo '</div>';
-      echo '</div>';
+      echo '  <div class="card-body bg-light" style="background: rgba(255,255,255,0.95);">';
+      echo '    <div class="alert alert-warning d-flex align-items-center mt-3 animate__animated animate__fadeIn animate__delay-2s" role="alert" style="';
+      echo '      border-left: 4px solid #ffc107;';
+      echo '      border-radius: 4px;';
+      echo '    ">';
+      echo '      <i class="bi bi-exclamation-triangle-fill me-2 fs-5" style="color: #ffc107;"></i>';
+      echo '      <div>';
+      echo '        <strong>Attenzione:</strong> Solo le competizioni concluse sono disponibili in questa sezione';
+      echo '      </div>';
+      echo '    </div>';
+
+      echo '    <form method="POST" class="text-center mt-4 animate__animated animate__fadeIn animate__delay-3s">';
+      echo '      <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-lg w-100 py-3" style="';
+      echo '        background: linear-gradient(135deg, #1e3a8a, #3b82f6);';
+      echo '        color: white;';
+      echo '        border: none;';
+      echo '        border-radius: 50px;';
+      echo '        font-weight: 600;';
+      echo '        letter-spacing: 0.5px;';
+      echo '        box-shadow: 0 6px 15px rgba(30, 58, 138, 0.3);';
+      echo '        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);';
+      echo '        overflow: hidden;';
+      echo '        position: relative;';
+      echo '      ">';
+      echo '        <img src="./immagini/logoprimario.jpg" alt="Logo" width="40" height="40" class="rounded-circle border me-3" style="';
+      echo '          transition: transform 0.3s ease;';
+      echo '          box-shadow: 0 2px 8px rgba(0,0,0,0.2);';
+      echo '        ">';
+      echo '        <span class="fw-bold fs-5">San Giorgio League 2025</span>';
+      echo '        <span class="position-absolute top-0 start-0 w-100 h-100" style="';
+      echo '          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);';
+      echo '          transform: translateX(-100%);';
+      echo '          transition: transform 0.6s ease;';
+      echo '        "></span>';
+      echo '      </button>';
+      echo '    </form>';
+      echo '  </div>';
+      echo '</div>';      
+
     }
     elseif (isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori'])) {
       $scelta = $conn->real_escape_string($_POST['scelta']);
