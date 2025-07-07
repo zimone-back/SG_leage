@@ -161,6 +161,27 @@
     .relegation {
       background-color: #fff0f0;
     }
+    .btn-event {
+    background: linear-gradient(135deg, #007bff, #6610f2);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn-event:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-event img {
+    border-radius: 50%;
+    object-fit: cover;
+  }
 
     @media (max-width: 767px) and (orientation: portrait) {
     body::before {
@@ -231,11 +252,14 @@
       echo '<p class="mb-0">Seleziona una competizione conclusa per visualizzare classifiche finali, statistiche e tutti i dati storici</p>';
       echo '</div>';
       
+      
       echo '<form method="POST" class="text-center">';
-      echo '<button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
-      echo '<i class="bi bi-archive-fill me-2"></i>San Giorgio League 2025';
-      echo '</button>';
+      echo '  <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
+      echo '    <img src="./immagini/logoprimario.jpg" alt="Logo" width="40" height="40">';
+      echo '    <span class="fw-bold fs-5">San Giorgio League 2025</span>';
+      echo '  </button>';
       echo '</form>';
+
       
       echo '<div class="alert alert-warning mt-3">';
       echo '<i class="bi bi-exclamation-triangle-fill me-2"></i>Solo le competizioni concluse sono disponibili in questa sezione';
