@@ -232,7 +232,7 @@
       echo '</div>';
       
       echo '<form method="POST" class="text-center">';
-      echo '<button type="submit" name="scelta" value="sangiorgileague" class="btn btn-event btn-lg mb-3 w-100 py-3">';
+      echo '<button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
       echo '<i class="bi bi-archive-fill me-2"></i>San Giorgio League 2025';
       echo '</button>';
       echo '</form>';
