@@ -38,7 +38,7 @@ CREATE TABLE `campionati` (
 --
 
 INSERT INTO `campionati` (`ID_campionato`, `Nome`, `Nazione`) VALUES
-(1, 'sangiorgileague', 'Italia');
+(1, 'San Giorgio League 2025', 'Italia');
 
 -- --------------------------------------------------------
 
