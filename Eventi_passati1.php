@@ -585,7 +585,6 @@
     echo '  </div>'; // chiusura card-body
     echo '</div>'; // chiusura event-card
     
-    // CSS aggiuntivo
     echo '<style>
     .filters {
         background-color: rgba(248, 249, 250, 0.8);
