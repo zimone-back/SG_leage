@@ -249,7 +249,7 @@
 
     <?php
     include 'connessione.php';
-    if (!isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori'])) {
+    if (!isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori']) && !isset($_POST['Partite'])) {
       echo '<div class="card shadow-lg border-0 animate__animated animate__fadeIn animate__delay-1s" style="border-radius: 16px; overflow: hidden;">';
       echo '  <div class="card-header text-white text-center py-3 position-relative" style="';
       echo '    background: linear-gradient(135deg, #1e3a8a, #2c4fa6);';
@@ -272,7 +272,7 @@
 
       echo '    <form method="POST" class="text-center mt-4 animate__animated animate__fadeIn animate__delay-3s">';
       echo '      <div class="mx-auto col-12 col-sm-10 col-md-8 col-lg-6 px-2">';
-      echo '        <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
+      echo '        <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
       echo '          <background: linear-gradient(135deg, #1e3a8a, #3b82f6);';
       echo '          color: white;';
       echo '          border: none;';
@@ -302,7 +302,7 @@
       echo '</div>';      
 
     }
-    elseif (isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori'])) {
+    elseif (isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori']) && !isset($_POST['Partite'])) {
       $scelta = $conn->real_escape_string($_POST['scelta']);
 
       echo '<div class="event-card animate__animated animate__fadeIn">';
@@ -317,6 +317,9 @@
       echo '</button>';
       echo '<button type="submit" name="Marcatori" class="btn btn-success px-4 py-2">';
       echo '<i class="bi bi-person-badge me-2"></i>Marcatori';
+      echo '</button>';
+      echo '<button type="submit" name="Partite" class="btn btn-info px-4 py-2">';
+      echo '<i class="bi bi-calendar-event me-2"></i>Partite';
       echo '</button>';
       echo '</form>';
       echo '</div>';
@@ -412,8 +415,8 @@
       echo '<button type="submit" name="Marcatori" class="btn btn-success px-4">';
       echo '<i class="bi bi-person-badge me-2"></i>Marcatori';
       echo '</button>';
-      echo '<button type="submit" name="indietro" class="btn btn-secondary px-4">';
-      echo '<i class="bi bi-arrow-left-circle me-2"></i>Torna al Menu';
+      echo '<button type="submit" name="Partite" class="btn btn-info px-4">';
+      echo '<i class="bi bi-calendar-event me-2"></i>Partite';
       echo '</button>';
       echo '</form>';
 
@@ -496,7 +499,7 @@
     elseif (isset($_POST['Marcatori'])) {
       $scelta = $conn->real_escape_string($_POST['scelta']);
       
-      echo '<div class="event-card animate__animated animate__fadeIn">';
+      echo '<div class="event-card animate__animated animate__fadeIn" style="overflow-x: hidden;">'; // Aggiunto overflow-x: hidden
       echo '<div class="card-header text-center">';
       echo '<h4 class="mb-0">'.$scelta.' - Classifica Marcatori</h4>';
       echo '</div>';
@@ -507,8 +510,8 @@
       echo '<button type="submit" name="Classifica" class="btn btn-primary px-4">';
       echo '<i class="bi bi-table me-2"></i>Classifica';
       echo '</button>';
-      echo '<button type="submit" name="indietro" class="btn btn-secondary px-4">';
-      echo '<i class="bi bi-arrow-left-circle me-2"></i>Torna al Menu';
+      echo '<button type="submit" name="Partite" class="btn btn-info px-4">';
+      echo '<i class="bi bi-calendar-event me-2"></i>Partite';
       echo '</button>';
       echo '</form>';
 
@@ -535,16 +538,16 @@
         $result_marcatori = $stmt->get_result();
 
         if ($result_marcatori->num_rows > 0) {
-          echo '<div class="event-card">';
+          echo '<div class="event-card" style="width: 100%; overflow-x: auto;">'; // Modificato per gestire lo scrolling
           echo '<div class="card-header">Classifica Marcatori</div>';
-          echo '<div class="card-body p-0">';
+          echo '<div class="card-body p-0" style="min-width: 300px;">'; // Aggiunto min-width
           echo '<div class="table-responsive">';
-          echo '<table class="data-table">';
+          echo '<table class="data-table" style="width: 100%;">'; // Aggiunto width: 100%
           echo '<thead><tr>
-                  <th>Pos</th>
-                  <th>Giocatore</th>
-                  <th>Squadra</th>
-                  <th>Gol</th>
+                  <th style="width: 15%;">Pos</th>
+                  <th style="width: 45%;">Giocatore</th>
+                  <th style="width: 25%;">Squadra</th>
+                  <th style="width: 15%;">Gol</th>
                 </tr></thead><tbody>';
 
           $posizione = 1;
@@ -552,10 +555,10 @@
             $nome_completo = trim($row['Nome'] . ' ' . $row['Cognome']);
             $rowClass = $posizione <= 3 ? 'top-player' : '';
             echo '<tr class="'.$rowClass.'">
-                    <td>'.$posizione.'</td>
-                    <td class="text-start">'.$nome_completo.'</td>
-                    <td>'.$row['squadra'].'</td>
-                    <td><strong>'.$row['totale_goal'].'</strong></td>
+                    <td style="width: 15%;">'.$posizione.'</td>
+                    <td class="text-start" style="width: 45%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="'.$nome_completo.'">'.$nome_completo.'</td>
+                    <td style="width: 25%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="'.$row['squadra'].'">'.$row['squadra'].'</td>
+                    <td style="width: 15%;"><strong>'.$row['totale_goal'].'</strong></td>
                   </tr>';
             $posizione++;
           }
@@ -565,6 +568,138 @@
         }
       } else {
         echo '<div class="alert alert-danger">Campionato non trovato.</div>';
+      }
+    }
+    elseif (isset($_POST['Partite'])) {
+      $scelta = $conn->real_escape_string($_POST['scelta']);
+      
+      echo '<div class="event-card animate__animated animate__fadeIn">';
+      echo '<div class="card-header text-center">';
+      echo '<h4 class="mb-0">'.$scelta.' - Calendario Partite</h4>';
+      echo '</div>';
+      echo '<div class="card-body">';
+      
+      echo '<form method="POST" class="d-flex justify-content-center gap-3 mb-4">';
+      echo '<input type="hidden" name="scelta" value="'.$scelta.'">';
+      echo '<button type="submit" name="Classifica" class="btn btn-primary px-4">';
+      echo '<i class="bi bi-table me-2"></i>Classifica';
+      echo '</button>';
+      echo '<button type="submit" name="Marcatori" class="btn btn-success px-4">';
+      echo '<i class="bi bi-person-badge me-2"></i>Marcatori';
+      echo '</button>';
+      echo '</form>';
+
+      $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
+                         FROM campionati 
+                         WHERE campionati.Nome = ? 
+                         LIMIT 1";
+      $stmt = $conn->prepare($query_campionato);
+      $stmt->bind_param("s", $scelta);
+      $stmt->execute();
+      $result_campionato = $stmt->get_result();
+      
+      if ($result_campionato->num_rows > 0) {
+        $campionato = $result_campionato->fetch_assoc();
+        
+        $query_giornate = "SELECT giornate.ID_giornata, giornate.Numero, giornate.Data_inizio, giornate.Data_fine 
+                           FROM giornate 
+                           WHERE giornate.Cod_campionato = ? 
+                           ORDER BY giornate.Numero";
+        $stmt = $conn->prepare($query_giornate);
+        $stmt->bind_param("i", $campionato['ID_campionato']);
+        $stmt->execute();
+        $result_giornate = $stmt->get_result();
+        
+        if ($result_giornate->num_rows > 0) {
+          echo '<div class="accordion" id="giornateAccordion">';
+          while($giornata = $result_giornate->fetch_assoc()) {
+            $giornataId = 'giornata-'.$giornata['Numero'];
+            
+            echo '<div class="event-card mb-3">';
+            echo '<div class="card-header" id="heading'.$giornataId.'">';
+            echo '<h5 class="mb-0">';
+            echo '<button class="btn btn-link w-100 text-start text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#'.$giornataId.'" aria-expanded="true" aria-controls="'.$giornataId.'">';
+            echo 'Giornata '.$giornata['Numero'].' - '.date('d/m/Y', strtotime($giornata['Data_inizio'])).' al '.date('d/m/Y', strtotime($giornata['Data_fine']));
+            echo '</button>';
+            echo '</h5>';
+            echo '</div>';
+            
+            echo '<div id="'.$giornataId.'" class="collapse" aria-labelledby="heading'.$giornataId.'" data-bs-parent="#giornateAccordion">';
+            echo '<div class="card-body p-0">';
+            
+            $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,squadre_casa.Nome AS squadra_casa, squadre_ospite.Nome AS squadra_ospite
+                              FROM partite
+                              JOIN squadre AS squadre_casa ON partite.Squadra_casa = squadre_casa.ID_squadre
+                              JOIN squadre AS squadre_ospite ON partite.Squadra_ospite = squadre_ospite.ID_squadre
+                              WHERE partite.Cod_giornata = ?
+                              ORDER BY partite.Data";
+            $stmt = $conn->prepare($query_partite);
+            $stmt->bind_param("i", $giornata['ID_giornata']);
+            $stmt->execute();
+            $result_partite = $stmt->get_result();
+            
+            if ($result_partite->num_rows > 0) {
+              echo '<div class="table-responsive">';
+              echo '<table class="table table-hover mb-0">';
+              echo '<tbody>';
+              
+              while($partita = $result_partite->fetch_assoc()) {
+                echo '<tr class="align-middle">';
+                
+                switch($partita['Stato']) {
+                  case 'terminata':
+                    echo '<td class="text-center" style="width: 100px;"><span class="badge bg-success">Finale</span></td>';
+                    echo '<td class="text-end">'.$partita['squadra_casa'].'</td>';
+                    echo '<td class="text-center fw-bold" style="width: 50px;">'.$partita['Gol_casa'].'</td>';
+                    echo '<td class="text-center" style="width: 30px;">-</td>';
+                    echo '<td class="text-center fw-bold" style="width: 50px;">'.$partita['Gol_ospite'].'</td>';
+                    echo '<td class="text-start">'.$partita['squadra_ospite'].'</td>';
+                    break;
+                  case 'rinviata':
+                    echo '<td class="text-center" style="width: 100px;"><span class="badge bg-warning text-dark">Rinviata</span></td>';
+                    echo '<td class="text-end">'.$partita['squadra_casa'].'</td>';
+                    echo '<td class="text-center fw-bold" style="width: 50px;">-</td>';
+                    echo '<td class="text-center" style="width: 30px;">-</td>';
+                    echo '<td class="text-center fw-bold" style="width: 50px;">-</td>';
+                    echo '<td class="text-start">'.$partita['squadra_ospite'].'</td>';
+                    break;
+                  case 'in corso':
+                    echo '<td class="text-center" style="width: 100px;"><span class="badge bg-danger">In corso</span></td>';
+                    echo '<td class="text-end">'.$partita['squadra_casa'].'</td>';
+                    echo '<td class="text-center fw-bold" style="width: 50px;">-</td>';
+                    echo '<td class="text-center" style="width: 30px;">-</td>';
+                    echo '<td class="text-center fw-bold" style="width: 50px;">-</td>';
+                    echo '<td class="text-start">'.$partita['squadra_ospite'].'</td>';
+                    break;
+                  default: 
+                    echo '<td class="text-center" style="width: 100px;">'.date('H:i', strtotime($partita['Data'])).'</td>';
+                    echo '<td class="text-end">'.$partita['squadra_casa'].'</td>';
+                    echo '<td class="text-center fw-bold" style="width: 50px;">-</td>';
+                    echo '<td class="text-center" style="width: 30px;">-</td>';
+                    echo '<td class="text-center fw-bold" style="width: 50px;">-</td>';
+                    echo '<td class="text-start">'.$partita['squadra_ospite'].'</td>';
+                }
+                
+                echo '</tr>';
+              }
+              
+              echo '</tbody>';
+              echo '</table>';
+              echo '</div>';
+            } else {
+              echo '<div class="alert alert-info m-3">Nessuna partita programmata per questa giornata.</div>';
+            }
+            
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+          }
+          echo '</div>';
+        } else {
+          echo '<div class="alert alert-warning">Nessuna giornata trovata per questo campionato.</div>';
+        }
+      } else {
+        echo '<div class="alert alert-danger">Nessun campionato attivo trovato.</div>';
       }
     }
     elseif (isset($_POST['indietro'])) {
