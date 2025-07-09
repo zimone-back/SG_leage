@@ -207,6 +207,7 @@
         background: rgba(255,255,255,0.7);
     }
 }
+
   </style>
 </head>
 
@@ -272,7 +273,7 @@
 
       echo '    <form method="POST" class="text-center mt-4 animate__animated animate__fadeIn animate__delay-3s">';
       echo '      <div class="mx-auto col-12 col-sm-10 col-md-8 col-lg-6 px-2">';
-      echo '        <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
+      echo '        <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
       echo '          <background: linear-gradient(135deg, #1e3a8a, #3b82f6);';
       echo '          color: white;';
       echo '          border: none;';
@@ -347,11 +348,9 @@
 
         if (!empty($gironi)) {
           foreach ($gironi as $girone) {
-            echo '<div class="event-card">';
-            echo '<div class="card-header">Girone '.$girone.'</div>';
             echo '<div class="card-body p-0">';
-            echo '<div class="table-responsive">';
-            echo '<table class="data-table">';
+            echo '<div class="table-wrapper">';
+            echo '<table class="classifica-table">';
             echo '<thead><tr>
                     <th>Squadra</th>
                     <th>PT</th>
@@ -680,7 +679,7 @@
             echo '<div class="card-header" id="heading'.$giornataId.'">';
             echo '<h5 class="mb-0">';
             echo '<button class="btn btn-link w-100 text-start text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#'.$giornataId.'" aria-expanded="true" aria-controls="'.$giornataId.'">';
-            echo 'Giornata '.$giornata['Numero'].' - '.date('d/m/Y', strtotime($giornata['Data_inizio'])).' al '.date('d/m/Y', strtotime($giornata['Data_fine']));
+            echo 'Giornata '.$giornata['Numero'].' - '.date('d/m/Y', strtotime($giornata['Data_inizio']));
             echo '</button>';
             echo '</h5>';
             echo '</div>';
