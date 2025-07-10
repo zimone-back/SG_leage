@@ -273,7 +273,7 @@
 
       echo '    <form method="POST" class="text-center mt-4 animate__animated animate__fadeIn animate__delay-3s">';
       echo '      <div class="mx-auto col-12 col-sm-10 col-md-8 col-lg-6 px-2">'; 
-      echo '        <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
+      echo '        <button type="submit" name="scelta" value="San Giorgio League 2025" class="btn btn-event btn-lg mb-3 w-100 py-3">';
       echo '          <background: linear-gradient(135deg, #1e3a8a, #3b82f6);';
       echo '          color: white;';
       echo '          border: none;';
