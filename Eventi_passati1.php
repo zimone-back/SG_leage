@@ -462,6 +462,72 @@
       echo '</div>';
       echo '<div class="card-body px-1">';
 
+     echo '
+      <form method="POST" class="d-flex justify-content-center gap-3 mb-4">
+        <input type="hidden" name="scelta" value="' . $scelta . '">
+        
+        <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-table me-2"></i>Classifica
+        </button>
+        
+        <button type="submit" name="Marcatori" class="btn btn-success px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-person-badge me-2"></i>Marcatori
+        </button>
+        
+        <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-calendar-event me-2"></i>Partite
+        </button>
+      </form>
+
+      <style>
+        .btn-hover-effect {
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          border: none;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .btn-hover-effect:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-hover-effect:active {
+          transform: translateY(-1px);
+        }
+        
+        .btn-primary {
+          background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+          color: white;
+        }
+        
+        .btn-success {
+          background: linear-gradient(135deg, #02aab0, #00cdac);
+          color: white;
+        }
+        
+        .btn-info {
+          background: linear-gradient(135deg, #00c6ff, #0072ff);
+          color: white;
+        }
+        
+        .btn i {
+          transition: transform 0.3s ease;
+        }
+        
+        .btn:hover i {
+          transform: scale(1.1);
+        }
+        
+        .btn:focus {
+          box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+      </style>
+      ';
+
       // Aggiunta della legenda
       echo '<style>
         .legenda-classifica {
@@ -668,17 +734,71 @@
       echo '  <div class="card-body">';
 
       // Pulsanti navigazione
-      echo '  <div class="d-flex justify-content-center gap-3 mb-4">';
-      echo '    <form method="POST" class="d-flex justify-content-center gap-3">';
-      echo '      <input type="hidden" name="scelta" value="' . $scelta . '">';
-      echo '      <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill fw-bold">';
-      echo '        <i class="bi bi-table me-2"></i>Classifica';
-      echo '      </button>';
-      echo '      <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill fw-bold">';
-      echo '        <i class="bi bi-calendar-event me-2"></i>Partite';
-      echo '      </button>';
-      echo '    </form>';
-      echo '  </div>';
+      echo '
+      <form method="POST" class="d-flex justify-content-center gap-3 mb-4">
+        <input type="hidden" name="scelta" value="' . $scelta . '">
+        
+        <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-table me-2"></i>Classifica
+        </button>
+        
+        <button type="submit" name="Marcatori" class="btn btn-success px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-person-badge me-2"></i>Marcatori
+        </button>
+        
+        <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-calendar-event me-2"></i>Partite
+        </button>
+      </form>
+
+      <style>
+        .btn-hover-effect {
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          border: none;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .btn-hover-effect:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-hover-effect:active {
+          transform: translateY(-1px);
+        }
+        
+        .btn-primary {
+          background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+          color: white;
+        }
+        
+        .btn-success {
+          background: linear-gradient(135deg, #02aab0, #00cdac);
+          color: white;
+        }
+        
+        .btn-info {
+          background: linear-gradient(135deg, #00c6ff, #0072ff);
+          color: white;
+        }
+        
+        .btn i {
+          transition: transform 0.3s ease;
+        }
+        
+        .btn:hover i {
+          transform: scale(1.1);
+        }
+        
+        .btn:focus {
+          box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+      </style>
+      ';
 
       $query_campionato = "SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1";
       $stmt = $conn->prepare($query_campionato);
@@ -801,15 +921,71 @@
       echo '</div>';
       echo '<div class="card-body">';
 
-      echo '<form method="POST" class="d-flex justify-content-center gap-3 mb-4">';
-      echo '<input type="hidden" name="scelta" value="' . $scelta . '">';
-      echo '<button type="submit" name="Classifica" class="btn btn-primary px-4">';
-      echo '<i class="bi bi-table me-2"></i>Classifica';
-      echo '</button>';
-      echo '<button type="submit" name="Marcatori" class="btn btn-success px-4">';
-      echo '<i class="bi bi-person-badge me-2"></i>Marcatori';
-      echo '</button>';
-      echo '</form>';
+      echo '
+      <form method="POST" class="d-flex justify-content-center gap-3 mb-4">
+        <input type="hidden" name="scelta" value="' . $scelta . '">
+        
+        <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-table me-2"></i>Classifica
+        </button>
+        
+        <button type="submit" name="Marcatori" class="btn btn-success px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-person-badge me-2"></i>Marcatori
+        </button>
+        
+        <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-calendar-event me-2"></i>Partite
+        </button>
+      </form>
+
+      <style>
+        .btn-hover-effect {
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          border: none;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .btn-hover-effect:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-hover-effect:active {
+          transform: translateY(-1px);
+        }
+        
+        .btn-primary {
+          background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+          color: white;
+        }
+        
+        .btn-success {
+          background: linear-gradient(135deg, #02aab0, #00cdac);
+          color: white;
+        }
+        
+        .btn-info {
+          background: linear-gradient(135deg, #00c6ff, #0072ff);
+          color: white;
+        }
+        
+        .btn i {
+          transition: transform 0.3s ease;
+        }
+        
+        .btn:hover i {
+          transform: scale(1.1);
+        }
+        
+        .btn:focus {
+          box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+      </style>
+      ';
 
       $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
                          FROM campionati 
