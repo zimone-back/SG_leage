@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 08, 2025 alle 18:06
+-- Creato il: Lug 10, 2025 alle 03:49
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -367,6 +367,7 @@ CREATE TABLE `presidenti` (
 CREATE TABLE `squadre` (
   `ID_squadre` int(11) NOT NULL,
   `Nome` varchar(30) DEFAULT NULL,
+  `immagini_loghi` varchar(30) NOT NULL,
   `Città` varchar(30) DEFAULT NULL,
   `Cod_presidenti` int(11) DEFAULT NULL,
   `Cod_campionato` int(11) DEFAULT NULL,
@@ -383,17 +384,17 @@ CREATE TABLE `squadre` (
 -- Dump dei dati per la tabella `squadre`
 --
 
-INSERT INTO `squadre` (`ID_squadre`, `Nome`, `Città`, `Cod_presidenti`, `Cod_campionato`, `PT`, `G`, `V`, `N`, `P`, `DR`, `Girone`) VALUES
-(1, 'LONGOBARDA', '---', NULL, 1, 9, 4, 3, 0, 1, 8, 'A'),
-(2, 'LUCKY SQUAD', '---', NULL, 1, 9, 4, 3, 0, 1, 3, 'A'),
-(3, 'SAN GIORGIO', '---', NULL, 1, 9, 4, 3, 0, 1, 6, 'A'),
-(4, 'OLYMPIACOZZ', '---', NULL, 1, 3, 4, 1, 0, 3, -6, 'A'),
-(5, 'CAROSINO', '---', NULL, 1, 0, 4, 0, 0, 4, -7, 'A'),
-(6, 'B.G.MANAGER', '---', NULL, 1, 9, 4, 3, 0, 1, 3, 'B'),
-(7, '74023 FC', '---', NULL, 1, 7, 4, 2, 1, 1, 9, 'B'),
-(8, 'AL BARETTO', '---', NULL, 1, 7, 4, 2, 1, 1, 1, 'B'),
-(9, 'BLACKROSE', '---', NULL, 1, 4, 4, 1, 1, 2, -10, 'B'),
-(10, 'CORTO MUSO', '---', NULL, 1, 1, 4, 0, 1, 3, -2, 'B');
+INSERT INTO `squadre` (`ID_squadre`, `Nome`, `immagini_loghi`, `Città`, `Cod_presidenti`, `Cod_campionato`, `PT`, `G`, `V`, `N`, `P`, `DR`, `Girone`) VALUES
+(1, 'LONGOBARDA', 'Longobarda.png', '---', NULL, 1, 9, 4, 3, 0, 1, 8, 'A'),
+(2, 'LUCKY SQUAD', 'Luky_squad.png', '---', NULL, 1, 9, 4, 3, 0, 1, 3, 'A'),
+(3, 'SAN GIORGIO', 'Beauty_car_autolavaggio.png', '---', NULL, 1, 9, 4, 3, 0, 1, 6, 'A'),
+(4, 'OLYMPIACOZZ', 'Olimpiacozz.png', '---', NULL, 1, 3, 4, 1, 0, 3, -6, 'A'),
+(5, 'CAROSINO', 'Carosino_ASD.png', '---', NULL, 1, 0, 4, 0, 0, 4, -7, 'A'),
+(6, 'B.G.MANAGER', 'BG_menager.png', '---', NULL, 1, 9, 4, 3, 0, 1, 3, 'B'),
+(7, '74023 FC', 'FootballClub.png', '---', NULL, 1, 7, 4, 2, 1, 1, 9, 'B'),
+(8, 'AL BARETTO', 'Al_baretto_da_nico.png', '---', NULL, 1, 7, 4, 2, 1, 1, 1, 'B'),
+(9, 'BLACKROSE', 'BlaskRoseFC.png', '---', NULL, 1, 4, 4, 1, 1, 2, -10, 'B'),
+(10, 'CORTO MUSO', 'Ac_corto_muso.png', '---', NULL, 1, 1, 3, 0, 1, 2, -2, 'B');
 
 --
 -- Indici per le tabelle scaricate
