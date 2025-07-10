@@ -463,7 +463,7 @@
       echo '</div>';
       echo '<div class="card-body px-1">';
 
-     echo '
+      echo '
       <form method="POST" class="d-flex justify-content-center gap-1 gap-md-3 mb-2 mb-md-4 flex-wrap pt-0">
         <input type="hidden" name="scelta" value="' . $scelta . '">
         
@@ -1285,18 +1285,17 @@
         }
     }
     </style>';
-    } 
-elseif (isset($_POST['Partite'])) {
-    $scelta = $conn->real_escape_string($_POST['scelta']);
+    } elseif (isset($_POST['Partite'])) {
+      $scelta = $conn->real_escape_string($_POST['scelta']);
 
-    echo '<div class="event-card animate__animated animate__fadeIn">';
-    echo '<div class="card-header text-center bg-primary text-white">';
-    echo '<h4 class="mb-0">' . $scelta . ' - Calendario Partite</h4>';
-    echo '</div>';
-    echo '<div class="card-body p-1">';
+      echo '<div class="event-card animate__animated animate__fadeIn">';
+      echo '<div class="card-header text-center bg-primary text-white">';
+      echo '<h4 class="mb-0">' . $scelta . ' - Calendario Partite</h4>';
+      echo '</div>';
+      echo '<div class="card-body p-1">';
 
-    // Pulsanti di navigazione
-     echo '
+      // Pulsanti di navigazione
+      echo '
       <form method="POST" class="d-flex justify-content-center gap-1 gap-md-3 mb-2 mb-md-4 flex-wrap pt-3">
         <input type="hidden" name="scelta" value="' . $scelta . '">
         
@@ -1548,16 +1547,16 @@ elseif (isset($_POST['Partite'])) {
       }
     </style>';
 
-    $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
+      $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
                       FROM campionati 
                       WHERE campionati.Nome = ? 
                       LIMIT 1";
-    $stmt = $conn->prepare($query_campionato);
-    $stmt->bind_param("s", $scelta);
-    $stmt->execute();
-    $result_campionato = $stmt->get_result();
+      $stmt = $conn->prepare($query_campionato);
+      $stmt->bind_param("s", $scelta);
+      $stmt->execute();
+      $result_campionato = $stmt->get_result();
 
-    if ($result_campionato->num_rows > 0) {
+      if ($result_campionato->num_rows > 0) {
         $campionato = $result_campionato->fetch_assoc();
 
         $query_giornate = "SELECT giornate.ID_giornata, giornate.Numero, giornate.Data_inizio, giornate.Data_fine 
@@ -1570,96 +1569,104 @@ elseif (isset($_POST['Partite'])) {
         $result_giornate = $stmt->get_result();
 
         if ($result_giornate->num_rows > 0) {
-            echo '<div id="matchCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">';
-            echo '<div class="carousel-inner">';
-            
-            $first = true;
-            while ($giornata = $result_giornate->fetch_assoc()) {
-                echo '<div class="carousel-item ' . ($first ? 'active' : '') . '">';
-                echo '<div class="match-carousel">';
-                echo '<div class="day-header">Giornata ' . $giornata['Numero'] . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
-                
-                $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,
+          echo '<div id="matchCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">';
+          echo '<div class="carousel-inner">';
+
+          $first = true;
+          while ($giornata = $result_giornate->fetch_assoc()) {
+            echo '<div class="carousel-item ' . ($first ? 'active' : '') . '">';
+            echo '<div class="match-carousel">';
+            if ($giornata['Numero'] == 8) {
+              echo '<div class="day-header">Quarti di finale ' . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+            } elseif ($giornata['Numero'] == 9) {
+              echo '<div class="day-header">Semifinali andata' . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+            } elseif ($giornata['Numero'] == 10) {
+              echo '<div class="day-header">Semifinali ritorno' . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+            } elseif ($giornata['Numero'] == 11) {
+              echo '<div class="day-header">Finale' . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+            } else
+              echo '<div class="day-header">Giornata ' . $giornata['Numero'] . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+
+            $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,
                                 squadre_casa.Nome AS squadra_casa, squadre_ospite.Nome AS squadra_ospite
                           FROM partite
                           JOIN squadre AS squadre_casa ON partite.Squadra_casa = squadre_casa.ID_squadre
                           JOIN squadre AS squadre_ospite ON partite.Squadra_ospite = squadre_ospite.ID_squadre
                           WHERE partite.Cod_giornata = ?
                           ORDER BY partite.Data";
-                $stmt = $conn->prepare($query_partite);
-                $stmt->bind_param("i", $giornata['ID_giornata']);
-                $stmt->execute();
-                $result_partite = $stmt->get_result();
+            $stmt = $conn->prepare($query_partite);
+            $stmt->bind_param("i", $giornata['ID_giornata']);
+            $stmt->execute();
+            $result_partite = $stmt->get_result();
 
-                if ($result_partite->num_rows > 0) {
-                    echo '<table class="simple-match-table">';
-                    echo '<tbody>';
+            if ($result_partite->num_rows > 0) {
+              echo '<table class="simple-match-table">';
+              echo '<tbody>';
 
-                    while ($partita = $result_partite->fetch_assoc()) {
-                        echo '<tr>';
-                        
-                        // Squadra casa
-                        echo '<td>' . $partita['squadra_casa'] . '</td>';
-                        
-                        // Risultato/Stato
-                        echo '<td>';
-                        if ($partita['Stato'] == 'terminata') {
-                            echo '<span class="text-dark">' . $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite'] . '</span>';
-                        } elseif ($partita['Stato'] == 'in corso') {
-                            echo '<span class="match-status status-in-corso">LIVE</span>';
-                        } else {
-                            echo '<span class="match-status status-programmata">' . date('H:i', strtotime($partita['Data'])) . '</span>';
-                        }
-                        echo '</td>';
-                        
-                        // Squadra ospite
-                        echo '<td>' . $partita['squadra_ospite'] . '</td>';
-                        
-                        echo '</tr>';
-                    }
+              while ($partita = $result_partite->fetch_assoc()) {
+                echo '<tr>';
 
-                    echo '</tbody>';
-                    echo '</table>';
+                // Squadra casa
+                echo '<td>' . $partita['squadra_casa'] . '</td>';
+
+                // Risultato/Stato
+                echo '<td>';
+                if ($partita['Stato'] == 'terminata') {
+                  echo '<span class="text-dark">' . $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite'] . '</span>';
+                } elseif ($partita['Stato'] == 'in corso') {
+                  echo '<span class="match-status status-in-corso">LIVE</span>';
                 } else {
-                    echo '<div class="alert alert-info text-center py-2 my-2">Nessuna partita programmata</div>';
+                  echo '<span class="match-status status-programmata">' . date('H:i', strtotime($partita['Data'])) . '</span>';
                 }
-                
-                echo '</div>'; // match-carousel
-                echo '</div>'; // carousel-item
-                $first = false;
+                echo '</td>';
+
+                // Squadra ospite
+                echo '<td>' . $partita['squadra_ospite'] . '</td>';
+
+                echo '</tr>';
+              }
+
+              echo '</tbody>';
+              echo '</table>';
+            } else {
+              echo '<div class="alert alert-info text-center py-2 my-2">Nessuna partita programmata</div>';
             }
-            
-            echo '</div>'; // carousel-inner
-            
-            // Controlli di navigazione
-            echo '<button class="carousel-control-prev" type="button" data-bs-target="#matchCarousel" data-bs-slide="prev">
+
+            echo '</div>'; // match-carousel
+            echo '</div>'; // carousel-item
+            $first = false;
+          }
+
+          echo '</div>'; // carousel-inner
+    
+          // Controlli di navigazione
+          echo '<button class="carousel-control-prev" type="button" data-bs-target="#matchCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                   </button>';
-            echo '<button class="carousel-control-next" type="button" data-bs-target="#matchCarousel" data-bs-slide="next">
+          echo '<button class="carousel-control-next" type="button" data-bs-target="#matchCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                   </button>';
-            
-            // Indicatori
-            echo '<div class="carousel-indicators mt-2">';
-            for ($i = 0; $i < $result_giornate->num_rows; $i++) {
-                echo '<button type="button" data-bs-target="#matchCarousel" data-bs-slide-to="' . $i . '" ' . ($i == 0 ? 'class="active"' : '') . '></button>';
-            }
-            echo '</div>';
-            
-            echo '</div>'; // carousel
+
+          // Indicatori
+          echo '<div class="carousel-indicators mt-2">';
+          for ($i = 0; $i < $result_giornate->num_rows; $i++) {
+            echo '<button type="button" data-bs-target="#matchCarousel" data-bs-slide-to="' . $i . '" ' . ($i == 0 ? 'class="active"' : '') . '></button>';
+          }
+          echo '</div>';
+
+          echo '</div>'; // carousel
         } else {
-            echo '<div class="alert alert-warning text-center py-2">Nessuna giornata trovata per questo campionato.</div>';
+          echo '<div class="alert alert-warning text-center py-2">Nessuna giornata trovata per questo campionato.</div>';
         }
-    } else {
+      } else {
         echo '<div class="alert alert-danger text-center py-2">Nessun campionato attivo trovato.</div>';
-    }
-    
-    echo '</div>'; // card-body
-    echo '</div>'; // event-card
-}
- elseif (isset($_POST['indietro'])) {
+      }
+
+      echo '</div>'; // card-body
+      echo '</div>'; // event-card
+    } elseif (isset($_POST['indietro'])) {
       header("Location: Eventi_passati1.php");
       exit();
     }
