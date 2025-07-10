@@ -914,139 +914,196 @@
     }
     </style>';
     } elseif (isset($_POST['Partite'])) {
-    $scelta = $conn->real_escape_string($_POST['scelta']);
+        $scelta = $conn->real_escape_string($_POST['scelta']);
 
-    echo '
-    <div class="container py-4 animate__animated animate__fadeIn">
-      <div class="text-center mb-4">
-        <h2 class="fw-bold">' . htmlspecialchars($scelta) . ' <span class="text-primary">Calendario Partite</span></h2>
-      </div>
+        echo '
+        <div class="event-card animate__animated animate__fadeIn">
+        <div class="card-header text-center py-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">
+        <h4 class="mb-0 fw-bold"><i class="bi bi-trophy-fill me-2" style="color: gold;"></i>' . $scelta . ' - CLASSIFICA MARCATORI</h4>
+        </div>
+        <div class="card-body">
 
-      <div class="d-flex justify-content-center mb-4 gap-3">
-        <form method="POST" class="d-flex gap-3 flex-wrap justify-content-center">
-          <input type="hidden" name="scelta" value="' . htmlspecialchars($scelta) . '">
-          <button type="submit" name="Classifica" class="btn btn-outline-primary rounded-pill px-4">Classifica</button>
-          <button type="submit" name="Marcatori" class="btn btn-outline-success rounded-pill px-4">Marcatori</button>
-          <button type="submit" name="Partite" class="btn btn-info text-white rounded-pill px-4">Partite</button>
-        </form>
-      </div>
-    ';
+          
+      <form method="POST" class="d-flex justify-content-center gap-3 mb-4">
+        <input type="hidden" name="scelta" value="' . $scelta . '">
+        
+        <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-table me-2"></i>Classifica
+        </button>
+        
+        <button type="submit" name="Marcatori" class="btn btn-success px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-person-badge me-2"></i>Marcatori
+        </button>
+        
+        <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-calendar-event me-2"></i>Partite
+        </button>
+      </form>
 
-    // Campionato
-    $stmt = $conn->prepare("SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1");
-    $stmt->bind_param("s", $scelta);
-    $stmt->execute();
-    $resCampionato = $stmt->get_result();
+      <style>
+        .btn-hover-effect {
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          border: none;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .btn-hover-effect:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-hover-effect:active {
+          transform: translateY(-1px);
+        }
+        
+        .btn-primary {
+          background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+          color: white;
+        }
+        
+        .btn-success {
+          background: linear-gradient(135deg, #02aab0, #00cdac);
+          color: white;
+        }
+        
+        .btn-info {
+          background: linear-gradient(135deg, #00c6ff, #0072ff);
+          color: white;
+        }
+        
+        .btn i {
+          transition: transform 0.3s ease;
+        }
+        
+        .btn:hover i {
+          transform: scale(1.1);
+        }
+        
+        .btn:focus {
+          box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+      </style>
+        ';
 
-    if ($resCampionato->num_rows > 0) {
-        $campionato = $resCampionato->fetch_assoc();
-        $idCampionato = $campionato['ID_campionato'];
-
-        // Giornate
-        $stmt = $conn->prepare("SELECT ID_giornata, Numero, Data_inizio FROM giornate WHERE Cod_campionato = ? ORDER BY Numero");
-        $stmt->bind_param("i", $idCampionato);
+        // Campionato
+        $stmt = $conn->prepare("SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1");
+        $stmt->bind_param("s", $scelta);
         $stmt->execute();
-        $giornate = $stmt->get_result();
+        $resCampionato = $stmt->get_result();
 
-        if ($giornate->num_rows > 0) {
-            echo '<div id="matchCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">';
-            
-            $index = 0;
-            $indicators = '';
+        if ($resCampionato->num_rows > 0) {
+            $campionato = $resCampionato->fetch_assoc();
+            $idCampionato = $campionato['ID_campionato'];
 
-            while ($giornata = $giornate->fetch_assoc()) {
-                $active = $index === 0 ? 'active' : '';
-                $date = date('d/m/Y', strtotime($giornata['Data_inizio']));
-                $idGiornata = $giornata['ID_giornata'];
+            // Giornate
+            $stmt = $conn->prepare("SELECT ID_giornata, Numero, Data_inizio FROM giornate WHERE Cod_campionato = ? ORDER BY Numero");
+            $stmt->bind_param("i", $idCampionato);
+            $stmt->execute();
+            $giornate = $stmt->get_result();
 
-                // Partite
-                $stmt = $conn->prepare("
-                  SELECT p.ID_partita, p.Data, p.Stato, p.Gol_casa, p.Gol_ospite,
-                         s1.Nome AS squadra_casa, s2.Nome AS squadra_ospite
-                  FROM partite p
-                  JOIN squadre s1 ON p.Squadra_casa = s1.ID_squadre
-                  JOIN squadre s2 ON p.Squadra_ospite = s2.ID_squadre
-                  WHERE p.Cod_giornata = ?
-                  ORDER BY p.Data");
-                $stmt->bind_param("i", $idGiornata);
-                $stmt->execute();
-                $partite = $stmt->get_result();
+            if ($giornate->num_rows > 0) {
+                echo '<div id="matchCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">';
+                
+                $index = 0;
+                $indicators = '';
 
-                echo '
-                  <div class="carousel-item ' . $active . '">
-                    <div class="card shadow-sm p-4 mb-3">
-                      <h4 class="text-center mb-3">Giornata ' . $giornata['Numero'] . ' - <small class="text-muted">' . $date . '</small></h4>';
+                while ($giornata = $giornate->fetch_assoc()) {
+                    $active = $index === 0 ? 'active' : '';
+                    $date = date('d/m/Y', strtotime($giornata['Data_inizio']));
+                    $idGiornata = $giornata['ID_giornata'];
 
-                if ($partite->num_rows > 0) {
-                    echo '<ul class="list-group">';
-                    while ($partita = $partite->fetch_assoc()) {
-                        $statusBadge = match ($partita['Stato']) {
-                            'terminata' => '<span class="badge bg-success">FIN</span>',
-                            'in corso'  => '<span class="badge bg-danger">LIVE</span>',
-                            'rinviata'  => '<span class="badge bg-warning text-dark">RINV</span>',
-                            default     => '<span class="badge bg-secondary">' . date('H:i', strtotime($partita['Data'])) . '</span>',
-                        };
+                    // Partite
+                    $stmt = $conn->prepare("
+                      SELECT p.ID_partita, p.Data, p.Stato, p.Gol_casa, p.Gol_ospite,
+                            s1.Nome AS squadra_casa, s2.Nome AS squadra_ospite
+                      FROM partite p
+                      JOIN squadre s1 ON p.Squadra_casa = s1.ID_squadre
+                      JOIN squadre s2 ON p.Squadra_ospite = s2.ID_squadre
+                      WHERE p.Cod_giornata = ?
+                      ORDER BY p.Data");
+                    $stmt->bind_param("i", $idGiornata);
+                    $stmt->execute();
+                    $partite = $stmt->get_result();
 
-                        $score = $partita['Stato'] === 'terminata'
-                          ? $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite']
-                          : 'VS';
+                    echo '
+                      <div class="carousel-item ' . $active . '">
+                        <div class="card shadow-sm p-4 mb-3">
+                          <h4 class="text-center mb-3">Giornata ' . $giornata['Numero'] . ' - <small class="text-muted">' . $date . '</small></h4>';
 
-                        echo '
-                          <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div class="text-end col-4"><strong>' . $partita['squadra_casa'] . '</strong></div>
-                            <div class="text-center col-4">
-                              ' . $statusBadge . '<br><span class="fw-bold">' . $score . '</span>
-                            </div>
-                            <div class="text-start col-4"><strong>' . $partita['squadra_ospite'] . '</strong></div>
-                          </li>';
+                    if ($partite->num_rows > 0) {
+                        echo '<ul class="list-group">';
+                        while ($partita = $partite->fetch_assoc()) {
+                            $statusBadge = match ($partita['Stato']) {
+                                'terminata' => '<span class="badge bg-success">FIN</span>',
+                                'in corso'  => '<span class="badge bg-danger">LIVE</span>',
+                                'rinviata'  => '<span class="badge bg-warning text-dark">RINV</span>',
+                                default     => '<span class="badge bg-secondary">' . date('H:i', strtotime($partita['Data'])) . '</span>',
+                            };
+
+                            $score = $partita['Stato'] === 'terminata'
+                              ? $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite']
+                              : 'VS';
+
+                            echo '
+                              <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="text-end col-4"><strong>' . $partita['squadra_casa'] . '</strong></div>
+                                <div class="text-center col-4">
+                                  ' . $statusBadge . '<br><span class="fw-bold">' . $score . '</span>
+                                </div>
+                                <div class="text-start col-4"><strong>' . $partita['squadra_ospite'] . '</strong></div>
+                              </li>';
+                        }
+                        echo '</ul>';
+                    } else {
+                        echo '<div class="alert alert-info text-center">Nessuna partita disponibile per questa giornata.</div>';
                     }
-                    echo '</ul>';
-                } else {
-                    echo '<div class="alert alert-info text-center">Nessuna partita disponibile per questa giornata.</div>';
+
+                    echo '</div></div>'; // card & carousel-item
+                    $indicators .= '<button type="button" data-bs-target="#matchCarousel" data-bs-slide-to="' . $index . '" class="' . $active . '" aria-label="Slide ' . ($index + 1) . '"></button>';
+                    $index++;
                 }
 
-                echo '</div></div>'; // card & carousel-item
-                $indicators .= '<button type="button" data-bs-target="#matchCarousel" data-bs-slide-to="' . $index . '" class="' . $active . '" aria-label="Slide ' . ($index + 1) . '"></button>';
-                $index++;
+                echo '
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#matchCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#matchCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>
+                  <div class="carousel-indicators mt-2">' . $indicators . '</div>
+                </div>';
+            } else {
+                echo '<div class="alert alert-warning">Nessuna giornata trovata per questo campionato.</div>';
             }
-
-            echo '
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#matchCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#matchCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-              </button>
-              <div class="carousel-indicators mt-2">' . $indicators . '</div>
-            </div>';
         } else {
-            echo '<div class="alert alert-warning">Nessuna giornata trovata per questo campionato.</div>';
+            echo '<div class="alert alert-danger">Campionato non trovato.</div>';
         }
-    } else {
-        echo '<div class="alert alert-danger">Campionato non trovato.</div>';
+
+
+        echo '<style>
+          .carousel-control-prev-icon,
+          .carousel-control-next-icon {
+            background-color: #007bff;
+            border-radius: 50%;
+            padding: 10px;
+          }
+
+          .carousel-indicators [data-bs-target] {
+            background-color: #007bff;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+          }
+          </style>
+          '; // container
+        echo '</div>'; // container
     }
-
-
-    echo '<style>
-      .carousel-control-prev-icon,
-      .carousel-control-next-icon {
-        background-color: #007bff;
-        border-radius: 50%;
-        padding: 10px;
-      }
-
-      .carousel-indicators [data-bs-target] {
-        background-color: #007bff;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-      }
-      </style>
-      '; // container
-    echo '</div>'; // container
-}
  elseif (isset($_POST['indietro'])) {
       header("Location: Eventi_passati1.php");
       exit();
