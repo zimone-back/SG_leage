@@ -1140,7 +1140,7 @@ elseif (isset($_POST['Partite'])) {
             while ($giornata = $result_giornate->fetch_assoc()) {
                 echo '<div class="carousel-item ' . ($first ? 'active' : '') . '">';
                 echo '<div class="match-carousel">';
-                echo '<div class="day-header">Giornata ' . $giornata['Numero'] . ' • ' . date('d/m', strtotime($giornata['Data_inizio'])) . '</div>';
+                echo '<div class="day-header">Giornata ' . $giornata['Numero'] . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
                 
                 $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,
                                 squadre_casa.Nome AS squadra_casa, squadre_ospite.Nome AS squadra_ospite
