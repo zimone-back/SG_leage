@@ -916,194 +916,308 @@
     } elseif (isset($_POST['Partite'])) {
         $scelta = $conn->real_escape_string($_POST['scelta']);
 
+        echo '<div class="event-card animate__animated animate__fadeIn">';
+        echo '<div class="card-header text-center">';
+        echo '<h4 class="mb-0">' . $scelta . ' - Calendario Partite</h4>';
+        echo '</div>';
+        echo '<div class="card-body">';
+
         echo '
-        <div class="event-card animate__animated animate__fadeIn">
-        <div class="card-header text-center py-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">
-        <h4 class="mb-0 fw-bold"><i class="bi bi-trophy-fill me-2" style="color: gold;"></i>' . $scelta . ' - CLASSIFICA MARCATORI</h4>
-        </div>
-        <div class="card-body">
-
+        <form method="POST" class="d-flex justify-content-center gap-3 mb-4">
+          <input type="hidden" name="scelta" value="' . $scelta . '">
           
-      <form method="POST" class="d-flex justify-content-center gap-3 mb-4">
-        <input type="hidden" name="scelta" value="' . $scelta . '">
-        
-        <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-table me-2"></i>Classifica
-        </button>
-        
-        <button type="submit" name="Marcatori" class="btn btn-success px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-person-badge me-2"></i>Marcatori
-        </button>
-        
-        <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-calendar-event me-2"></i>Partite
-        </button>
-      </form>
+          <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+            <i class="bi bi-table me-2"></i>Classifica
+          </button>
+          
+          <button type="submit" name="Marcatori" class="btn btn-success px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+            <i class="bi bi-person-badge me-2"></i>Marcatori
+          </button>
+          
+          <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
+            <i class="bi bi-calendar-event me-2"></i>Partite
+          </button>
+        </form>
 
-      <style>
-        .btn-hover-effect {
-          transition: all 0.3s ease;
-          transform: translateY(0);
-          border: none;
-          font-weight: 500;
-          letter-spacing: 0.5px;
-          position: relative;
-          overflow: hidden;
-        }
-        
-        .btn-hover-effect:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn-hover-effect:active {
-          transform: translateY(-1px);
-        }
-        
-        .btn-primary {
-          background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-          color: white;
-        }
-        
-        .btn-success {
-          background: linear-gradient(135deg, #02aab0, #00cdac);
-          color: white;
-        }
-        
-        .btn-info {
-          background: linear-gradient(135deg, #00c6ff, #0072ff);
-          color: white;
-        }
-        
-        .btn i {
-          transition: transform 0.3s ease;
-        }
-        
-        .btn:hover i {
-          transform: scale(1.1);
-        }
-        
-        .btn:focus {
-          box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-        }
-      </style>
-        ';
+        <style>
+          /* Stili esistenti mantenuti */
+          .btn-hover-effect {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            border: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          /* Nuovi stili per il carosello avanzato */
+          .match-carousel {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: none;
+          }
+          
+          .carousel-indicators {
+            bottom: -50px;
+          }
+          
+          .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,0.2);
+            border: none;
+          }
+          
+          .carousel-indicators button.active {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+          }
+          
+          .match-day-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transform: scale(0.95);
+            transition: all 0.4s ease;
+            opacity: 0.9;
+            min-height: 500px; /* ⬅️ altezza fissa */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+          
+          .carousel-item.active .match-day-card {
+            transform: scale(1);
+            opacity: 1;
+          }
+          
+          .day-header {
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          }
+          
+          .match-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+          }
+          
+          .match-table tr {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+          }
+          
+          .match-table tr:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+          }
+          
+          .match-table td {
+            padding: 15px;
+            vertical-align: middle;
+          }
+          
+          .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+          }
+          
+          .badge-finished {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+          }
+          
+          .badge-live {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            animation: pulse 1.5s infinite;
+          }
+          
+          .badge-postponed {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+          }
+          
+          .badge-scheduled {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: white;
+          }
+          
+          .carousel-control-prev, .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            opacity: 1;
+          }
+          
+          .carousel-control-prev { left: -25px; }
+          .carousel-control-next { right: -25px; }
+          
+          .carousel-control-prev-icon, 
+          .carousel-control-next-icon {
+            filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(2596%) hue-rotate(197deg) brightness(98%) contrast(91%);
+            width: 2rem;
+            height: 2rem;
+          }
+          
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+          }
+        </style>';
 
-        // Campionato
-        $stmt = $conn->prepare("SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1");
+        $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
+                          FROM campionati 
+                          WHERE campionati.Nome = ? 
+                          LIMIT 1";
+        $stmt = $conn->prepare($query_campionato);
         $stmt->bind_param("s", $scelta);
         $stmt->execute();
-        $resCampionato = $stmt->get_result();
+        $result_campionato = $stmt->get_result();
 
-        if ($resCampionato->num_rows > 0) {
-            $campionato = $resCampionato->fetch_assoc();
-            $idCampionato = $campionato['ID_campionato'];
+        if ($result_campionato->num_rows > 0) {
+            $campionato = $result_campionato->fetch_assoc();
 
-            // Giornate
-            $stmt = $conn->prepare("SELECT ID_giornata, Numero, Data_inizio FROM giornate WHERE Cod_campionato = ? ORDER BY Numero");
-            $stmt->bind_param("i", $idCampionato);
+            $query_giornate = "SELECT giornate.ID_giornata, giornate.Numero, giornate.Data_inizio, giornate.Data_fine 
+                            FROM giornate 
+                            WHERE giornate.Cod_campionato = ? 
+                            ORDER BY giornate.Numero";
+            $stmt = $conn->prepare($query_giornate);
+            $stmt->bind_param("i", $campionato['ID_campionato']);
             $stmt->execute();
-            $giornate = $stmt->get_result();
+            $result_giornate = $stmt->get_result();
 
-            if ($giornate->num_rows > 0) {
-                echo '<div id="matchCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">';
+            if ($result_giornate->num_rows > 0) {
+                echo '<div id="matchCarousel" class="carousel slide match-carousel" data-bs-ride="carousel">';
+                echo '<div class="carousel-inner">';
                 
-                $index = 0;
-                $indicators = '';
-
-                while ($giornata = $giornate->fetch_assoc()) {
-                    $active = $index === 0 ? 'active' : '';
-                    $date = date('d/m/Y', strtotime($giornata['Data_inizio']));
-                    $idGiornata = $giornata['ID_giornata'];
-
-                    // Partite
-                    $stmt = $conn->prepare("
-                      SELECT p.ID_partita, p.Data, p.Stato, p.Gol_casa, p.Gol_ospite,
-                            s1.Nome AS squadra_casa, s2.Nome AS squadra_ospite
-                      FROM partite p
-                      JOIN squadre s1 ON p.Squadra_casa = s1.ID_squadre
-                      JOIN squadre s2 ON p.Squadra_ospite = s2.ID_squadre
-                      WHERE p.Cod_giornata = ?
-                      ORDER BY p.Data");
-                    $stmt->bind_param("i", $idGiornata);
+                $first = true;
+                while ($giornata = $result_giornate->fetch_assoc()) {
+                    echo '<div class="carousel-item ' . ($first ? 'active' : '') . '">';
+                    echo '<div class="match-day-card">';
+                    echo '<div class="day-header">';
+                    echo '<h5>Giornata ' . $giornata['Numero'] . '</h5>';
+                    echo '<p class="mb-0">' . date('d/m/Y', strtotime($giornata['Data_inizio'])) . '</p>';
+                    echo '</div>';
+                    
+                    $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,
+                                    squadre_casa.Nome AS squadra_casa, squadre_ospite.Nome AS squadra_ospite
+                              FROM partite
+                              JOIN squadre AS squadre_casa ON partite.Squadra_casa = squadre_casa.ID_squadre
+                              JOIN squadre AS squadre_ospite ON partite.Squadra_ospite = squadre_ospite.ID_squadre
+                              WHERE partite.Cod_giornata = ?
+                              ORDER BY partite.Data";
+                    $stmt = $conn->prepare($query_partite);
+                    $stmt->bind_param("i", $giornata['ID_giornata']);
                     $stmt->execute();
-                    $partite = $stmt->get_result();
+                    $result_partite = $stmt->get_result();
 
-                    echo '
-                      <div class="carousel-item ' . $active . '">
-                        <div class="card shadow-sm p-4 mb-3">
-                          <h4 class="text-center mb-3">Giornata ' . $giornata['Numero'] . ' - <small class="text-muted">' . $date . '</small></h4>';
+                    if ($result_partite->num_rows > 0) {
+                        echo '<div class="table-responsive">';
+                        echo '<table class="table match-table">';
+                        echo '<tbody>';
 
-                    if ($partite->num_rows > 0) {
-                        echo '<ul class="list-group">';
-                        while ($partita = $partite->fetch_assoc()) {
-                            $statusBadge = match ($partita['Stato']) {
-                                'terminata' => '<span class="badge bg-success">FIN</span>',
-                                'in corso'  => '<span class="badge bg-danger">LIVE</span>',
-                                'rinviata'  => '<span class="badge bg-warning text-dark">RINV</span>',
-                                default     => '<span class="badge bg-secondary">' . date('H:i', strtotime($partita['Data'])) . '</span>',
-                            };
-
-                            $score = $partita['Stato'] === 'terminata'
-                              ? $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite']
-                              : 'VS';
-
-                            echo '
-                              <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div class="text-end col-4"><strong>' . $partita['squadra_casa'] . '</strong></div>
-                                <div class="text-center col-4">
-                                  ' . $statusBadge . '<br><span class="fw-bold">' . $score . '</span>
-                                </div>
-                                <div class="text-start col-4"><strong>' . $partita['squadra_ospite'] . '</strong></div>
-                              </li>';
+                        while ($partita = $result_partite->fetch_assoc()) {
+                            echo '<tr>';
+                            
+                            // Stato partita
+                            echo '<td class="text-center">';
+                            switch ($partita['Stato']) {
+                                case 'terminata':
+                                    echo '<span class="status-badge badge-finished">FINITO</span>';
+                                    break;
+                                case 'in corso':
+                                    echo '<span class="status-badge badge-live">LIVE</span>';
+                                    break;
+                                case 'rinviata':
+                                    echo '<span class="status-badge badge-postponed">RINVIATA</span>';
+                                    break;
+                                default:
+                                    echo '<span class="status-badge badge-scheduled">' . date('H:i', strtotime($partita['Data'])) . '</span>';
+                            }
+                            echo '</td>';
+                            
+                            // Squadra casa
+                            echo '<td class="text-end fw-bold">' . $partita['squadra_casa'] . '</td>';
+                            
+                            // Risultato
+                            echo '<td class="text-center">';
+                            if ($partita['Stato'] == 'terminata') {
+                                echo '<span class="score-display">' . $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite'] . '</span>';
+                            } else {
+                                echo '<span class="vs-display">VS</span>';
+                            }
+                            echo '</td>';
+                            
+                            // Squadra ospite
+                            echo '<td class="fw-bold">' . $partita['squadra_ospite'] . '</td>';
+                            
+                            echo '</tr>';
                         }
-                        echo '</ul>';
+
+                        echo '</tbody>';
+                        echo '</table>';
+                        echo '</div>';
                     } else {
-                        echo '<div class="alert alert-info text-center">Nessuna partita disponibile per questa giornata.</div>';
+                        echo '<div class="alert alert-info text-center">Nessuna partita programmata</div>';
                     }
-
-                    echo '</div></div>'; // card & carousel-item
-                    $indicators .= '<button type="button" data-bs-target="#matchCarousel" data-bs-slide-to="' . $index . '" class="' . $active . '" aria-label="Slide ' . ($index + 1) . '"></button>';
-                    $index++;
+                    
+                    echo '</div>'; // match-day-card
+                    echo '</div>'; // carousel-item
+                    $first = false;
                 }
-
-                echo '
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#matchCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#matchCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                  </button>
-                  <div class="carousel-indicators mt-2">' . $indicators . '</div>
-                </div>';
+                
+                echo '</div>'; // carousel-inner
+                
+                // Controlli di navigazione
+                echo '<button class="carousel-control-prev" type="button" data-bs-target="#matchCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>';
+                echo '<button class="carousel-control-next" type="button" data-bs-target="#matchCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>';
+                
+                // Indicatori
+                echo '<div class="carousel-indicators">';
+                for ($i = 0; $i < $result_giornate->num_rows; $i++) {
+                    echo '<button type="button" data-bs-target="#matchCarousel" data-bs-slide-to="' . $i . '" ' . ($i == 0 ? 'class="active"' : '') . '></button>';
+                }
+                echo '</div>';
+                
+                echo '</div>'; // carousel
             } else {
                 echo '<div class="alert alert-warning">Nessuna giornata trovata per questo campionato.</div>';
             }
         } else {
-            echo '<div class="alert alert-danger">Campionato non trovato.</div>';
+            echo '<div class="alert alert-danger">Nessun campionato attivo trovato.</div>';
         }
-
-
-        echo '<style>
-          .carousel-control-prev-icon,
-          .carousel-control-next-icon {
-            background-color: #007bff;
-            border-radius: 50%;
-            padding: 10px;
-          }
-
-          .carousel-indicators [data-bs-target] {
-            background-color: #007bff;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-          }
-          </style>
-          '; // container
-        echo '</div>'; // container
-    }
+        
+        echo '</div>'; // card-body
+        echo '</div>'; // event-card
+  }
  elseif (isset($_POST['indietro'])) {
       header("Location: Eventi_passati1.php");
       exit();
