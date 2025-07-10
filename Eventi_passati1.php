@@ -464,19 +464,19 @@
       echo '<div class="card-body px-1">';
 
      echo '
-      <form method="POST" class="d-flex justify-content-center gap-3 mb-4">
+      <form method="POST" class="d-flex justify-content-center gap-1 gap-md-3 mb-2 mb-md-4 flex-wrap pt-0">
         <input type="hidden" name="scelta" value="' . $scelta . '">
         
-        <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-table me-2"></i>Classifica
+        <button type="submit" name="Classifica" class="btn btn-primary px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-table me-1 me-md-2"></i>Classifica
         </button>
         
-        <button type="submit" name="Marcatori" class="btn btn-success px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-person-badge me-2"></i>Marcatori
+        <button type="submit" name="Marcatori" class="btn btn-success px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-person-badge me-1 me-md-2"></i>Marcatori
         </button>
         
-        <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-calendar-event me-2"></i>Partite
+        <button type="submit" name="Partite" class="btn btn-info px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-calendar-event me-1 me-md-2"></i>Partite
         </button>
       </form>
 
@@ -486,18 +486,27 @@
           transform: translateY(0);
           border: none;
           font-weight: 500;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.3px;
           position: relative;
           overflow: hidden;
+          font-size: 0.85rem;
+          white-space: nowrap;
+        }
+        
+        @media (min-width: 768px) {
+          .btn-hover-effect {
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+          }
         }
         
         .btn-hover-effect:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         .btn-hover-effect:active {
-          transform: translateY(-1px);
+          transform: translateY(0);
         }
         
         .btn-primary {
@@ -517,17 +526,194 @@
         
         .btn i {
           transition: transform 0.3s ease;
+          font-size: 0.9rem;
+        }
+        
+        @media (min-width: 768px) {
+          .btn i {
+            font-size: 1rem;
+          }
         }
         
         .btn:hover i {
-          transform: scale(1.1);
+          transform: scale(1.05);
         }
         
         .btn:focus {
-          box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
         }
       </style>
-      ';
+      
+
+    <style>
+      /* Stili ottimizzati per mobile */
+      .match-carousel {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        padding: 8px;
+        margin: 0 4px;
+      }
+      
+      .day-header {
+        background: linear-gradient(135deg, #4361ee, #3a0ca3);
+        color: white;
+        padding: 8px 10px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      .simple-match-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8rem;
+      }
+      
+      .simple-match-table tr {
+        border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .simple-match-table tr:last-child {
+        border-bottom: none;
+      }
+      
+      .simple-match-table td {
+        padding: 8px 4px;
+        vertical-align: middle;
+      }
+      
+      .simple-match-table td:first-child {
+        text-align: right;
+        width: 40%;
+        font-weight: 500;
+        color: #333;
+        padding-right: 8px;
+      }
+      
+      .simple-match-table td:nth-child(2) {
+        text-align: center;
+        width: 20%;
+        font-weight: 700;
+        color: #222;
+        min-width: 60px;
+      }
+      
+      .simple-match-table td:last-child {
+        text-align: left;
+        width: 40%;
+        font-weight: 500;
+        color: #333;
+        padding-left: 8px;
+      }
+      
+      .match-status {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      
+      .status-terminata {
+        background-color: #e9ecef;
+        color: #6c757d;
+      }
+      
+      .status-in-corso {
+        background-color: #dc3545;
+        color: white;
+        animation: pulse 1.5s infinite;
+      }
+      
+      .status-programmata {
+        background-color: #6c757d;
+        color: white;
+      }
+      
+      /* Navigazione carosello mobile più compatta */
+      .carousel-control-prev, .carousel-control-next {
+        width: 28px;
+        height: 28px;
+        background: white;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        opacity: 1;
+      }
+      
+      .carousel-control-prev { left: -8px; }
+      .carousel-control-next { right: -8px; }
+      
+      .carousel-control-prev-icon, 
+      .carousel-control-next-icon {
+        filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(2596%) hue-rotate(197deg) brightness(98%) contrast(91%);
+        width: 1rem;
+        height: 1rem;
+      }
+      
+      .carousel-indicators {
+        bottom: -15px;
+      }
+      
+      .carousel-indicators button {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: #adb5bd;
+        border: none;
+        margin: 0 2px;
+      }
+      
+      .carousel-indicators button.active {
+        background-color: #4361ee;
+        transform: scale(1.2);
+      }
+      
+      @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.7; }
+        100% { opacity: 1; }
+      }
+      
+      /* Media query per tablet e desktop */
+      @media (min-width: 768px) {
+        .card-body {
+          padding: 1rem !important;
+        }
+        
+        .match-carousel {
+          padding: 16px;
+          margin: 0 12px;
+        }
+        
+        .day-header {
+          padding: 10px 16px;
+          font-size: 1rem;
+        }
+        
+        .simple-match-table {
+          font-size: 0.9rem;
+        }
+        
+        .simple-match-table td {
+          padding: 12px 8px;
+        }
+        
+        .carousel-control-prev, .carousel-control-next {
+          width: 36px;
+          height: 36px;
+        }
+        
+        .carousel-control-prev { left: -16px; }
+        .carousel-control-next { right: -16px; }
+      }
+    </style>';
 
       // Aggiunta della legenda
       echo '<style>
@@ -736,19 +922,19 @@
 
       // Pulsanti navigazione
       echo '
-      <form method="POST" class="d-flex justify-content-center gap-3 mb-4">
+      <form method="POST" class="d-flex justify-content-center gap-1 gap-md-3 mb-2 mb-md-4 flex-wrap pt-0">
         <input type="hidden" name="scelta" value="' . $scelta . '">
         
-        <button type="submit" name="Classifica" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-table me-2"></i>Classifica
+        <button type="submit" name="Classifica" class="btn btn-primary px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-table me-1 me-md-2"></i>Classifica
         </button>
         
-        <button type="submit" name="Marcatori" class="btn btn-success px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-person-badge me-2"></i>Marcatori
+        <button type="submit" name="Marcatori" class="btn btn-success px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-person-badge me-1 me-md-2"></i>Marcatori
         </button>
         
-        <button type="submit" name="Partite" class="btn btn-info px-4 py-2 rounded-pill shadow-sm btn-hover-effect">
-          <i class="bi bi-calendar-event me-2"></i>Partite
+        <button type="submit" name="Partite" class="btn btn-info px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-calendar-event me-1 me-md-2"></i>Partite
         </button>
       </form>
 
@@ -758,18 +944,27 @@
           transform: translateY(0);
           border: none;
           font-weight: 500;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.3px;
           position: relative;
           overflow: hidden;
+          font-size: 0.85rem;
+          white-space: nowrap;
+        }
+        
+        @media (min-width: 768px) {
+          .btn-hover-effect {
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+          }
         }
         
         .btn-hover-effect:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         .btn-hover-effect:active {
-          transform: translateY(-1px);
+          transform: translateY(0);
         }
         
         .btn-primary {
@@ -789,17 +984,194 @@
         
         .btn i {
           transition: transform 0.3s ease;
+          font-size: 0.9rem;
+        }
+        
+        @media (min-width: 768px) {
+          .btn i {
+            font-size: 1rem;
+          }
         }
         
         .btn:hover i {
-          transform: scale(1.1);
+          transform: scale(1.05);
         }
         
         .btn:focus {
-          box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
         }
       </style>
-      ';
+      
+
+    <style>
+      /* Stili ottimizzati per mobile */
+      .match-carousel {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        padding: 8px;
+        margin: 0 4px;
+      }
+      
+      .day-header {
+        background: linear-gradient(135deg, #4361ee, #3a0ca3);
+        color: white;
+        padding: 8px 10px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      .simple-match-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8rem;
+      }
+      
+      .simple-match-table tr {
+        border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .simple-match-table tr:last-child {
+        border-bottom: none;
+      }
+      
+      .simple-match-table td {
+        padding: 8px 4px;
+        vertical-align: middle;
+      }
+      
+      .simple-match-table td:first-child {
+        text-align: right;
+        width: 40%;
+        font-weight: 500;
+        color: #333;
+        padding-right: 8px;
+      }
+      
+      .simple-match-table td:nth-child(2) {
+        text-align: center;
+        width: 20%;
+        font-weight: 700;
+        color: #222;
+        min-width: 60px;
+      }
+      
+      .simple-match-table td:last-child {
+        text-align: left;
+        width: 40%;
+        font-weight: 500;
+        color: #333;
+        padding-left: 8px;
+      }
+      
+      .match-status {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      
+      .status-terminata {
+        background-color: #e9ecef;
+        color: #6c757d;
+      }
+      
+      .status-in-corso {
+        background-color: #dc3545;
+        color: white;
+        animation: pulse 1.5s infinite;
+      }
+      
+      .status-programmata {
+        background-color: #6c757d;
+        color: white;
+      }
+      
+      /* Navigazione carosello mobile più compatta */
+      .carousel-control-prev, .carousel-control-next {
+        width: 28px;
+        height: 28px;
+        background: white;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        opacity: 1;
+      }
+      
+      .carousel-control-prev { left: -8px; }
+      .carousel-control-next { right: -8px; }
+      
+      .carousel-control-prev-icon, 
+      .carousel-control-next-icon {
+        filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(2596%) hue-rotate(197deg) brightness(98%) contrast(91%);
+        width: 1rem;
+        height: 1rem;
+      }
+      
+      .carousel-indicators {
+        bottom: -15px;
+      }
+      
+      .carousel-indicators button {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: #adb5bd;
+        border: none;
+        margin: 0 2px;
+      }
+      
+      .carousel-indicators button.active {
+        background-color: #4361ee;
+        transform: scale(1.2);
+      }
+      
+      @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.7; }
+        100% { opacity: 1; }
+      }
+      
+      /* Media query per tablet e desktop */
+      @media (min-width: 768px) {
+        .card-body {
+          padding: 1rem !important;
+        }
+        
+        .match-carousel {
+          padding: 16px;
+          margin: 0 12px;
+        }
+        
+        .day-header {
+          padding: 10px 16px;
+          font-size: 1rem;
+        }
+        
+        .simple-match-table {
+          font-size: 0.9rem;
+        }
+        
+        .simple-match-table td {
+          padding: 12px 8px;
+        }
+        
+        .carousel-control-prev, .carousel-control-next {
+          width: 36px;
+          height: 36px;
+        }
+        
+        .carousel-control-prev { left: -16px; }
+        .carousel-control-next { right: -16px; }
+      }
+    </style>';
 
       $query_campionato = "SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1";
       $stmt = $conn->prepare($query_campionato);
@@ -921,89 +1293,89 @@ elseif (isset($_POST['Partite'])) {
     echo '<div class="card-header text-center bg-primary text-white">';
     echo '<h4 class="mb-0">' . $scelta . ' - Calendario Partite</h4>';
     echo '</div>';
-    echo '<div class="card-body p-1">'; // Ridotto ulteriormente il padding per mobile
+    echo '<div class="card-body p-1">';
 
     // Pulsanti di navigazione
      echo '
-<form method="POST" class="d-flex justify-content-center gap-1 gap-md-3 mb-2 mb-md-4 flex-wrap">
-  <input type="hidden" name="scelta" value="' . $scelta . '">
-  
-  <button type="submit" name="Classifica" class="btn btn-primary px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
-    <i class="bi bi-table me-1 me-md-2"></i>Classifica
-  </button>
-  
-  <button type="submit" name="Marcatori" class="btn btn-success px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
-    <i class="bi bi-person-badge me-1 me-md-2"></i>Marcatori
-  </button>
-  
-  <button type="submit" name="Partite" class="btn btn-info px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
-    <i class="bi bi-calendar-event me-1 me-md-2"></i>Partite
-  </button>
-</form>
+      <form method="POST" class="d-flex justify-content-center gap-1 gap-md-3 mb-2 mb-md-4 flex-wrap pt-3">
+        <input type="hidden" name="scelta" value="' . $scelta . '">
+        
+        <button type="submit" name="Classifica" class="btn btn-primary px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-table me-1 me-md-2"></i>Classifica
+        </button>
+        
+        <button type="submit" name="Marcatori" class="btn btn-success px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-person-badge me-1 me-md-2"></i>Marcatori
+        </button>
+        
+        <button type="submit" name="Partite" class="btn btn-info px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+          <i class="bi bi-calendar-event me-1 me-md-2"></i>Partite
+        </button>
+      </form>
 
-<style>
-  .btn-hover-effect {
-    transition: all 0.3s ease;
-    transform: translateY(0);
-    border: none;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    position: relative;
-    overflow: hidden;
-    font-size: 0.85rem;
-    white-space: nowrap;
-  }
-  
-  @media (min-width: 768px) {
-    .btn-hover-effect {
-      font-size: 1rem;
-      letter-spacing: 0.5px;
-    }
-  }
-  
-  .btn-hover-effect:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .btn-hover-effect:active {
-    transform: translateY(0);
-  }
-  
-  .btn-primary {
-    background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-    color: white;
-  }
-  
-  .btn-success {
-    background: linear-gradient(135deg, #02aab0, #00cdac);
-    color: white;
-  }
-  
-  .btn-info {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
-  }
-  
-  .btn i {
-    transition: transform 0.3s ease;
-    font-size: 0.9rem;
-  }
-  
-  @media (min-width: 768px) {
-    .btn i {
-      font-size: 1rem;
-    }
-  }
-  
-  .btn:hover i {
-    transform: scale(1.05);
-  }
-  
-  .btn:focus {
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-  }
-</style>
+      <style>
+        .btn-hover-effect {
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          border: none;
+          font-weight: 500;
+          letter-spacing: 0.3px;
+          position: relative;
+          overflow: hidden;
+          font-size: 0.85rem;
+          white-space: nowrap;
+        }
+        
+        @media (min-width: 768px) {
+          .btn-hover-effect {
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+          }
+        }
+        
+        .btn-hover-effect:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-hover-effect:active {
+          transform: translateY(0);
+        }
+        
+        .btn-primary {
+          background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+          color: white;
+        }
+        
+        .btn-success {
+          background: linear-gradient(135deg, #02aab0, #00cdac);
+          color: white;
+        }
+        
+        .btn-info {
+          background: linear-gradient(135deg, #00c6ff, #0072ff);
+          color: white;
+        }
+        
+        .btn i {
+          transition: transform 0.3s ease;
+          font-size: 0.9rem;
+        }
+        
+        @media (min-width: 768px) {
+          .btn i {
+            font-size: 1rem;
+          }
+        }
+        
+        .btn:hover i {
+          transform: scale(1.05);
+        }
+        
+        .btn:focus {
+          box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+      </style>
       
 
     <style>
