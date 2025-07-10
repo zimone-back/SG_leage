@@ -921,55 +921,55 @@ elseif (isset($_POST['Partite'])) {
     echo '<div class="card-header text-center bg-primary text-white">';
     echo '<h4 class="mb-0">' . $scelta . ' - Calendario Partite</h4>';
     echo '</div>';
-    echo '<div class="card-body p-2">'; // Ridotto il padding per mobile
+    echo '<div class="card-body p-1">'; // Ridotto ulteriormente il padding per mobile
 
     // Pulsanti di navigazione compatti per mobile
     echo '
-    <form method="POST" class="d-flex justify-content-center gap-2 mb-3 flex-wrap">
+    <form method="POST" class="d-flex justify-content-center gap-1 mb-2 flex-wrap">
       <input type="hidden" name="scelta" value="' . $scelta . '">
       
-      <button type="submit" name="Classifica" class="btn btn-primary px-3 py-1 rounded-pill btn-sm">
+      <button type="submit" name="Classifica" class="btn btn-primary px-2 py-1 rounded-pill btn-sm">
         <i class="bi bi-table me-1"></i>Classifica
       </button>
       
-      <button type="submit" name="Marcatori" class="btn btn-success px-3 py-1 rounded-pill btn-sm">
+      <button type="submit" name="Marcatori" class="btn btn-success px-2 py-1 rounded-pill btn-sm">
         <i class="bi bi-person-badge me-1"></i>Marcatori
       </button>
       
-      <button type="submit" name="Partite" class="btn btn-light px-3 py-1 rounded-pill btn-sm text-primary border-primary">
+      <button type="submit" name="Partite" class="btn btn-light px-2 py-1 rounded-pill btn-sm text-primary border-primary">
         <i class="bi bi-calendar-event me-1"></i>Partite
       </button>
     </form>
 
     <style>
-      /* Stili base per mobile */
+      /* Stili ottimizzati per mobile */
       .match-carousel {
         background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        padding: 12px;
-        margin: 0 8px;
+        border-radius: 10px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        padding: 8px;
+        margin: 0 4px;
       }
       
       .day-header {
         background: linear-gradient(135deg, #4361ee, #3a0ca3);
         color: white;
-        padding: 10px 12px;
-        border-radius: 8px;
-        margin-bottom: 12px;
+        padding: 8px 10px;
+        border-radius: 6px;
+        margin-bottom: 8px;
         text-align: center;
         font-weight: 600;
-        font-size: 0.95rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        font-size: 0.85rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       }
       
       .simple-match-table {
         width: 100%;
         border-collapse: collapse;
+        font-size: 0.8rem;
       }
       
       .simple-match-table tr {
-        transition: all 0.2s ease;
         border-bottom: 1px solid #f0f0f0;
       }
       
@@ -978,7 +978,7 @@ elseif (isset($_POST['Partite'])) {
       }
       
       .simple-match-table td {
-        padding: 12px 6px;
+        padding: 8px 4px;
         vertical-align: middle;
       }
       
@@ -987,6 +987,7 @@ elseif (isset($_POST['Partite'])) {
         width: 40%;
         font-weight: 500;
         color: #333;
+        padding-right: 8px;
       }
       
       .simple-match-table td:nth-child(2) {
@@ -994,6 +995,7 @@ elseif (isset($_POST['Partite'])) {
         width: 20%;
         font-weight: 700;
         color: #222;
+        min-width: 60px;
       }
       
       .simple-match-table td:last-child {
@@ -1001,13 +1003,14 @@ elseif (isset($_POST['Partite'])) {
         width: 40%;
         font-weight: 500;
         color: #333;
+        padding-left: 8px;
       }
       
       .match-status {
         display: inline-block;
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 11px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 10px;
         font-weight: 700;
         text-transform: uppercase;
       }
@@ -1028,44 +1031,44 @@ elseif (isset($_POST['Partite'])) {
         color: white;
       }
       
-      /* Navigazione carosello mobile */
+      /* Navigazione carosello mobile più compatta */
       .carousel-control-prev, .carousel-control-next {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         background: white;
         border-radius: 50%;
         top: 50%;
         transform: translateY(-50%);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        box-shadow: 0 1px 5px rgba(0,0,0,0.1);
         opacity: 1;
       }
       
-      .carousel-control-prev { left: -10px; }
-      .carousel-control-next { right: -10px; }
+      .carousel-control-prev { left: -8px; }
+      .carousel-control-next { right: -8px; }
       
       .carousel-control-prev-icon, 
       .carousel-control-next-icon {
         filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(2596%) hue-rotate(197deg) brightness(98%) contrast(91%);
-        width: 1.2rem;
-        height: 1.2rem;
+        width: 1rem;
+        height: 1rem;
       }
       
       .carousel-indicators {
-        bottom: -20px;
+        bottom: -15px;
       }
       
       .carousel-indicators button {
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
         background-color: #adb5bd;
         border: none;
-        margin: 0 3px;
+        margin: 0 2px;
       }
       
       .carousel-indicators button.active {
         background-color: #4361ee;
-        transform: scale(1.3);
+        transform: scale(1.2);
       }
       
       @keyframes pulse {
@@ -1077,30 +1080,34 @@ elseif (isset($_POST['Partite'])) {
       /* Media query per tablet e desktop */
       @media (min-width: 768px) {
         .card-body {
-          padding: 1.5rem !important;
+          padding: 1rem !important;
         }
         
         .match-carousel {
-          padding: 20px;
-          margin: 0 15px;
+          padding: 16px;
+          margin: 0 12px;
         }
         
         .day-header {
-          padding: 12px 20px;
-          font-size: 1.1rem;
+          padding: 10px 16px;
+          font-size: 1rem;
+        }
+        
+        .simple-match-table {
+          font-size: 0.9rem;
         }
         
         .simple-match-table td {
-          padding: 14px 10px;
+          padding: 12px 8px;
         }
         
         .carousel-control-prev, .carousel-control-next {
-          width: 40px;
-          height: 40px;
+          width: 36px;
+          height: 36px;
         }
         
-        .carousel-control-prev { left: -20px; }
-        .carousel-control-next { right: -20px; }
+        .carousel-control-prev { left: -16px; }
+        .carousel-control-next { right: -16px; }
       }
     </style>';
 
