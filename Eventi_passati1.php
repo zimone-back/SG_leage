@@ -402,22 +402,22 @@
         echo '<div class="alert alert-danger">Campionato non trovato.</div>';
       }
     }
-    elseif (isset($_POST['Classifica'])) {
+elseif (isset($_POST['Classifica'])) {
     $scelta = $conn->real_escape_string($_POST['scelta']);
     
     echo '<div class="event-card animate__animated animate__fadeIn">';
-    echo '<div class="card-header text-center">';
+    echo '<div class="card-header text-center" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
     echo '<h4 class="mb-0">'.$scelta.' - Classifica</h4>';
     echo '</div>';
-    echo '<div class="card-body">';
+    echo '<div class="card-body px-1">'; // px-1 per un piccolo padding laterale
     
-    echo '<form method="POST" class="d-flex justify-content-center gap-3 mb-4">';
+    echo '<form method="POST" class="d-flex justify-content-center gap-2 mb-3">'; // gap ridotto a 2
     echo '<input type="hidden" name="scelta" value="'.$scelta.'">';
-    echo '<button type="submit" name="Marcatori" class="btn btn-success px-4">';
-    echo '<i class="bi bi-person-badge me-2"></i>Marcatori';
+    echo '<button type="submit" name="Marcatori" class="btn btn-success px-3 py-1">'; // padding ridotto
+    echo '<i class="bi bi-person-badge me-1"></i>Marcatori';
     echo '</button>';
-    echo '<button type="submit" name="indietro" class="btn btn-secondary px-4">';
-    echo '<i class="bi bi-arrow-left-circle me-2"></i>Torna al Menu';
+    echo '<button type="submit" name="indietro" class="btn btn-secondary px-3 py-1">';
+    echo '<i class="bi bi-arrow-left-circle me-1"></i>Menu';
     echo '</button>';
     echo '</form>';
 
@@ -443,21 +443,21 @@
 
         if (!empty($gironi)) {
             foreach ($gironi as $girone) {
-                echo '<div class="classifica-card mb-5 shadow-lg rounded-3 overflow-hidden">';
-                echo '  <div class="classifica-header bg-dark-blue text-white py-3 px-4">';
-                echo '    <h3 class="mb-0 font-weight-bold"><i class="bi bi-trophy-fill text-warning me-2"></i>Girone '.$girone.'</h3>';
+                echo '<div class="classifica-card mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
+                echo '  <div class="classifica-header py-2 px-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
+                echo '    <h5 class="mb-0 font-weight-bold"><i class="bi bi-trophy-fill text-warning me-2"></i>Girone '.$girone.'</h5>';
                 echo '  </div>';
-                echo '  <div class="table-responsive">';
-                echo '    <table class="table table-classifica mb-0">';
-                echo '      <thead class="thead-light">';
-                echo '        <tr>';
-                echo '          <th class="pl-4">Squadra</th>';
-                echo '          <th>PT</th>';
-                echo '          <th>G</th>';
-                echo '          <th>V</th>';
-                echo '          <th>N</th>';
-                echo '          <th>P</th>';
-                echo '          <th>DR</th>';
+                echo '  <div class="table-container">';
+                echo '    <table class="table-classifica mb-0" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">';
+                echo '      <thead>';
+                echo '        <tr style="background-color: #f8f9fa; color: #495057;">';
+                echo '          <th style="padding: 8px 4px; text-align: left; border-bottom: 2px solid #dee2e6; width: 40%;">Squadra</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">PT</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">G</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">V</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">N</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">P</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">DR</th>';
                 echo '        </tr>';
                 echo '      </thead>';
                 echo '      <tbody>';
@@ -482,14 +482,14 @@
                         $rowClass = 'retrocessione';
                     }
                     
-                    echo '<tr class="'.$rowClass.'">';
-                    echo '  <td class="pl-4 font-weight-bold">'.$row['squadra'].'</td>';
-                    echo '  <td class="font-weight-bold text-primary">'.$row['PT'].'</td>';
-                    echo '  <td>'.$row['G'].'</td>';
-                    echo '  <td>'.$row['V'].'</td>';
-                    echo '  <td>'.$row['N'].'</td>';
-                    echo '  <td>'.$row['P'].'</td>';
-                    echo '  <td class="font-weight-bold">'.$row['DR'].'</td>';
+                    echo '<tr class="'.$rowClass.'" style="transition: all 0.2s;">';
+                    echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;">'.$row['squadra'].'</td>';
+                    echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">'.$row['PT'].'</td>';
+                    echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['G'].'</td>';
+                    echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['V'].'</td>';
+                    echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['N'].'</td>';
+                    echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['P'].'</td>';
+                    echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center;">'.$row['DR'].'</td>';
                     echo '</tr>';
                 }
                 echo '      </tbody>';
@@ -504,53 +504,24 @@
         echo '<div class="alert alert-danger text-center">Campionato non trovato.</div>';
     }
     
-    echo '    </div>';
-    echo '  </div>';
-    echo '</div>';
+    echo '</div></div>';
 
-    // CSS personalizzato
+    
     echo '<style>
-    .classifica-card {
-        background-color: rgba(255, 255, 255, 0.95);
-        border: none;
-        transition: all 0.3s ease;
-    }
-    
-    .classifica-header {
-        background: linear-gradient(135deg, #1e3a8a, #2c4fa6);
-    }
-    
-    .table-classifica {
+    .table-container {
         width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
     
-    .table-classifica thead th {
-        background-color: #f8f9fa;
-        color: #495057;
-        font-weight: 600;
-        padding: 12px 8px;
-        border-bottom: 2px solid #dee2e6;
-    }
-    
-    .table-classifica tbody tr {
-        transition: all 0.2s;
-    }
-    
-    .table-classifica tbody tr:hover {
-        background-color: #f8f9fa !important;
-        transform: translateX(5px);
-    }
-    
-    .table-classifica td {
-        padding: 12px 8px;
-        vertical-align: middle;
-        border-top: 1px solid #e9ecef;
+    .table-container::-webkit-scrollbar {
+        display: none;
     }
     
     .primo {
-        background-color: rgba(40, 167, 69, 0.08);
+        background-color: rgba(40, 167, 69, 0.08) !important;
     }
     
     .primo td:first-child {
@@ -563,12 +534,12 @@
         left: 0;
         top: 0;
         bottom: 0;
-        width: 4px;
+        width: 3px;
         background-color: #28a745;
     }
     
     .retrocessione {
-        background-color: rgba(220, 53, 69, 0.08);
+        background-color: rgba(220, 53, 69, 0.08) !important;
     }
     
     .retrocessione td:first-child {
@@ -581,30 +552,30 @@
         left: 0;
         top: 0;
         bottom: 0;
-        width: 4px;
+        width: 3px;
         background-color: #dc3545;
     }
     
-    .bg-dark-blue {
-        background-color: #1e3a8a;
-    }
-    
-    @media (max-width: 768px) {
-        .table-classifica thead th, 
-        .table-classifica td {
-            padding: 8px 4px;
-            font-size: 0.85rem;
+    @media (max-width: 576px) {
+        .event-card {
+            margin: 0 5px;
         }
         
-        .table-classifica th:nth-child(3),
-        .table-classifica th:nth-child(4),
-        .table-classifica th:nth-child(5),
-        .table-classifica th:nth-child(6),
-        .table-classifica td:nth-child(3),
-        .table-classifica td:nth-child(4),
-        .table-classifica td:nth-child(5),
-        .table-classifica td:nth-child(6) {
-            display: none;
+        .card-body {
+            padding: 10px 5px;
+        }
+        
+        .classifica-header h5 {
+            font-size: 1rem;
+        }
+        
+        .table-classifica {
+            font-size: 0.75rem;
+        }
+        
+        .table-classifica th, 
+        .table-classifica td {
+            padding: 6px 3px !important;
         }
     }
     </style>';
