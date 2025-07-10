@@ -402,184 +402,212 @@
         echo '<div class="alert alert-danger">Campionato non trovato.</div>';
       }
     }
-elseif (isset($_POST['Classifica'])) {
-    $scelta = $conn->real_escape_string($_POST['scelta']);
-    
-    echo '<div class="event-card animate__animated animate__fadeIn">';
-    echo '<div class="card-header text-center" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
-    echo '<h4 class="mb-0">'.$scelta.' - Classifica</h4>';
-    echo '</div>';
-    echo '<div class="card-body px-1">'; // px-1 per un piccolo padding laterale
-    
-    echo '<form method="POST" class="d-flex justify-content-center gap-2 mb-3">'; // gap ridotto a 2
-    echo '<input type="hidden" name="scelta" value="'.$scelta.'">';
-    echo '<button type="submit" name="Marcatori" class="btn btn-success px-3 py-1">'; // padding ridotto
-    echo '<i class="bi bi-person-badge me-1"></i>Marcatori';
-    echo '</button>';
-    echo '<button type="submit" name="indietro" class="btn btn-secondary px-3 py-1">';
-    echo '<i class="bi bi-arrow-left-circle me-1"></i>Menu';
-    echo '</button>';
-    echo '</form>';
-
-    $query_campionato = "SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1";
-    $stmt = $conn->prepare($query_campionato);
-    $stmt->bind_param("s", $scelta);
-    $stmt->execute();
-    $result_campionato = $stmt->get_result();
-
-    if ($result_campionato->num_rows > 0) {
-        $id_campionato = $result_campionato->fetch_assoc()['ID_campionato'];
-
-        $query_gironi = "SELECT DISTINCT Girone FROM squadre WHERE Cod_campionato = ? ORDER BY Girone";
-        $stmt = $conn->prepare($query_gironi);
-        $stmt->bind_param("i", $id_campionato);
-        $stmt->execute();
-        $result_gironi = $stmt->get_result();
-
-        $gironi = [];
-        while ($row = $result_gironi->fetch_assoc()) {
-            $gironi[] = $row['Girone'];
+    elseif (isset($_POST['Classifica'])) {
+        $scelta = $conn->real_escape_string($_POST['scelta']);
+         // Aggiunta della legenda
+        echo '<div class="event-card animate__animated animate__fadeIn">';
+        echo '<div class="card-header text-center" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
+        echo '<h4 class="mb-0">'.$scelta.' - Classifica</h4>';
+        echo '</div>';
+        echo '<div class="card-body px-1">';
+        
+        // Aggiunta della legenda
+        echo '<style>
+        .legenda-classifica {
+            background-color: rgba(248, 249, 250, 0.9);
+            border: 1px solid #dee2e6;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
         }
+        .legenda-classifica h6 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .legenda-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+        .legenda-color.primo {
+            background-color: rgba(40, 167, 69, 0.3);
+            border-left: 4px solid #28a745;
+        }
+        .legenda-color.retrocessione {
+            background-color: rgba(220, 53, 69, 0.3);
+            border-left: 4px solid #dc3545;
+        }
+        </style>';
+        
+        echo '<div class="legenda-classifica">';
+        echo '<h6><i class="bi bi-info-circle me-2"></i>Legenda:</h6>';
+        echo '<div class="d-flex flex-wrap gap-3">';
+        echo '<div class="d-flex align-items-center"><span class="legenda-color primo"></span>Qualificate ai quarti</div>';
+        echo '<div class="d-flex align-items-center"><span class="legenda-color retrocessione"></span>Eliminata</div>';
+        echo '</div>';
+        echo '</div>';
 
-        if (!empty($gironi)) {
-            foreach ($gironi as $girone) {
-                echo '<div class="classifica-card mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
-                echo '  <div class="classifica-header py-2 px-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
-                echo '    <h5 class="mb-0 font-weight-bold"><i class="bi bi-trophy-fill text-warning me-2"></i>Girone '.$girone.'</h5>';
-                echo '  </div>';
-                echo '  <div class="table-container">';
-                echo '    <table class="table-classifica mb-0" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">';
-                echo '      <thead>';
-                echo '        <tr style="background-color: #f8f9fa; color: #495057;">';
-                echo '          <th style="padding: 8px 4px; text-align: left; border-bottom: 2px solid #dee2e6; width: 40%;">Squadra</th>';
-                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">PT</th>';
-                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">G</th>';
-                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">V</th>';
-                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">N</th>';
-                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">P</th>';
-                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">DR</th>';
-                echo '        </tr>';
-                echo '      </thead>';
-                echo '      <tbody>';
+        $query_campionato = "SELECT ID_campionato FROM campionati WHERE Nome = ? LIMIT 1";
+        $stmt = $conn->prepare($query_campionato);
+        $stmt->bind_param("s", $scelta);
+        $stmt->execute();
+        $result_campionato = $stmt->get_result();
 
-                $query_classifica = "SELECT Nome AS squadra, PT, G, V, N, P, DR
-                                   FROM squadre 
-                                   WHERE Cod_campionato = ? AND Girone = ?
-                                   ORDER BY PT DESC, DR DESC";
-                $stmt = $conn->prepare($query_classifica);
-                $stmt->bind_param("is", $id_campionato, $girone);
-                $stmt->execute();
-                $result_classifica = $stmt->get_result();
+        if ($result_campionato->num_rows > 0) {
+            $id_campionato = $result_campionato->fetch_assoc()['ID_campionato'];
 
-                $posizione = 0;
-                $num_squadre = $result_classifica->num_rows;
-                while ($row = $result_classifica->fetch_assoc()) {
-                    $posizione++;
-                    $rowClass = '';
-                    if ($posizione < 5) {
-                        $rowClass = 'primo';
-                    } elseif ($posizione >= $num_squadre - 1) {
-                        $rowClass = 'retrocessione';
+            $query_gironi = "SELECT DISTINCT Girone FROM squadre WHERE Cod_campionato = ? ORDER BY Girone";
+            $stmt = $conn->prepare($query_gironi);
+            $stmt->bind_param("i", $id_campionato);
+            $stmt->execute();
+            $result_gironi = $stmt->get_result();
+
+            $gironi = [];
+            while ($row = $result_gironi->fetch_assoc()) {
+                $gironi[] = $row['Girone'];
+            }
+
+            if (!empty($gironi)) {
+                foreach ($gironi as $girone) {
+                    echo '<div class="classifica-card mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
+                    echo '  <div class="classifica-header py-2 px-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
+                    echo '    <h5 class="mb-0 font-weight-bold"><i class="bi bi-trophy-fill text-warning me-2"></i>Girone '.$girone.'</h5>';
+                    echo '  </div>';
+                    echo '  <div class="table-container">';
+                    echo '    <table class="table-classifica mb-0" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">';
+                    echo '      <thead>';
+                    echo '        <tr style="background-color: #f8f9fa; color: #495057;">';
+                    echo '          <th style="padding: 8px 4px; text-align: left; border-bottom: 2px solid #dee2e6; width: 40%;">Squadra</th>';
+                    echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">PT</th>';
+                    echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">G</th>';
+                    echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">V</th>';
+                    echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">N</th>';
+                    echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">P</th>';
+                    echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">DR</th>';
+                    echo '        </tr>';
+                    echo '      </thead>';
+                    echo '      <tbody>';
+
+                    $query_classifica = "SELECT Nome AS squadra, PT, G, V, N, P, DR
+                                      FROM squadre 
+                                      WHERE Cod_campionato = ? AND Girone = ?
+                                      ORDER BY PT DESC, DR DESC";
+                    $stmt = $conn->prepare($query_classifica);
+                    $stmt->bind_param("is", $id_campionato, $girone);
+                    $stmt->execute();
+                    $result_classifica = $stmt->get_result();
+
+                    $posizione = 0;
+                    $num_squadre = $result_classifica->num_rows;
+                    while ($row = $result_classifica->fetch_assoc()) {
+                        $posizione++;
+                        $rowClass = '';
+                        if ($posizione < 5) {
+                            $rowClass = 'primo';
+                        } elseif ($posizione >= $num_squadre - 1) {
+                            $rowClass = 'retrocessione';
+                        }
+                        
+                        echo '<tr class="'.$rowClass.'" style="transition: all 0.2s;">';
+                        echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;">'.$row['squadra'].'</td>';
+                        echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">'.$row['PT'].'</td>';
+                        echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['G'].'</td>';
+                        echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['V'].'</td>';
+                        echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['N'].'</td>';
+                        echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['P'].'</td>';
+                        echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center;">'.$row['DR'].'</td>';
+                        echo '</tr>';
                     }
-                    
-                    echo '<tr class="'.$rowClass.'" style="transition: all 0.2s;">';
-                    echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;">'.$row['squadra'].'</td>';
-                    echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">'.$row['PT'].'</td>';
-                    echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['G'].'</td>';
-                    echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['V'].'</td>';
-                    echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['N'].'</td>';
-                    echo '  <td style="padding: 8px 4px; text-align: center;">'.$row['P'].'</td>';
-                    echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center;">'.$row['DR'].'</td>';
-                    echo '</tr>';
+                    echo '      </tbody>';
+                    echo '    </table>';
+                    echo '  </div>';
+                    echo '</div>';
                 }
-                echo '      </tbody>';
-                echo '    </table>';
-                echo '  </div>';
-                echo '</div>';
+            } else {
+                echo '<div class="alert alert-warning text-center">Nessun girone trovato per questo campionato.</div>';
             }
         } else {
-            echo '<div class="alert alert-warning text-center">Nessun girone trovato per questo campionato.</div>';
+            echo '<div class="alert alert-danger text-center">Campionato non trovato.</div>';
         }
-    } else {
-        echo '<div class="alert alert-danger text-center">Campionato non trovato.</div>';
-    }
-    
-    echo '</div></div>';
+        
+        echo '</div></div>';
 
-    
-    echo '<style>
-    .table-container {
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-    
-    .table-container::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .primo {
-        background-color: rgba(40, 167, 69, 0.08) !important;
-    }
-    
-    .primo td:first-child {
-        position: relative;
-    }
-    
-    .primo td:first-child::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background-color: #28a745;
-    }
-    
-    .retrocessione {
-        background-color: rgba(220, 53, 69, 0.08) !important;
-    }
-    
-    .retrocessione td:first-child {
-        position: relative;
-    }
-    
-    .retrocessione td:first-child::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background-color: #dc3545;
-    }
-    
-    @media (max-width: 576px) {
-        .event-card {
-            margin: 0 5px;
+        
+        echo '<style>
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         
-        .card-body {
-            padding: 10px 5px;
+        .table-container::-webkit-scrollbar {
+            display: none;
         }
         
-        .classifica-header h5 {
-            font-size: 1rem;
+        .primo {
+            background-color: rgba(40, 167, 69, 0.08) !important;
         }
         
-        .table-classifica {
-            font-size: 0.75rem;
+        .primo td:first-child {
+            position: relative;
         }
         
-        .table-classifica th, 
-        .table-classifica td {
-            padding: 6px 3px !important;
+        .primo td:first-child::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #28a745;
         }
+        
+        .retrocessione {
+            background-color: rgba(220, 53, 69, 0.08) !important;
+        }
+        
+        .retrocessione td:first-child {
+            position: relative;
+        }
+        
+        .retrocessione td:first-child::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #dc3545;
+        }
+        
+        @media (max-width: 576px) {
+            .event-card {
+                margin: 0 5px;
+            }
+            
+            .card-body {
+                padding: 10px 5px;
+            }
+            
+            .classifica-header h5 {
+                font-size: 1rem;
+            }
+            
+            .table-classifica {
+                font-size: 0.75rem;
+            }
+            
+            .table-classifica th, 
+            .table-classifica td {
+                padding: 6px 3px !important;
+            }
+        }
+        </style>';
     }
-    </style>';
-}
     elseif (isset($_POST['Marcatori'])) {
     $scelta = $conn->real_escape_string($_POST['scelta']);
     
