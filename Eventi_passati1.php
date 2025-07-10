@@ -923,23 +923,88 @@ elseif (isset($_POST['Partite'])) {
     echo '</div>';
     echo '<div class="card-body p-1">'; // Ridotto ulteriormente il padding per mobile
 
-    // Pulsanti di navigazione compatti per mobile
-    echo '
-    <form method="POST" class="d-flex justify-content-center gap-1 mb-2 flex-wrap">
-      <input type="hidden" name="scelta" value="' . $scelta . '">
+    // Pulsanti di navigazione
+     echo '
+<form method="POST" class="d-flex justify-content-center gap-1 gap-md-3 mb-2 mb-md-4 flex-wrap">
+  <input type="hidden" name="scelta" value="' . $scelta . '">
+  
+  <button type="submit" name="Classifica" class="btn btn-primary px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+    <i class="bi bi-table me-1 me-md-2"></i>Classifica
+  </button>
+  
+  <button type="submit" name="Marcatori" class="btn btn-success px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+    <i class="bi bi-person-badge me-1 me-md-2"></i>Marcatori
+  </button>
+  
+  <button type="submit" name="Partite" class="btn btn-info px-2 px-md-4 py-1 py-md-2 rounded-pill shadow-sm btn-hover-effect">
+    <i class="bi bi-calendar-event me-1 me-md-2"></i>Partite
+  </button>
+</form>
+
+<style>
+  .btn-hover-effect {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+    border: none;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  
+  @media (min-width: 768px) {
+    .btn-hover-effect {
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+  }
+  
+  .btn-hover-effect:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-hover-effect:active {
+    transform: translateY(0);
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+    color: white;
+  }
+  
+  .btn-success {
+    background: linear-gradient(135deg, #02aab0, #00cdac);
+    color: white;
+  }
+  
+  .btn-info {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+  }
+  
+  .btn i {
+    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+  }
+  
+  @media (min-width: 768px) {
+    .btn i {
+      font-size: 1rem;
+    }
+  }
+  
+  .btn:hover i {
+    transform: scale(1.05);
+  }
+  
+  .btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  }
+</style>
       
-      <button type="submit" name="Classifica" class="btn btn-primary px-2 py-1 rounded-pill btn-sm">
-        <i class="bi bi-table me-1"></i>Classifica
-      </button>
-      
-      <button type="submit" name="Marcatori" class="btn btn-success px-2 py-1 rounded-pill btn-sm">
-        <i class="bi bi-person-badge me-1"></i>Marcatori
-      </button>
-      
-      <button type="submit" name="Partite" class="btn btn-light px-2 py-1 rounded-pill btn-sm text-primary border-primary">
-        <i class="bi bi-calendar-event me-1"></i>Partite
-      </button>
-    </form>
 
     <style>
       /* Stili ottimizzati per mobile */
