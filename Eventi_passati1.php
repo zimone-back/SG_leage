@@ -648,7 +648,7 @@ require_once 'utility.php';
           foreach ($gironi as $girone) {
             echo '<div class="classifica-card mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
             echo '  <div class="classifica-header py-2 px-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
-            echo '    <h5 class="mb-0 font-weight-bold"><i class="bi bi-trophy-fill text-warning me-2"></i>Girone ' . $girone . '</h5>';
+           echo '<h5 class="mb-0 font-weight-bold"><img src="./immagini/logoprimario.jpg" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;"> Girone ' . $girone . '</h5>';
             echo '  </div>';
             echo '  <div class="table-container">';
             echo '    <table class="table-classifica mb-0" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">';
@@ -1245,7 +1245,7 @@ require_once 'utility.php';
 
       echo '<div class="event-card animate__animated animate__fadeIn">';
       echo '  <div class="card-header text-center py-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
-      echo '    <h4 class="mb-0 fw-bold"><i class="bi bi-trophy-fill me-2" style="color: gold;"></i>' . $scelta . ' - CLASSIFICA MARCATORI</h4>';
+      echo '    <h4 class="mb-0 fw-bold"><img src="./immagini/logoprimario.jpg" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $scelta . ' - CLASSIFICA MARCATORI</h4>';
       echo '  </div>';
       echo '  <div class="card-body">';
 
@@ -1546,8 +1546,16 @@ require_once 'utility.php';
             echo '  <div class="d-flex align-items-center" style="width: 70%;">';
             echo '    <span class="position-badge d-flex align-items-center justify-content-center me-3" style="width: 30px; height: 30px; background-color: ' . ($posizione <= 3 ? '#1e3a8a' : '#6c757d') . '; color: white; border-radius: 50%; font-weight: bold;">' . $posizione . '</span>';
             echo '    <div>';
-            echo '      <div class="player-name fw-bold" style="color: #343a40;">' . $nome_completo . '</div>';
-            echo '      <div class="team-name small" style="color: #6c757d;">' . $squadra . '</div>';
+            echo '<div class="player-name" style="
+       font-weight: 700 !important;
+       font-size: 1.2rem;
+       color: #212529 !important;
+       text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+       letter-spacing: 0.5px;
+       margin: 8px 0;
+       line-height: 1.3;
+     ">' . $nome_completo . '</div>';
+            echo '      <div class="team-name small" style="color: #6c757d;"> <img src="'.getLogoPath($row['squadra'], $conn).'" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $squadra . '</div>';
             echo '    </div>';
             echo '  </div>';
             echo '  <span class="goals-count fw-bold" style="width: 30%; text-align: right; color: #1e3a8a; font-size: 1.1rem;">' . $row['totale_goal'] . '</span>';
