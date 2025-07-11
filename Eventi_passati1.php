@@ -1,3 +1,7 @@
+<?php
+include 'connessione.php';
+require_once 'utility.php';
+?>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -12,6 +16,17 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="./style.css">
   <style>
+    .squadra-logo {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        vertical-align: middle;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .squadra-nome {
+        vertical-align: middle;
+    }
     body {
       padding-top: 70px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -253,6 +268,7 @@
     </div>
 
     <?php
+    include 'utility.php';
     include 'connessione.php';
     if (!isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori']) && !isset($_POST['Partite'])) {
       echo '<div class="card shadow-lg border-0 animate__animated animate__fadeIn animate__delay-1s" style="border-radius: 16px; overflow: hidden;">';
@@ -670,7 +686,7 @@
               }
 
               echo '<tr class="' . $rowClass . '" style="transition: all 0.2s;">';
-              echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;">' . $row['squadra'] . '</td>';
+              echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;"><div style="display: flex; align-items: center;"><img src="'.getLogoPath($row['squadra'], $conn).'" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">'.$row['squadra'].'</div></td>';
               echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">' . $row['PT'] . '</td>';
               echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['G'] . '</td>';
               echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['V'] . '</td>';
@@ -766,8 +782,6 @@
             }
         }
         </style>';
-
-        
 
     } elseif (isset($_POST['Classifica'])) {
       $scelta = $conn->real_escape_string($_POST['scelta']);
@@ -1130,7 +1144,7 @@
               }
 
               echo '<tr class="' . $rowClass . '" style="transition: all 0.2s;">';
-              echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;">' . $row['squadra'] . '</td>';
+              echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;"><div style="display: flex; align-items: center;"><img src="'.getLogoPath($row['squadra'], $conn).'" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">'.$row['squadra'].'</div></td>';
               echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">' . $row['PT'] . '</td>';
               echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['G'] . '</td>';
               echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['V'] . '</td>';
@@ -1922,7 +1936,7 @@
                 echo '<tr>';
 
                 // Squadra casa
-                echo '<td>' . $partita['squadra_casa'] . '</td>';
+                echo '<td style="padding: 8px 4px; font-weight: bold; text-align: left;">' . displaySquadraWithLogo($partita['squadra_casa'], $conn) . '</td>';
 
                 // Risultato/Stato
                 echo '<td>';
@@ -1936,7 +1950,7 @@
                 echo '</td>';
 
                 // Squadra ospite
-                echo '<td>' . $partita['squadra_ospite'] . '</td>';
+                echo '<td style="padding: 8px 4px; font-weight: bold; text-align: left;">' . displaySquadraWithLogo($partita['squadra_ospite'], $conn) . '</td>';
 
                 echo '</tr>';
               }

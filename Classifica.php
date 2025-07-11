@@ -2,6 +2,17 @@
 <html>
 <head>
     <title>Classifica - San Giorgio League</title>
+    <style>
+        .squadra-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .squadra-nome {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
     <h1>Classifica Squadre</h1>
@@ -15,6 +26,21 @@
     
     <?php
     include 'connessione.php';
+    
+    // Funzione per ottenere il percorso del logo in base al nome della squadra
+    function getLogoPath($nomeSquadra, $conn) {
+        $query = "SELECT immagini_loghi FROM squadre WHERE Nome = ? LIMIT 1";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $nomeSquadra);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return './immagini/' . $row['immagini_loghi'];
+        }
+        return ''; // Ritorna stringa vuota se non trova il logo
+    }
     
     $query_squadre = "SELECT squadre.Nome, squadre.PT, squadre.G, squadre.V, squadre.N, squadre.P, squadre.DR, squadre.Girone 
                      FROM squadre 
@@ -34,9 +60,19 @@
                 $posizione = 1;
             }
             
+            // Ottieni il percorso del logo
+            $logoPath = getLogoPath($row['Nome'], $conn);
+            
             echo "<tr>
                     <td>".$posizione."</td>
-                    <td>".$row['Nome']."</td>
+                    <td>";
+            
+            // Mostra il logo solo se esiste
+            if (!empty($logoPath)) {
+                echo "<img src='".$logoPath."' class='squadra-logo' alt='".$row['Nome']."'>";
+            }
+            
+            echo "<span class='squadra-nome'>".$row['Nome']."</span></td>
                     <td>".$row['PT']."</td>
                     <td>".$row['G']."</td>
                     <td>".$row['V']."</td>
@@ -69,10 +105,21 @@
         $posizione = 1;
         while($row = $result_marcatori->fetch_assoc()) {
             $nome_completo = trim($row['Nome'] . ' ' . $row['Cognome']);
+            
+            // Ottieni il percorso del logo per la squadra del marcatore
+            $logoPath = getLogoPath($row['squadra'], $conn);
+            
             echo "<tr>
                     <td>".$posizione."</td>
                     <td>".$nome_completo."</td>
-                    <td>".$row['squadra']."</td>
+                    <td>";
+            
+            // Mostra il logo solo se esiste
+            if (!empty($logoPath)) {
+                echo "<img src='".$logoPath."' class='squadra-logo' alt='".$row['squadra']."'>";
+            }
+            
+            echo "<span class='squadra-nome'>".$row['squadra']."</span></td>
                     <td>".$row['gol_totali']."</td>
                   </tr>";
             $posizione++;
