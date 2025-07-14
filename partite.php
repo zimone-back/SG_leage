@@ -1,103 +1,315 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <title>Partite - San Giorgio League</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="./immagini/logosgl.jpg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        body {
+            padding-top: 70px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("./immagini/logosgl.jpg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            z-index: -2;
+            background-size: cover;
+            opacity: 0.3;
+        }
+        
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .squadra-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .squadra-nome {
+            vertical-align: middle;
+        }
+        
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .home-btn {
+            background-color: #1e3a8a;
+            color: white;
+        }
+        
+        .giornata-card {
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .giornata-header {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 12px 16px;
+            font-weight: 600;
+        }
+        
+        .partita-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s;
+        }
+        
+        .partita-row:last-child {
+            border-bottom: none;
+        }
+        
+        .partita-row:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .squadra {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .squadra-casa {
+            justify-content: flex-end;
+            text-align: right;
+        }
+        
+        .squadra-ospite {
+            justify-content: flex-start;
+            text-align: left;
+        }
+        
+        .risultato {
+            flex: 0 0 80px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .stato-partita {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .stato-terminata {
+            background-color: #e9ecef;
+            color: #6c757d;
+        }
+        
+        .stato-in-corso {
+            background-color: #dc3545;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .stato-programmata {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .partita-row {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .risultato {
+                flex: 0 0 60px;
+                font-size: 1rem;
+            }
+            
+            .squadra-logo {
+                width: 25px;
+                height: 25px;
+                margin-right: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Calendario Partite</h1>
-    
-    <a href="index.php">Torna alla Home</a>
-    
-    <?php
-    include 'connessione.php';
-    
-    $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
-                         FROM campionati 
-                         WHERE campionati.ID_campionato = 1 
-                         LIMIT 1";
-    $result_campionato = $conn->query($query_campionato);
-    
-    if ($result_campionato->num_rows > 0) {
-        $campionato = $result_campionato->fetch_assoc();
-        echo "<h2>".$campionato['Nome']."</h2>";
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="
+        background: rgba(30, 58, 138, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    ">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
+                San Giorgio League
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="text-center mb-4 animate__animated animate__fadeInDown">Calendario Partite</h1>
         
-        $query_giornate = "SELECT giornate.ID_giornata, giornate.Numero, giornate.Data_inizio, giornate.Data_fine 
-                           FROM giornate 
-                           WHERE giornate.Cod_campionato = ".$campionato['ID_campionato']." 
-                           ORDER BY giornate.Numero";
-        $result_giornate = $conn->query($query_giornate);
+        <!-- Pulsanti navigazione -->
+        <div class="d-flex justify-content-center gap-3 mb-4">
+            <a href="index.php" class="nav-btn home-btn">
+                <i class="bi bi-house-door me-2"></i>Home
+            </a>
+        </div>
         
-        if ($result_giornate->num_rows > 0) {
-            while($giornata = $result_giornate->fetch_assoc()) {
-                echo "<h3>Giornata ".$giornata['Numero']."</h3>";
-                
-                $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,squadre_casa.Nome AS squadra_casa, squadre_ospite.Nome AS squadra_ospite
-                                  FROM partite
-                                  JOIN squadre AS squadre_casa ON partite.Squadra_casa = squadre_casa.ID_squadre
-                                  JOIN squadre AS squadre_ospite ON partite.Squadra_ospite = squadre_ospite.ID_squadre
-                                  WHERE partite.Cod_giornata = ".$giornata['ID_giornata']."
-                                  ORDER BY partite.Data";
-                $result_partite = $conn->query($query_partite);
-                
-                if ($result_partite->num_rows > 0) {
-                    echo "<table border='1'>";
-                    while($partita = $result_partite->fetch_assoc()) {
-                        echo "<tr>";
-                        
-                        switch($partita['Stato']) {
-                            case 'terminata':
-                                echo "<td>Finale</td>";
-                                echo "<td>".$partita['squadra_casa']."</td>";
-                                echo "<td>".$partita['Gol_casa']."</td>";
-                                echo "</tr><tr>";
-                                echo "<td></td>";
-                                echo "<td>".$partita['squadra_ospite']."</td>";
-                                echo "<td>".$partita['Gol_ospite']."</td>";
-                                break;
-                            case 'rinviata':
-                                echo "<td>Rinviata</td>";
-                                echo "<td>".$partita['squadra_casa']."</td>";
-                                echo "<td>-</td>";
-                                echo "</tr><tr>";
-                                echo "<td></td>";
-                                echo "<td>".$partita['squadra_ospite']."</td>";
-                                echo "<td>-</td>";
-                                break;
-                            case 'in corso':
-                                echo "<td>In corso</td>";
-                                echo "<td>".$partita['squadra_casa']."</td>";
-                                echo "<td>-</td>";
-                                echo "</tr><tr>";
-                                echo "<td></td>";
-                                echo "<td>".$partita['squadra_ospite']."</td>";
-                                echo "<td>-</td>";
-                                break;
-                            default: 
-                                echo "<td>".date('H:i', strtotime($partita['Data']))."</td>";
-                                echo "<td>".$partita['squadra_casa']."</td>";
-                                echo "<td>-</td>";
-                                echo "</tr><tr>";
-                                echo "<td></td>";
-                                echo "<td>".$partita['squadra_ospite']."</td>";
-                                echo "<td>-</td>";
-                        }
-                        
-                        echo "</tr>";
+        <?php
+        include 'connessione.php';
+        include 'utility.php'; // Inclusione del file con le funzioni di utility
+        
+        $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
+                             FROM campionati 
+                             WHERE campionati.ID_campionato = 1 
+                             LIMIT 1";
+        $result_campionato = $conn->query($query_campionato);
+        
+        if ($result_campionato->num_rows > 0) {
+            $campionato = $result_campionato->fetch_assoc();
+            echo '<div class="card shadow-sm mb-4 animate__animated animate__fadeIn">';
+            echo '<div class="card-header bg-primary text-white">';
+            echo '<h4 class="mb-0"><i class="bi bi-trophy me-2"></i>'.$campionato['Nome'].'</h4>';
+            echo '</div>';
+            echo '<div class="card-body p-0">';
+            
+            $query_giornate = "SELECT giornate.ID_giornata, giornate.Numero, giornate.Data_inizio, giornate.Data_fine 
+                               FROM giornate 
+                               WHERE giornate.Cod_campionato = ".$campionato['ID_campionato']." 
+                               ORDER BY giornate.Numero";
+            $result_giornate = $conn->query($query_giornate);
+            
+            if ($result_giornate->num_rows > 0) {
+                while($giornata = $result_giornate->fetch_assoc()) {
+                    echo '<div class="giornata-card animate__animated animate__fadeIn">';
+                    echo '<div class="giornata-header">';
+                    
+                    // Mostra un titolo diverso per le fasi finali
+                    if ($giornata['Numero'] == 8) {
+                        echo '<i class="bi bi-trophy me-2"></i>Quarti di finale • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
+                    } elseif ($giornata['Numero'] == 9) {
+                        echo '<i class="bi bi-trophy me-2"></i>Semifinali andata • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
+                    } elseif ($giornata['Numero'] == 10) {
+                        echo '<i class="bi bi-trophy me-2"></i>Semifinali ritorno • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
+                    } elseif ($giornata['Numero'] == 11) {
+                        echo '<i class="bi bi-trophy-fill me-2"></i>Finale • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
+                    } else {
+                        echo '<i class="bi bi-calendar3 me-2"></i>Giornata ' . $giornata['Numero'] . ' • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
                     }
-                    echo "</table>";
-                } else {
-                    echo "<p>Nessuna partita programmata per questa giornata.</p>";
+                    
+                    echo '</div>';
+                    
+                    $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,
+                                      squadre_casa.Nome AS squadra_casa, squadre_ospite.Nome AS squadra_ospite
+                                      FROM partite
+                                      JOIN squadre AS squadre_casa ON partite.Squadra_casa = squadre_casa.ID_squadre
+                                      JOIN squadre AS squadre_ospite ON partite.Squadra_ospite = squadre_ospite.ID_squadre
+                                      WHERE partite.Cod_giornata = ".$giornata['ID_giornata']."
+                                      ORDER BY partite.Data";
+                    $result_partite = $conn->query($query_partite);
+                    
+                    if ($result_partite->num_rows > 0) {
+                        while($partita = $result_partite->fetch_assoc()) {
+                            echo '<div class="partita-row">';
+                            
+                            // Squadra casa
+                            echo '<div class="squadra squadra-casa">';
+                            echo displaySquadraWithLogo($partita['squadra_casa'], $conn);
+                            echo '</div>';
+                            
+                            // Risultato/Stato
+                            echo '<div class="risultato">';
+                            switch($partita['Stato']) {
+                                case 'terminata':
+                                    echo $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite'];
+                                    break;
+                                case 'in corso':
+                                    echo '<span class="stato-partita stato-in-corso">LIVE</span>';
+                                    break;
+                                case 'rinviata':
+                                    echo '<span class="stato-partita stato-programmata">RINV.</span>';
+                                    break;
+                                default:
+                                    echo '<span class="stato-partita stato-programmata">' . date('H:i', strtotime($partita['Data'])) . '</span>';
+                            }
+                            echo '</div>';
+                            
+                            // Squadra ospite
+                            echo '<div class="squadra squadra-ospite">';
+                            echo displaySquadraWithLogo($partita['squadra_ospite'], $conn);
+                            echo '</div>';
+                            
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<div class="partita-row">';
+                        echo '<div class="text-center py-3 w-100">Nessuna partita programmata</div>';
+                        echo '</div>';
+                    }
+                    
+                    echo '</div>'; // chiusura giornata-card
                 }
+            } else {
+                echo '<div class="partita-row">';
+                echo '<div class="text-center py-3 w-100">Nessuna giornata trovata</div>';
+                echo '</div>';
             }
+            
+            echo '</div>'; // chiusura card-body
+            echo '</div>'; // chiusura card
         } else {
-            echo "<p>Nessuna giornata trovata per questo campionato.</p>";
+            echo '<div class="alert alert-danger text-center">Nessun campionato attivo trovato</div>';
         }
-    } else {
-        echo "<p>Nessun campionato attivo trovato.</p>";
-    }
-    
-    $conn->close();
-    ?>
+        
+        $conn->close();
+        ?>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

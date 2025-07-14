@@ -1,135 +1,366 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <title>Classifica - San Giorgio League</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="./immagini/logosgl.jpg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="./style.css">
     <style>
+        body {
+            padding-top: 70px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("./immagini/logosgl.jpg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            z-index: -2;
+            background-size: cover;
+            opacity: 0.3;
+        }
+        
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
         .squadra-logo {
             width: 30px;
             height: 30px;
             margin-right: 10px;
             vertical-align: middle;
+            border-radius: 50%;
+            object-fit: cover;
         }
+        
         .squadra-nome {
             vertical-align: middle;
+        }
+        
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .home-btn {
+            background-color: #1e3a8a;
+            color: white;
+        }
+        
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .table-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .table-classifica {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .table-classifica th {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .table-classifica td {
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .table-classifica tr:hover {
+            background-color: #f1f5ff;
+        }
+        
+        .primo {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+        }
+        
+        .primo td:first-child {
+            position: relative;
+        }
+        
+        .primo td:first-child::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #28a745;
+        }
+        
+        .retrocessione {
+            background-color: rgba(220, 53, 69, 0.15) !important;
+        }
+        
+        .retrocessione td:first-child {
+            position: relative;
+        }
+        
+        .retrocessione td:first-child::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #dc3545;
+        }
+        
+        .legenda-classifica {
+            background-color: rgba(248, 249, 250, 0.9);
+            border: 1px solid #dee2e6;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+        }
+        
+        .legenda-classifica h6 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .legenda-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+        
+        .legenda-color.primo {
+            background-color: rgba(40, 167, 69, 0.3);
+            border-left: 4px solid #28a745;
+        }
+        
+        .legenda-color.retrocessione {
+            background-color: rgba(220, 53, 69, 0.3);
+            border-left: 4px solid #dc3545;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .table-classifica {
+                font-size: 0.8rem;
+            }
+            
+            .table-classifica th, 
+            .table-classifica td {
+                padding: 8px 4px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Classifica Squadre</h1>
-    
-    <!-- Pulsanti navigazione -->
-    <div class="d-flex justify-content-center gap-3 mb-4">
-      <a href="index.php" class="nav-btn home-btn">
-        <i class="bi bi-house-door me-2"></i>Home
-      </a>
-    </div>
-    
-    <?php
-    include 'connessione.php';
-    
-    // Funzione per ottenere il percorso del logo in base al nome della squadra
-    function getLogoPath($nomeSquadra, $conn) {
-        $query = "SELECT immagini_loghi FROM squadre WHERE Nome = ? LIMIT 1";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("s", $nomeSquadra);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            return './immagini/' . $row['immagini_loghi'];
-        }
-        return ''; // Ritorna stringa vuota se non trova il logo
-    }
-    
-    $query_squadre = "SELECT squadre.Nome, squadre.PT, squadre.G, squadre.V, squadre.N, squadre.P, squadre.DR, squadre.Girone 
-                     FROM squadre 
-                     WHERE squadre.Cod_campionato = 1 
-                     ORDER BY squadre.Girone, squadre.PT DESC, squadre.DR DESC";
-    $result_squadre = $conn->query($query_squadre);
-    
-    if ($result_squadre->num_rows > 0) {
-        $current_girone = '';
-        while($row = $result_squadre->fetch_assoc()) {
-            if ($row['Girone'] != $current_girone) {
-                if ($current_girone != '') echo "</table>";
-                echo "<h2>Girone ".$row['Girone']."</h2>";
-                echo "<table border='1'>";
-                echo "<tr><th>Posizione</th><th>Squadra</th><th>Punti</th><th>Partite</th><th>Vittorie</th><th>Pareggi</th><th>Sconfitte</th><th>Differenza Reti</th></tr>";
-                $current_girone = $row['Girone'];
-                $posizione = 1;
-            }
-            
-            // Ottieni il percorso del logo
-            $logoPath = getLogoPath($row['Nome'], $conn);
-            
-            echo "<tr>
-                    <td>".$posizione."</td>
-                    <td>";
-            
-            // Mostra il logo solo se esiste
-            if (!empty($logoPath)) {
-                echo "<img src='".$logoPath."' class='squadra-logo' alt='".$row['Nome']."'>";
-            }
-            
-            echo "<span class='squadra-nome'>".$row['Nome']."</span></td>
-                    <td>".$row['PT']."</td>
-                    <td>".$row['G']."</td>
-                    <td>".$row['V']."</td>
-                    <td>".$row['N']."</td>
-                    <td>".$row['P']."</td>
-                    <td>".$row['DR']."</td>
-                  </tr>";
-            $posizione++;
-        }
-        echo "</table>";
-    } else {
-        echo "<p>Nessuna squadra trovata</p>";
-    }
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="
+        background: rgba(30, 58, 138, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    ">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
+                San Giorgio League
+            </a>
+        </div>
+    </nav>
 
-    echo "<h1>Classifica Marcatori</h1>";
-    
-    $query_marcatori = "SELECT giocatori.Nome, giocatori.Cognome, squadre.Nome AS squadra, SUM(cont_goal.Goal) AS gol_totali
-                       FROM giocatori
-                       JOIN cont_goal ON giocatori.ID_giocatori = cont_goal.Cod_giocatori
-                       JOIN squadre ON giocatori.Cod_squadre = squadre.ID_squadre
-                       WHERE squadre.Cod_campionato = 1
-                       GROUP BY giocatori.ID_giocatori
-                       ORDER BY gol_totali DESC";
-    
-    $result_marcatori = $conn->query($query_marcatori);
-    
-    if ($result_marcatori->num_rows > 0) {
-        echo "<table border='1'>";
-        echo "<tr><th>Posizione</th><th>Giocatore</th><th>Squadra</th><th>Gol</th></tr>";
-        $posizione = 1;
-        while($row = $result_marcatori->fetch_assoc()) {
-            $nome_completo = trim($row['Nome'] . ' ' . $row['Cognome']);
-            
-            // Ottieni il percorso del logo per la squadra del marcatore
-            $logoPath = getLogoPath($row['squadra'], $conn);
-            
-            echo "<tr>
-                    <td>".$posizione."</td>
-                    <td>".$nome_completo."</td>
-                    <td>";
-            
-            // Mostra il logo solo se esiste
-            if (!empty($logoPath)) {
-                echo "<img src='".$logoPath."' class='squadra-logo' alt='".$row['squadra']."'>";
+    <div class="container mt-4">
+        <h1 class="text-center mb-4 animate__animated animate__fadeInDown">Classifica Squadre</h1>
+        
+        <!-- Pulsanti navigazione -->
+        <div class="d-flex justify-content-center gap-3 mb-4">
+            <a href="index.php" class="nav-btn home-btn">
+                <i class="bi bi-house-door me-2"></i>Home
+            </a>
+        </div>
+        
+        <?php
+        include 'connessione.php';
+        include 'utility.php'; // Inclusione del file con la funzione getLogoPath()
+        
+        // Aggiunta della legenda
+        echo '<div class="legenda-classifica animate__animated animate__fadeIn">';
+        echo '<h6><i class="bi bi-info-circle me-2"></i>Legenda:</h6>';
+        echo '<div class="d-flex flex-wrap gap-3">';
+        echo '<div class="d-flex align-items-center"><span class="legenda-color primo"></span>Qualificate ai quarti</div>';
+        echo '<div class="d-flex align-items-center"><span class="legenda-color retrocessione"></span>Eliminata</div>';
+        echo '</div>';
+        echo '</div>';
+        
+        $query_squadre = "SELECT squadre.Nome, squadre.PT, squadre.G, squadre.V, squadre.N, squadre.P, squadre.DR, squadre.Girone 
+                         FROM squadre 
+                         WHERE squadre.Cod_campionato = 1 
+                         ORDER BY squadre.Girone, squadre.PT DESC, squadre.DR DESC";
+        $result_squadre = $conn->query($query_squadre);
+        
+        if ($result_squadre->num_rows > 0) {
+            $current_girone = '';
+            while($row = $result_squadre->fetch_assoc()) {
+                if ($row['Girone'] != $current_girone) {
+                    if ($current_girone != '') echo "</div></div>";
+                    echo '<div class="card animate__animated animate__fadeIn">';
+                    echo '<div class="card-header bg-primary text-white">';
+                    echo '<h4 class="mb-0"><i class="bi bi-trophy me-2"></i>Girone '.$row['Girone'].'</h4>';
+                    echo '</div>';
+                    echo '<div class="card-body p-0">';
+                    echo '<div class="table-container">';
+                    echo '<table class="table-classifica mb-0">';
+                    echo '<thead>';
+                    echo '<tr>';
+                    echo '<th style="width: 5%;">Pos</th>';
+                    echo '<th style="width: 35%; text-align: left;">Squadra</th>';
+                    echo '<th style="width: 10%;">PT</th>';
+                    echo '<th style="width: 10%;">G</th>';
+                    echo '<th style="width: 10%;">V</th>';
+                    echo '<th style="width: 10%;">N</th>';
+                    echo '<th style="width: 10%;">P</th>';
+                    echo '<th style="width: 10%;">DR</th>';
+                    echo '</tr>';
+                    echo '</thead>';
+                    echo '<tbody>';
+                    $current_girone = $row['Girone'];
+                    $posizione = 1;
+                }
+                
+                // Determina la classe in base alla posizione
+                $rowClass = '';
+                if ($posizione < 5) {
+                    $rowClass = 'primo';
+                } elseif ($posizione >= 8) {
+                    $rowClass = 'retrocessione';
+                }
+                
+                echo '<tr class="'.$rowClass.'">';
+                echo '<td>'.$posizione.'</td>';
+                echo '<td style="text-align: left;">';
+                echo displaySquadraWithLogo($row['Nome'], $conn); // Usa la funzione da utility.php
+                echo '</td>';
+                echo '<td><strong>'.$row['PT'].'</strong></td>';
+                echo '<td>'.$row['G'].'</td>';
+                echo '<td>'.$row['V'].'</td>';
+                echo '<td>'.$row['N'].'</td>';
+                echo '<td>'.$row['P'].'</td>';
+                echo '<td>'.$row['DR'].'</td>';
+                echo '</tr>';
+                $posizione++;
             }
-            
-            echo "<span class='squadra-nome'>".$row['squadra']."</span></td>
-                    <td>".$row['gol_totali']."</td>
-                  </tr>";
-            $posizione++;
+            echo '</tbody>';
+            echo '</table>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo '<div class="alert alert-warning text-center">Nessuna squadra trovata</div>';
         }
-        echo "</table>";
-    } else {
-        echo "<p>Nessun marcatore trovato</p>";
-    }
-    
-    $conn->close();
-    ?>
+
+        echo '<h1 class="text-center mb-4 animate__animated animate__fadeIn">Classifica Marcatori</h1>';
+        
+        $query_marcatori = "SELECT giocatori.Nome, giocatori.Cognome, squadre.Nome AS squadra, SUM(cont_goal.Goal) AS gol_totali
+                           FROM giocatori
+                           JOIN cont_goal ON giocatori.ID_giocatori = cont_goal.Cod_giocatori
+                           JOIN squadre ON giocatori.Cod_squadre = squadre.ID_squadre
+                           WHERE squadre.Cod_campionato = 1
+                           GROUP BY giocatori.ID_giocatori
+                           ORDER BY gol_totali DESC";
+        
+        $result_marcatori = $conn->query($query_marcatori);
+        
+        if ($result_marcatori->num_rows > 0) {
+            echo '<div class="card shadow-sm mb-4 animate__animated animate__fadeIn">';
+            echo '<div class="card-header bg-primary text-white">';
+            echo '<h4 class="mb-0"><i class="bi bi-person-badge me-2"></i>Marcatori</h4>';
+            echo '</div>';
+            echo '<div class="card-body p-0">';
+            echo '<div class="table-container">';
+            echo '<table class="table-classifica mb-0">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th style="width: 10%;">Pos</th>';
+            echo '<th style="width: 40%; text-align: left;">Giocatore</th>';
+            echo '<th style="width: 30%; text-align: left;">Squadra</th>';
+            echo '<th style="width: 20%;">Gol</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            
+            $posizione = 1;
+            while($row = $result_marcatori->fetch_assoc()) {
+                $nome_completo = trim($row['Nome'] . ' ' . $row['Cognome']);
+                
+                $rowClass = $posizione <= 3 ? 'top-player' : '';
+                
+                echo '<tr class="'.$rowClass.'">';
+                echo '<td>'.$posizione.'</td>';
+                echo '<td style="text-align: left;">'.$nome_completo.'</td>';
+                echo '<td style="text-align: left;">';
+                echo displaySquadraWithLogo($row['squadra'], $conn); // Usa la funzione da utility.php
+                echo '</td>';
+                echo '<td><strong>'.$row['gol_totali'].'</strong></td>';
+                echo '</tr>';
+                $posizione++;
+            }
+            echo '</tbody>';
+            echo '</table>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo '<div class="alert alert-warning text-center">Nessun marcatore trovato</div>';
+        }
+        
+        $conn->close();
+        ?>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
