@@ -206,7 +206,7 @@
         
         $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
                              FROM campionati 
-                             WHERE campionati.ID_campionato = 1 
+                             WHERE campionati.ID_campionato = 2 
                              LIMIT 1";
         $result_campionato = $conn->query($query_campionato);
         

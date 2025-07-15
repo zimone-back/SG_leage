@@ -186,6 +186,13 @@
             margin-bottom: 2rem;
         }
         
+        .presidente-info {
+            background-color: rgba(30, 58, 138, 0.1);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
         @media (max-width: 768px) {
             .table-classifica {
                 font-size: 0.8rem;
@@ -236,81 +243,119 @@
         echo '</div>';
         echo '</div>';
         
-        $query_squadre = "SELECT squadre.Nome, squadre.PT, squadre.G, squadre.V, squadre.N, squadre.P, squadre.DR, squadre.Girone 
-                         FROM squadre 
-                         WHERE squadre.Cod_campionato = 1 
-                         ORDER BY squadre.Girone, squadre.PT DESC, squadre.DR DESC";
-        $result_squadre = $conn->query($query_squadre);
+        // Query per ottenere i gironi distinti
+        $query_gironi = "SELECT DISTINCT Girone FROM squadre WHERE Cod_campionato = 2 ORDER BY Girone";
+        $result_gironi = $conn->query($query_gironi);
         
-        if ($result_squadre->num_rows > 0) {
-            $current_girone = '';
-            while($row = $result_squadre->fetch_assoc()) {
-                if ($row['Girone'] != $current_girone) {
-                    if ($current_girone != '') echo "</div></div>";
-                    echo '<div class="card animate__animated animate__fadeIn">';
-                    echo '<div class="card-header bg-primary text-white">';
-                    echo '<h4 class="mb-0"><i class="bi bi-trophy me-2"></i>Girone '.$row['Girone'].'</h4>';
-                    echo '</div>';
-                    echo '<div class="card-body p-0">';
-                    echo '<div class="table-container">';
-                    echo '<table class="table-classifica mb-0">';
-                    echo '<thead>';
-                    echo '<tr>';
-                    echo '<th style="width: 5%;">Pos</th>';
-                    echo '<th style="width: 35%; text-align: left;">Squadra</th>';
-                    echo '<th style="width: 10%;">PT</th>';
-                    echo '<th style="width: 10%;">G</th>';
-                    echo '<th style="width: 10%;">V</th>';
-                    echo '<th style="width: 10%;">N</th>';
-                    echo '<th style="width: 10%;">P</th>';
-                    echo '<th style="width: 10%;">DR</th>';
-                    echo '</tr>';
-                    echo '</thead>';
-                    echo '<tbody>';
-                    $current_girone = $row['Girone'];
-                    $posizione = 1;
-                }
+        if ($result_gironi->num_rows > 0) {
+            while($girone_row = $result_gironi->fetch_assoc()) {
+                $girone = $girone_row['Girone'];
                 
-                // Determina la classe in base alla posizione
-                $rowClass = '';
-                if ($posizione < 5) {
-                    $rowClass = 'primo';
-                } elseif ($posizione >= 8) {
-                    $rowClass = 'retrocessione';
-                }
-                
-                echo '<tr class="'.$rowClass.'">';
-                echo '<td>'.$posizione.'</td>';
-                echo '<td style="text-align: left;">';
-                echo displaySquadraWithLogo($row['Nome'], $conn); // Usa la funzione da utility.php
-                echo '</td>';
-                echo '<td><strong>'.$row['PT'].'</strong></td>';
-                echo '<td>'.$row['G'].'</td>';
-                echo '<td>'.$row['V'].'</td>';
-                echo '<td>'.$row['N'].'</td>';
-                echo '<td>'.$row['P'].'</td>';
-                echo '<td>'.$row['DR'].'</td>';
+                echo '<div class="card animate__animated animate__fadeIn">';
+                echo '<div class="card-header bg-primary text-white">';
+                echo '<h4 class="mb-0"><i class="bi bi-trophy me-2"></i>Girone '.$girone.'</h4>';
+                echo '</div>';
+                echo '<div class="card-body p-0">';
+                echo '<div class="table-container">';
+                echo '<table class="table-classifica mb-0">';
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th style="width: 5%;">Pos</th>';
+                echo '<th style="width: 35%; text-align: left;">Squadra</th>';
+                echo '<th style="width: 10%;">PT</th>';
+                echo '<th style="width: 10%;">G</th>';
+                echo '<th style="width: 10%;">V</th>';
+                echo '<th style="width: 10%;">N</th>';
+                echo '<th style="width: 10%;">P</th>';
+                echo '<th style="width: 10%;">DR</th>';
                 echo '</tr>';
-                $posizione++;
+                echo '</thead>';
+                echo '<tbody>';
+                
+                // Query per ottenere le squadre del girone corrente
+                $query_squadre = "SELECT 
+                                    squadre.ID_squadre, 
+                                    squadre.Nome, 
+                                    squadre.PT, 
+                                    squadre.G, 
+                                    squadre.V, 
+                                    squadre.N, 
+                                    squadre.P, 
+                                    squadre.DR,
+                                    presidenti.Nome AS presidente_nome,
+                                    presidenti.Cognome AS presidente_cognome
+                                FROM squadre
+                                LEFT JOIN presidenti ON squadre.Cod_presidenti = presidenti.ID_presidenti
+                                WHERE squadre.Cod_campionato = 2 
+                                AND squadre.Girone = '".$girone."'
+                                ORDER BY squadre.PT DESC, squadre.DR DESC";
+                $result_squadre = $conn->query($query_squadre);
+                
+                if ($result_squadre->num_rows > 0) {
+                    $posizione = 1;
+                    $num_squadre = $result_squadre->num_rows;
+                    
+                    while($row = $result_squadre->fetch_assoc()) {
+                        // Determina la classe in base alla posizione
+                        $rowClass = '';
+                        if ($posizione < 5) {
+                            $rowClass = 'primo';
+                        } elseif ($posizione >= $num_squadre - 1) {
+                            $rowClass = 'retrocessione';
+                        }
+                        
+                        echo '<tr class="'.$rowClass.'">';
+                        echo '<td>'.$posizione.'</td>';
+                        echo '<td style="text-align: left;">';
+                        echo displaySquadraWithLogo($row['Nome'], $conn);
+                        
+                        // Mostra il presidente se presente
+                        if (!empty($row['presidente_nome']) || !empty($row['presidente_cognome'])) {
+                            $presidente = trim($row['presidente_nome'] . ' ' . $row['presidente_cognome']);
+                            echo '<div class="presidente-info small">';
+                            echo '<i class="bi bi-person-fill"></i> Presidente: '.$presidente;
+                            echo '</div>';
+                        }
+                        
+                        echo '</td>';
+                        echo '<td><strong>'.$row['PT'].'</strong></td>';
+                        echo '<td>'.$row['G'].'</td>';
+                        echo '<td>'.$row['V'].'</td>';
+                        echo '<td>'.$row['N'].'</td>';
+                        echo '<td>'.$row['P'].'</td>';
+                        echo '<td>'.$row['DR'].'</td>';
+                        echo '</tr>';
+                        $posizione++;
+                    }
+                } else {
+                    echo '<tr><td colspan="8" class="text-center py-3">Nessuna squadra trovata in questo girone</td></tr>';
+                }
+                
+                echo '</tbody>';
+                echo '</table>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
             }
-            echo '</tbody>';
-            echo '</table>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
         } else {
-            echo '<div class="alert alert-warning text-center">Nessuna squadra trovata</div>';
+            echo '<div class="alert alert-warning text-center">Nessun girone trovato</div>';
         }
 
         echo '<h1 class="text-center mb-4 animate__animated animate__fadeIn">Classifica Marcatori</h1>';
         
-        $query_marcatori = "SELECT giocatori.Nome, giocatori.Cognome, squadre.Nome AS squadra, SUM(cont_goal.Goal) AS gol_totali
-                           FROM giocatori
-                           JOIN cont_goal ON giocatori.ID_giocatori = cont_goal.Cod_giocatori
-                           JOIN squadre ON giocatori.Cod_squadre = squadre.ID_squadre
-                           WHERE squadre.Cod_campionato = 1
-                           GROUP BY giocatori.ID_giocatori
-                           ORDER BY gol_totali DESC";
+        // Query completa per la classifica marcatori
+        $query_marcatori = "SELECT 
+                            giocatori.ID_giocatori, 
+                            giocatori.Nome, 
+                            giocatori.Cognome, 
+                            squadre.Nome AS squadra,
+                            SUM(cont_goal.Goal) AS gol_totali
+                        FROM giocatori
+                        JOIN cont_goal ON giocatori.ID_giocatori = cont_goal.Cod_giocatori
+                        JOIN squadre ON giocatori.Cod_squadre = squadre.ID_squadre
+                        WHERE squadre.Cod_campionato = 2
+                        GROUP BY giocatori.ID_giocatori
+                        ORDER BY gol_totali DESC";
         
         $result_marcatori = $conn->query($query_marcatori);
         
@@ -342,7 +387,7 @@
                 echo '<td>'.$posizione.'</td>';
                 echo '<td style="text-align: left;">'.$nome_completo.'</td>';
                 echo '<td style="text-align: left;">';
-                echo displaySquadraWithLogo($row['squadra'], $conn); // Usa la funzione da utility.php
+                echo displaySquadraWithLogo($row['squadra'], $conn);
                 echo '</td>';
                 echo '<td><strong>'.$row['gol_totali'].'</strong></td>';
                 echo '</tr>';
