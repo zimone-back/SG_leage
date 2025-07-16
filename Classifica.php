@@ -344,12 +344,7 @@
         echo '<h1 class="text-center mb-4 animate__animated animate__fadeIn">Classifica Marcatori</h1>';
         
         // Query completa per la classifica marcatori
-        $query_marcatori = "SELECT 
-                            giocatori.ID_giocatori, 
-                            giocatori.Nome, 
-                            giocatori.Cognome, 
-                            squadre.Nome AS squadra,
-                            SUM(cont_goal.Goal) AS gol_totali
+        $query_marcatori = "SELECT giocatori.ID_giocatori, giocatori.Nome, giocatori.Cognome, squadre.Nome AS squadra,SUM(cont_goal.Goal) AS gol_totali
                         FROM giocatori
                         JOIN cont_goal ON giocatori.ID_giocatori = cont_goal.Cod_giocatori
                         JOIN squadre ON giocatori.Cod_squadre = squadre.ID_squadre
