@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 17, 2025 alle 04:11
+-- Creato il: Lug 18, 2025 alle 00:20
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -496,14 +496,14 @@ INSERT INTO `squadre` (`ID_squadre`, `Nome`, `immagini_loghi`, `Cod_presidenti`,
 (8, 'AL BARETTO', 'Al_baretto_da_nico.png', NULL, 1, 7, 4, 2, 1, 1, 1, 'B'),
 (9, 'BLACKROSE', 'BlaskRoseFC.png', NULL, 1, 4, 4, 1, 1, 2, -10, 'B'),
 (10, 'CORTO MUSO', 'Ac_corto_muso.png', NULL, 1, 1, 3, 0, 1, 2, -2, 'B'),
-(11, 'F.C. KIRICOCHO', 'Fc_kiricocho.jpg', 1, 2, 0, 0, 0, 0, 0, 0, 'B'),
+(11, 'Casi Italia', 'casi_italia.png', 1, 2, 6, 3, 2, 0, 1, 5, 'B'),
 (12, 'Coffee world', 'Coffe_world.jpg', 2, 2, 9, 21, 3, 0, 0, 5, 'A'),
 (13, 'King-REX', 'King_REX.png', 3, 2, 3, 5, 1, 0, 2, 10, 'A'),
-(14, 'Seleção x Autoscuola di cuia', 'SeleçãoxAutoscuola.jpg', 4, 2, 0, 0, 0, 0, 0, 0, 'B'),
-(15, 'B.G.manager', 'BG_menager.png', 5, 2, 0, 0, 0, 0, 0, 0, 'B'),
+(14, 'Seleção x Autoscuola di cuia', 'SeleçãoxAutoscuola.jpg', 4, 2, 3, 3, 1, 0, 2, -3, 'B'),
+(15, 'B.G.manager', 'BG_menager.png', 5, 2, 0, 3, 0, 0, 3, -9, 'B'),
 (16, 'IL GRILLO FC ', 'Grillo_fc.png', 6, 2, 6, 7, 2, 0, 1, 11, 'A'),
 (17, 'Autolavaggio beautycar', 'Beauty_car.jpg', 7, 2, 0, 9, 0, 0, 3, 16, 'A'),
-(18, 'Lucky squad', '', 8, 2, 0, 0, 0, 0, 0, 0, 'B');
+(18, 'Lucky squad', '', 8, 2, 6, 3, 2, 0, 1, 7, 'B');
 
 --
 -- Indici per le tabelle scaricate
@@ -584,7 +584,7 @@ ALTER TABLE `campionati`
 -- AUTO_INCREMENT per la tabella `cont_goal`
 --
 ALTER TABLE `cont_goal`
-  MODIFY `ID_cont_goal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `ID_cont_goal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT per la tabella `giocatori`
