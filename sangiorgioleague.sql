@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 16, 2025 alle 19:20
+-- Creato il: Lug 17, 2025 alle 04:11
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -179,7 +179,19 @@ INSERT INTO `cont_goal` (`ID_cont_goal`, `Cod_giocatori`, `Goal`, `Data`, `Cod_c
 (117, 81, 2, '2025-07-14', 2),
 (118, 82, 1, '2025-07-14', 2),
 (119, 83, 1, '2025-07-14', 2),
-(120, 84, 1, '2025-07-14', 2);
+(120, 84, 1, '2025-07-14', 2),
+(121, 88, 1, '2025-07-16', 2),
+(122, 89, 1, '2025-07-16', 2),
+(123, 90, 2, '2025-07-16', 2),
+(124, 92, 2, '2025-07-16', 2),
+(125, 93, 1, '2025-07-16', 2),
+(126, 94, 2, '2025-07-16', 2),
+(127, 95, 2, '2025-07-16', 2),
+(128, 96, 1, '2025-07-16', 2),
+(129, 97, 1, '2025-07-16', 2),
+(130, 98, 2, '2025-07-16', 2),
+(131, 99, 3, '2025-07-16', 2),
+(132, 100, 1, '2025-07-16', 2);
 
 -- --------------------------------------------------------
 
@@ -285,7 +297,20 @@ INSERT INTO `giocatori` (`ID_giocatori`, `Nome`, `Cognome`, `Cod_squadre`) VALUE
 (84, 'Daniele', 'Rizzo', 16),
 (85, 'Raffaele', 'Memmola', 13),
 (86, 'Filippo', 'Galatola', 12),
-(87, 'Francesco', 'Giaracuni', 12);
+(87, 'Francesco', 'Giaracuni', 12),
+(88, 'Alessio', 'sperti', 15),
+(89, 'Adriano ', ' Ventimiglia ', 15),
+(90, 'Angelo ', 'Tresolini', 14),
+(91, 'Gianmarco', 'Dell\'Anna', 14),
+(92, 'Gianmarco ', 'Ramirez', 14),
+(93, 'Doro', ' Tonio ', 14),
+(94, 'Gianni ', 'Maiorino', 18),
+(95, 'Francesco', 'Portacci', 18),
+(96, 'Nazareno ', 'Pappadà', 18),
+(97, 'Antonio', 'Sebastio', 18),
+(98, 'Francesco ', 'Palumbo', 18),
+(99, 'Jason', 'Carrozzo ', 11),
+(100, 'Piergianni ', 'Santoro ', 11);
 
 -- --------------------------------------------------------
 
@@ -377,7 +402,13 @@ INSERT INTO `partite` (`ID_partita`, `Cod_giornata`, `Squadra_casa`, `Squadra_os
 (32, 12, 16, 17, 4, 3, '2025-07-14 15:03:24', 'terminata', 2),
 (33, 12, 13, 12, 1, 7, '2025-07-14 15:03:24', 'terminata', 2),
 (34, 12, 12, 17, 7, 3, '2025-07-14 15:03:24', 'terminata', 2),
-(35, 12, 13, 16, 1, 2, '2025-07-14 15:03:24', 'terminata', 2);
+(35, 12, 13, 16, 1, 2, '2025-07-14 15:03:24', 'terminata', 2),
+(36, 13, 11, 15, 3, 2, '2025-07-16 03:47:51', 'terminata', 2),
+(37, 13, 14, 18, 2, 5, '2025-07-16 03:47:51', 'terminata', 2),
+(38, 13, 14, 11, 2, 5, '2025-07-16 03:47:51', 'terminata', 2),
+(39, 13, 18, 15, 7, 1, '2025-07-16 03:47:51', 'terminata', 2),
+(40, 13, 11, 18, 4, 3, '2025-07-16 03:47:51', 'terminata', 2),
+(41, 13, 14, 15, 5, 2, '2025-07-16 03:47:51', 'terminata', 2);
 
 -- --------------------------------------------------------
 
@@ -553,13 +584,13 @@ ALTER TABLE `campionati`
 -- AUTO_INCREMENT per la tabella `cont_goal`
 --
 ALTER TABLE `cont_goal`
-  MODIFY `ID_cont_goal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `ID_cont_goal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT per la tabella `giocatori`
 --
 ALTER TABLE `giocatori`
-  MODIFY `ID_giocatori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `ID_giocatori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT per la tabella `giornate`
@@ -571,7 +602,7 @@ ALTER TABLE `giornate`
 -- AUTO_INCREMENT per la tabella `partite`
 --
 ALTER TABLE `partite`
-  MODIFY `ID_partita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `ID_partita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT per la tabella `premi`
