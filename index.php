@@ -164,7 +164,7 @@
             <div class="col-12 col-md-6">
                 <a href="partite.php" class="text-decoration-none text-dark">
                     <div class="card shadow-sm p-3 h-100">
-                        <h5><i class="bi bi-calendar-event me-2"></i>Partite</h5>
+                        <h5><i class="bi bi-calendar-event me-2"></i>Calendario Kings League 2025</h5>
                         <p class="mb-0">Scopri il calendario completo e i risultati delle partite.</p>
                     </div>
                 </a>
@@ -180,7 +180,7 @@
             <div class="col-12 col-md-6">
                 <a href="Classifica.php" class="text-decoration-none text-dark">
                     <div class="card shadow-sm p-3 h-100">
-                        <h5><i class="bi bi-list-ol me-2"></i>Classifica</h5>
+                        <h5><i class="bi bi-list-ol me-2"></i>Classifica Kings League 2025</h5>
                         <p class="mb-0">Consulta la classifica aggiornata dei gironi.</p>
                     </div>
                 </a>
