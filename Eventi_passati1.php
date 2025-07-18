@@ -874,175 +874,175 @@ require_once 'utility.php';
       </style>
       
 
-    <style>
-      /* Stili ottimizzati per mobile */
-      .match-carousel {
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-        padding: 8px;
-        margin: 0 4px;
-      }
-      
-      .day-header {
-        background: linear-gradient(135deg, #4361ee, #3a0ca3);
-        color: white;
-        padding: 8px 10px;
-        border-radius: 6px;
-        margin-bottom: 8px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 0.85rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      
-      .simple-match-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.8rem;
-      }
-      
-      .simple-match-table tr {
-        border-bottom: 1px solid #f0f0f0;
-      }
-      
-      .simple-match-table tr:last-child {
-        border-bottom: none;
-      }
-      
-      .simple-match-table td {
-        padding: 8px 4px;
-        vertical-align: middle;
-      }
-      
-      .simple-match-table td:first-child {
-        text-align: right;
-        width: 40%;
-        font-weight: 500;
-        color: #333;
-        padding-right: 8px;
-      }
-      
-      .simple-match-table td:nth-child(2) {
-        text-align: center;
-        width: 20%;
-        font-weight: 700;
-        color: #222;
-        min-width: 60px;
-      }
-      
-      .simple-match-table td:last-child {
-        text-align: left;
-        width: 40%;
-        font-weight: 500;
-        color: #333;
-        padding-left: 8px;
-      }
-      
-      .match-status {
-        display: inline-block;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-size: 10px;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-      
-      .status-terminata {
-        background-color: #e9ecef;
-        color: #6c757d;
-      }
-      
-      .status-in-corso {
-        background-color: #dc3545;
-        color: white;
-        animation: pulse 1.5s infinite;
-      }
-      
-      .status-programmata {
-        background-color: #6c757d;
-        color: white;
-      }
-      
-      /* Navigazione carosello mobile più compatta */
-      .carousel-control-prev, .carousel-control-next {
-        width: 28px;
-        height: 28px;
-        background: white;
-        border-radius: 50%;
-        top: 50%;
-        transform: translateY(-50%);
-        box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-        opacity: 1;
-      }
-      
-      .carousel-control-prev { left: -8px; }
-      .carousel-control-next { right: -8px; }
-      
-      .carousel-control-prev-icon, 
-      .carousel-control-next-icon {
-        filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(2596%) hue-rotate(197deg) brightness(98%) contrast(91%);
-        width: 1rem;
-        height: 1rem;
-      }
-      
-      .carousel-indicators {
-        bottom: -15px;
-      }
-      
-      .carousel-indicators button {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background-color: #adb5bd;
-        border: none;
-        margin: 0 2px;
-      }
-      
-      .carousel-indicators button.active {
-        background-color: #4361ee;
-        transform: scale(1.2);
-      }
-      
-      @keyframes pulse {
-        0% { opacity: 1; }
-        50% { opacity: 0.7; }
-        100% { opacity: 1; }
-      }
-      
-      /* Media query per tablet e desktop */
-      @media (min-width: 768px) {
-        .card-body {
-          padding: 1rem !important;
-        }
-        
+      <style>
+        /* Stili ottimizzati per mobile */
         .match-carousel {
-          padding: 16px;
-          margin: 0 12px;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+          padding: 8px;
+          margin: 0 4px;
         }
         
         .day-header {
-          padding: 10px 16px;
-          font-size: 1rem;
+          background: linear-gradient(135deg, #4361ee, #3a0ca3);
+          color: white;
+          padding: 8px 10px;
+          border-radius: 6px;
+          margin-bottom: 8px;
+          text-align: center;
+          font-weight: 600;
+          font-size: 0.85rem;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
         .simple-match-table {
-          font-size: 0.9rem;
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 0.8rem;
+        }
+        
+        .simple-match-table tr {
+          border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .simple-match-table tr:last-child {
+          border-bottom: none;
         }
         
         .simple-match-table td {
-          padding: 12px 8px;
+          padding: 8px 4px;
+          vertical-align: middle;
         }
         
+        .simple-match-table td:first-child {
+          text-align: right;
+          width: 40%;
+          font-weight: 500;
+          color: #333;
+          padding-right: 8px;
+        }
+        
+        .simple-match-table td:nth-child(2) {
+          text-align: center;
+          width: 20%;
+          font-weight: 700;
+          color: #222;
+          min-width: 60px;
+        }
+        
+        .simple-match-table td:last-child {
+          text-align: left;
+          width: 40%;
+          font-weight: 500;
+          color: #333;
+          padding-left: 8px;
+        }
+        
+        .match-status {
+          display: inline-block;
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+        
+        .status-terminata {
+          background-color: #e9ecef;
+          color: #6c757d;
+        }
+        
+        .status-in-corso {
+          background-color: #dc3545;
+          color: white;
+          animation: pulse 1.5s infinite;
+        }
+        
+        .status-programmata {
+          background-color: #6c757d;
+          color: white;
+        }
+        
+        /* Navigazione carosello mobile più compatta */
         .carousel-control-prev, .carousel-control-next {
-          width: 36px;
-          height: 36px;
+          width: 28px;
+          height: 28px;
+          background: white;
+          border-radius: 50%;
+          top: 50%;
+          transform: translateY(-50%);
+          box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+          opacity: 1;
         }
         
-        .carousel-control-prev { left: -16px; }
-        .carousel-control-next { right: -16px; }
-      }
-    </style>';
+        .carousel-control-prev { left: -8px; }
+        .carousel-control-next { right: -8px; }
+        
+        .carousel-control-prev-icon, 
+        .carousel-control-next-icon {
+          filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(2596%) hue-rotate(197deg) brightness(98%) contrast(91%);
+          width: 1rem;
+          height: 1rem;
+        }
+        
+        .carousel-indicators {
+          bottom: -15px;
+        }
+        
+        .carousel-indicators button {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background-color: #adb5bd;
+          border: none;
+          margin: 0 2px;
+        }
+        
+        .carousel-indicators button.active {
+          background-color: #4361ee;
+          transform: scale(1.2);
+        }
+        
+        @keyframes pulse {
+          0% { opacity: 1; }
+          50% { opacity: 0.7; }
+          100% { opacity: 1; }
+        }
+        
+        /* Media query per tablet e desktop */
+        @media (min-width: 768px) {
+          .card-body {
+            padding: 1rem !important;
+          }
+          
+          .match-carousel {
+            padding: 16px;
+            margin: 0 12px;
+          }
+          
+          .day-header {
+            padding: 10px 16px;
+            font-size: 1rem;
+          }
+          
+          .simple-match-table {
+            font-size: 0.9rem;
+          }
+          
+          .simple-match-table td {
+            padding: 12px 8px;
+          }
+          
+          .carousel-control-prev, .carousel-control-next {
+            width: 36px;
+            height: 36px;
+          }
+          
+          .carousel-control-prev { left: -16px; }
+          .carousel-control-next { right: -16px; }
+        }
+      </style>';
 
       // Aggiunta della legenda
       echo '<style>

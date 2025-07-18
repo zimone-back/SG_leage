@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <title>Classifica - San Giorgio League</title>
     <meta charset="UTF-8">
@@ -10,213 +11,363 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="./style.css">
 
-    //qui sta lo sfondo fatto bene
     <style>
         body {
-        padding-top: 70px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        min-height: 100vh;
-        }
-
-        body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: url("./immagini/logosgl.jpg");
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        z-index: -2;
-        object-fit: cover;
-        background-attachment: scroll;
-        }
-
-        body::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-        }
-
-        /* REGOLA UGUALE MOBILE E DESKTOP */
-        @media (max-width: 767px) and (orientation: portrait) {
-        body::before {
-            background-size: 100% auto;
+            padding-top: 70px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
         }
-        }
 
-        @media (max-width: 767px) and (orientation: landscape) {
         body::before {
-            background-size: auto 100%;
-            min-width: 100vw;
-        }
-        }
-
-        @media (min-width: 768px) {
-        body::before {
-            background-size: contain;
-            background-color: #f8f9fa;
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("./immagini/logosgl.jpg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            z-index: -2;
+            background-size: cover;
+            object-fit: cover;
+            background-attachment: scroll;
         }
 
         body::after {
-            background: rgba(255, 255, 255, 0.7);
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
         }
+
+        /* Hero Section */
+        .hero {
+            background: rgba(30, 60, 114, 0.85);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 3rem 0;
         }
 
         /* Immagini logo */
         .squadra-logo {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-        vertical-align: middle;
-        border-radius: 50%;
-        object-fit: cover;
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .squadra-nome {
-        vertical-align: middle;
+            vertical-align: middle;
         }
 
         /* Pulsanti */
         .nav-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 8px 12px;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .home-btn {
-        background-color: #1e3a8a;
-        color: white;
+            background-color: #1e3a8a;
+            color: white;
+        }
+
+        .back-btn {
+            background-color: white;
+            color: #1e3a8a;
+            border: 1px solid #1e3a8a;
+        }
+
+        /* Card Stile */
+        .classifica-card {
+            transition: all 0.3s ease;
+            border: none;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .classifica-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .classifica-card .card-header {
+            background-color: #1e3a8a;
+            color: white;
+            font-weight: bold;
+            padding: 1rem;
+            border-bottom: none;
+        }
+
+        .classifica-card .card-body {
+            padding: 1.5rem;
         }
 
         /* Tabelle */
         .table-container {
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         .table-container::-webkit-scrollbar {
-        display: none;
+            display: none;
         }
 
         .table-classifica {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.9rem;
-        background-color: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.8rem;
         }
 
-        .table-classifica th {
-        background-color: #1e3a8a;
-        color: white;
-        padding: 12px;
-        text-align: center;
-        font-weight: 600;
-        position: sticky;
-        top: 0;
+        .table-classifica thead th {
+            background-color: #2c4fa6;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .table-classifica tbody tr {
+            transition: background-color 0.2s;
+        }
+
+        .table-classifica tbody tr:hover {
+            background-color: #f1f5ff;
         }
 
         .table-classifica td {
-        padding: 10px;
-        text-align: center;
-        vertical-align: middle;
-        border-bottom: 1px solid #dee2e6;
-        }
-
-        .table-classifica tr:hover {
-        background-color: #f1f5ff;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+            border-top: 1px solid #e9ecef;
         }
 
         /* Evidenziazioni */
         .primo {
-        background-color: rgba(40, 167, 69, 0.15) !important;
+            background-color: rgba(40, 167, 69, 0.08) !important;
         }
+
         .primo td:first-child {
-        position: relative;
+            position: relative;
         }
+
         .primo td:first-child::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background-color: #28a745;
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #28a745;
         }
 
         .retrocessione {
-        background-color: rgba(220, 53, 69, 0.15) !important;
+            background-color: rgba(220, 53, 69, 0.08) !important;
         }
+
         .retrocessione td:first-child {
-        position: relative;
+            position: relative;
         }
+
         .retrocessione td:first-child::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background-color: #dc3545;
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #dc3545;
+        }
+
+        .top-player {
+            font-weight: bold;
+            background-color: #d4edff;
         }
 
         /* Legenda */
         .legenda-classifica {
-        background-color: rgba(248, 249, 250, 0.9);
-        border: 1px solid #dee2e6;
-        margin-bottom: 1rem;
-        padding: 0.75rem;
-        border-radius: 0.5rem;
+            background-color: rgba(248, 249, 250, 0.9);
+            border: 1px solid #dee2e6;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
         }
+
         .legenda-classifica h6 {
-        font-weight: bold;
-        margin-bottom: 0.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
         }
+
         .legenda-color {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border-radius: 4px;
-        margin-right: 0.5rem;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 0.5rem;
         }
+
         .legenda-color.primo {
-        background-color: rgba(40, 167, 69, 0.3);
-        border-left: 4px solid #28a745;
+            background-color: rgba(40, 167, 69, 0.3);
+            border-left: 4px solid #28a745;
         }
+
         .legenda-color.retrocessione {
-        background-color: rgba(220, 53, 69, 0.3);
-        border-left: 4px solid #dc3545;
+            background-color: rgba(220, 53, 69, 0.3);
+            border-left: 4px solid #dc3545;
         }
 
-        /* Card */
-        .card {
-        background-color: rgba(255, 255, 255, 0.85);
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 2rem;
+        /* Stile per i marcatori */
+        .scorers-table {
+            width: 100%;
         }
 
+        .scorer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
 
+        .scorer-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
 
+        .scorer-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white !important;
+        }
+
+        .top-scorer {
+            background-color: rgba(30, 58, 138, 0.05) !important;
+            border-left: 4px solid #1e3a8a;
+        }
+
+        .position-badge {
+            width: 30px;
+            height: 30px;
+            background-color: #1e3a8a;
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .player-name {
+            font-weight: 700 !important;
+            font-size: 1.2rem;
+            color: #212529 !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+            margin: 8px 0;
+            line-height: 1.3;
+        }
+
+        .team-name {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .goals-count {
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 1.1rem;
+        }
+
+        /* Media queries */
+        @media (max-width: 767px) and (orientation: portrait) {
+            body::before {
+                background-size: 100% auto;
+                min-height: 100vh;
+            }
+        }
+
+        @media (max-width: 767px) and (orientation: landscape) {
+            body::before {
+                background-size: auto 100%;
+                min-width: 100vw;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body::before {
+                background-size: contain;
+                background-color: #f8f9fa;
+            }
+
+            body::after {
+                background: rgba(255, 255, 255, 0.7);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .classifica-card {
+                margin: 0 5px;
+            }
+
+            .card-body {
+                padding: 10px 5px;
+            }
+
+            .classifica-header h5 {
+                font-size: 1rem;
+            }
+
+            .table-classifica {
+                font-size: 0.75rem;
+            }
+
+            .table-classifica th,
+            .table-classifica td {
+                padding: 6px 3px !important;
+            }
+        }
     </style>
 </head>
-<body>
+
+<body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="
         background: rgba(30, 58, 138, 0.8);
         backdrop-filter: blur(10px);
@@ -225,26 +376,35 @@
     ">
         <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-                <img src="./immagini/logoprimario.jpg" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">
+                <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2 hvr-grow-rotate">
                 San Giorgio League
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <h1 class="text-center mb-4 animate__animated animate__fadeInDown">Classifica Squadre</h1>
-        
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="container hero-content text-center text-white">
+                <h1 class="display-5 fw-bold mb-3 animate__animated animate__fadeInDown">Classifica</h1>
+                <p class="lead fs-4 animate__animated animate__fadeInUp">Scopri la classifica aggiornata della San Giorgio League</p>
+            </div>
+        </div>
+
         <!-- Pulsanti navigazione -->
         <div class="d-flex justify-content-center gap-3 mb-4">
             <a href="index.php" class="nav-btn home-btn">
                 <i class="bi bi-house-door me-2"></i>Home
             </a>
         </div>
-        
+
         <?php
         include 'connessione.php';
         include 'utility.php'; // Inclusione del file con la funzione getLogoPath()
-        
+
         // Aggiunta della legenda
         echo '<div class="legenda-classifica animate__animated animate__fadeIn">';
         echo '<h6><i class="bi bi-info-circle me-2"></i>Legenda:</h6>';
@@ -253,36 +413,34 @@
         echo '<div class="d-flex align-items-center"><span class="legenda-color retrocessione"></span>Eliminata</div>';
         echo '</div>';
         echo '</div>';
-        
+
         // Query per ottenere i gironi distinti
         $query_gironi = "SELECT DISTINCT Girone FROM squadre WHERE Cod_campionato = 2 ORDER BY Girone";
         $result_gironi = $conn->query($query_gironi);
-        
+
         if ($result_gironi->num_rows > 0) {
-            while($girone_row = $result_gironi->fetch_assoc()) {
+            while ($girone_row = $result_gironi->fetch_assoc()) {
                 $girone = $girone_row['Girone'];
-                
-                echo '<div class="card animate__animated animate__fadeIn">';
-                echo '<div class="card-header bg-primary text-white">';
-                echo '<h4 class="mb-0"><i class="bi bi-trophy me-2"></i>Girone '.$girone.'</h4>';
-                echo '</div>';
-                echo '<div class="card-body p-0">';
-                echo '<div class="table-container">';
-                echo '<table class="table-classifica mb-0">';
-                echo '<thead>';
-                echo '<tr>';
-                echo '<th style="width: 5%;">Pos</th>';
-                echo '<th style="width: 35%; text-align: left;">Squadra</th>';
-                echo '<th style="width: 10%;">PT</th>';
-                echo '<th style="width: 10%;">G</th>';
-                echo '<th style="width: 10%;">V</th>';
-                echo '<th style="width: 10%;">N</th>';
-                echo '<th style="width: 10%;">P</th>';
-                echo '<th style="width: 10%;">DR</th>';
-                echo '</tr>';
-                echo '</thead>';
-                echo '<tbody>';
-                
+
+                echo '<div class="classifica-card mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
+                echo '  <div class="classifica-header py-2 px-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
+                echo '<h5 class="mb-0 font-weight-bold"><img src="./immagini/logoprimario.jpg" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;"> Girone ' . $girone . '</h5>';
+                echo '  </div>';
+                echo '  <div class="table-container">';
+                echo '    <table class="table-classifica mb-0" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">';
+                echo '      <thead>';
+                echo '        <tr style="background-color: #f8f9fa; color: #495057;">';
+                echo '          <th style="padding: 8px 4px; text-align: left; border-bottom: 2px solid #dee2e6; width: 40%;">Squadra</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">PT</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">G</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">V</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">N</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">P</th>';
+                echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">DR</th>';
+                echo '        </tr>';
+                echo '      </thead>';
+                echo '      <tbody>';
+
                 // Query per ottenere le squadre del girone corrente
                 $query_squadre = "SELECT 
                                     squadre.ID_squadre, 
@@ -298,15 +456,16 @@
                                 FROM squadre
                                 LEFT JOIN presidenti ON squadre.Cod_presidenti = presidenti.ID_presidenti
                                 WHERE squadre.Cod_campionato = 2 
-                                AND squadre.Girone = '".$girone."'
+                                AND squadre.Girone = '" . $girone . "'
                                 ORDER BY squadre.PT DESC, squadre.DR DESC";
                 $result_squadre = $conn->query($query_squadre);
-                
+
                 if ($result_squadre->num_rows > 0) {
-                    $posizione = 1;
+                    $posizione = 0;
                     $num_squadre = $result_squadre->num_rows;
-                    
-                    while($row = $result_squadre->fetch_assoc()) {
+
+                    while ($row = $result_squadre->fetch_assoc()) {
+                        $posizione++;
                         // Determina la classe in base alla posizione
                         $rowClass = '';
                         if ($posizione < 5) {
@@ -314,46 +473,47 @@
                         } elseif ($posizione >= $num_squadre - 1) {
                             $rowClass = 'retrocessione';
                         }
-                        
-                        echo '<tr class="'.$rowClass.'">';
-                        echo '<td>'.$posizione.'</td>';
-                        echo '<td style="text-align: left;">';
-                        echo displaySquadraWithLogo($row['Nome'], $conn);
-                        
+
+                        echo '<tr class="' . $rowClass . '" style="transition: all 0.2s;">';
+                        echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;"><div style="display: flex; align-items: center;"><img src="' . getLogoPath($row['Nome'], $conn) . '" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $row['Nome'];
+
                         // Mostra il presidente se presente
                         if (!empty($row['presidente_nome']) || !empty($row['presidente_cognome'])) {
                             $presidente = trim($row['presidente_nome'] . ' ' . $row['presidente_cognome']);
-                            echo '<div class="presidente-info small">';
-                            echo '<i class="bi bi-person-fill"></i> Presidente: '.$presidente;
+                            echo '<div class="presidente-info small" style="color: #6c757d; font-size: 0.8rem;">';
+                            echo '<i class="bi bi-person-fill"></i> Presidente: ' . $presidente;
                             echo '</div>';
                         }
-                        
-                        echo '</td>';
-                        echo '<td><strong>'.$row['PT'].'</strong></td>';
-                        echo '<td>'.$row['G'].'</td>';
-                        echo '<td>'.$row['V'].'</td>';
-                        echo '<td>'.$row['N'].'</td>';
-                        echo '<td>'.$row['P'].'</td>';
-                        echo '<td>'.$row['DR'].'</td>';
+
+                        echo '</div></td>';
+                        echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">' . $row['PT'] . '</td>';
+                        echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['G'] . '</td>';
+                        echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['V'] . '</td>';
+                        echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['N'] . '</td>';
+                        echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['P'] . '</td>';
+                        echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center;">' . $row['DR'] . '</td>';
                         echo '</tr>';
-                        $posizione++;
                     }
                 } else {
-                    echo '<tr><td colspan="8" class="text-center py-3">Nessuna squadra trovata in questo girone</td></tr>';
+                    echo '<tr><td colspan="7" class="text-center py-3">Nessuna squadra trovata in questo girone</td></tr>';
                 }
-                
-                echo '</tbody>';
-                echo '</table>';
-                echo '</div>';
-                echo '</div>';
+
+                echo '      </tbody>';
+                echo '    </table>';
+                echo '  </div>';
                 echo '</div>';
             }
         } else {
             echo '<div class="alert alert-warning text-center">Nessun girone trovato</div>';
         }
 
-        echo '<h1 class="text-center mb-4 animate__animated animate__fadeIn">Classifica Marcatori</h1>';
-        
+        echo '<div class="hero mt-5">';
+        echo '  <div class="container hero-content text-center text-white">';
+        echo '    <h1 class="display-5 fw-bold mb-3 animate__animated animate__fadeInDown">Classifica Marcatori</h1>';
+        echo '    <p class="lead fs-4 animate__animated animate__fadeInUp">Scopri i migliori marcatori della San Giorgio League</p>';
+        echo '  </div>';
+        echo '</div>';
+
         // Query completa per la classifica marcatori
         $query_marcatori = "SELECT giocatori.ID_giocatori, giocatori.Nome, giocatori.Cognome, squadre.Nome AS squadra,SUM(cont_goal.Goal) AS gol_totali
                         FROM giocatori
@@ -361,57 +521,54 @@
                         JOIN squadre ON giocatori.Cod_squadre = squadre.ID_squadre
                         WHERE squadre.Cod_campionato = 2
                         GROUP BY giocatori.ID_giocatori
-                        ORDER BY gol_totali DESC";
-        
+                        ORDER BY gol_totali DESC
+                        LIMIT 10";
+                        
+
         $result_marcatori = $conn->query($query_marcatori);
-        
+
         if ($result_marcatori->num_rows > 0) {
-            echo '<div class="card shadow-sm mb-4 animate__animated animate__fadeIn">';
-            echo '<div class="card-header bg-primary text-white">';
-            echo '<h4 class="mb-0"><i class="bi bi-person-badge me-2"></i>Marcatori</h4>';
+            echo '<div class="scorers-table mt-4">';
+
+            // Intestazione
+            echo '<div class="scorer-header d-flex justify-content-between align-items-center p-3 mb-2 rounded" style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">';
+            echo '  <div class="d-flex align-items-center" style="width: 70%;">';
+            echo '    <span class="player-label fw-bold">GIOCATORE</span>';
+            echo '  </div>';
+            echo '  <span class="goals-label fw-bold" style="width: 30%; text-align: right;">GOL</span>';
             echo '</div>';
-            echo '<div class="card-body p-0">';
-            echo '<div class="table-container">';
-            echo '<table class="table-classifica mb-0">';
-            echo '<thead>';
-            echo '<tr>';
-            echo '<th style="width: 10%;">Pos</th>';
-            echo '<th style="width: 40%; text-align: left;">Giocatore</th>';
-            echo '<th style="width: 30%; text-align: left;">Squadra</th>';
-            echo '<th style="width: 20%;">Gol</th>';
-            echo '</tr>';
-            echo '</thead>';
-            echo '<tbody>';
-            
+
             $posizione = 1;
-            while($row = $result_marcatori->fetch_assoc()) {
+            while ($row = $result_marcatori->fetch_assoc()) {
                 $nome_completo = trim($row['Nome'] . ' ' . $row['Cognome']);
-                
-                $rowClass = $posizione <= 3 ? 'top-player' : '';
-                
-                echo '<tr class="'.$rowClass.'">';
-                echo '<td>'.$posizione.'</td>';
-                echo '<td style="text-align: left;">'.$nome_completo.'</td>';
-                echo '<td style="text-align: left;">';
-                echo displaySquadraWithLogo($row['squadra'], $conn);
-                echo '</td>';
-                echo '<td><strong>'.$row['gol_totali'].'</strong></td>';
-                echo '</tr>';
+                $squadra = $row['squadra'];
+
+                $top_class = $posizione <= 3 ? 'top-scorer' : '';
+
+                echo '<div class="scorer-item d-flex justify-content-between align-items-center p-3 mb-2 rounded ' . $top_class . '" style="background-color: rgba(255,255,255,0.9); transition: all 0.3s ease;">';
+                echo '  <div class="d-flex align-items-center" style="width: 70%;">';
+                echo '    <span class="position-badge d-flex align-items-center justify-content-center me-3" style="width: 30px; height: 30px; background-color: ' . ($posizione <= 3 ? '#1e3a8a' : '#6c757d') . '; color: white; border-radius: 50%; font-weight: bold;">' . $posizione . '</span>';
+                echo '    <div>';
+                echo '<div class="player-name" style="font-weight: 700 !important; font-size: 1.2rem; color: #212529 !important; text-shadow: 0 1px 2px rgba(0,0,0,0.1); letter-spacing: 0.5px; margin: 8px 0; line-height: 1.3;">' . $nome_completo . '</div>';
+                echo '      <div class="team-name small"> <img src="' . getLogoPath($row['squadra'], $conn) . '" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $squadra . '</div>';
+                echo '    </div>';
+                echo '  </div>';
+                echo '  <span class="goals-count fw-bold" style="width: 30%; text-align: right; color: #1e3a8a; font-size: 1.1rem;">' . $row['gol_totali'] . '</span>';
+                echo '</div>';
+
                 $posizione++;
             }
-            echo '</tbody>';
-            echo '</table>';
-            echo '</div>';
-            echo '</div>';
+
             echo '</div>';
         } else {
             echo '<div class="alert alert-warning text-center">Nessun marcatore trovato</div>';
         }
-        
+
         $conn->close();
         ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
