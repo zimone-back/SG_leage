@@ -278,7 +278,6 @@
         }
 
         .top-scorer {
-            background-color: rgba(30, 58, 138, 0.05) !important;
             border-left: 4px solid #1e3a8a;
         }
 
