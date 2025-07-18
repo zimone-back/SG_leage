@@ -316,6 +316,129 @@
             font-size: 1.1rem;
         }
 
+        /* Stile migliorato per i presidenti */
+        /* Stile per allineare nome squadra e presidente */
+        .table-classifica td:first-child {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Stile per il nome della squadra */
+        .squadra-nome {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* Stile per l'icona e cognome presidente */
+        /* Stile per il badge del presidente */
+        /* Stile per la cella della squadra */
+        .squadra-cell {
+            padding: 8px 4px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        /* Contenitore squadra */
+        .squadra-container {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Nome squadra */
+        .squadra-name {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        /* Info presidente */
+        .presidente-info {
+            display: flex;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .presidente-icon {
+            color: #1e3a8a;
+            margin-right: 4px;
+            font-size: 0.9rem;
+        }
+
+        /* Adattamento mobile */
+        @media (max-width: 576px) {
+            .presidente-info span {
+                max-width: 100px;
+            }
+        }
+
+        .presidente-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(30, 58, 138, 0.1);
+            border-radius: 12px;
+            padding: 2px 8px;
+            margin-left: 8px;
+        }
+
+        .presidente-icon {
+            color: #1e3a8a;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        .presidente-name {
+            font-size: 0.75rem;
+            color: #1e3a8a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+            font-weight: 500;
+        }
+
+        /* Adatta la larghezza su mobile */
+        @media (max-width: 576px) {
+            .presidente-name {
+                max-width: 80px;
+            }
+        }
+
+        .presidente-cognome {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-left: 5px;
+        }
+
+        /* Mantieni allineamento verticale delle celle */
+        .table-classifica td {
+            vertical-align: middle !important;
+        }
+
+        .presidente-info {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .presidente-info i {
+            color: #1e3a8a;
+            font-size: 0.8rem;
+        }
+
+        .presidente-info span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px;
+        }
+
         /* Media queries */
         @media (max-width: 767px) and (orientation: portrait) {
             body::before {
@@ -364,6 +487,18 @@
                 padding: 6px 3px !important;
             }
         }
+
+        /* Stile personalizzato per i presidenti */
+        .presidente-info {
+            font-size: 0.7rem !important;
+            color: #6c757d !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+            display: inline-block;
+            margin-left: 5px;
+        }
     </style>
 </head>
 
@@ -409,7 +544,7 @@
         echo '<div class="legenda-classifica animate__animated animate__fadeIn">';
         echo '<h6><i class="bi bi-info-circle me-2"></i>Legenda:</h6>';
         echo '<div class="d-flex flex-wrap gap-3">';
-        echo '<div class="d-flex align-items-center"><span class="legenda-color primo"></span>Qualificate ai quarti</div>';
+        echo '<div class="d-flex align-items-center"><span class="legenda-color primo"></span>Qualificata alle semifinali</div>';
         echo '<div class="d-flex align-items-center"><span class="legenda-color retrocessione"></span>Eliminata</div>';
         echo '</div>';
         echo '</div>';
@@ -430,7 +565,7 @@
                 echo '    <table class="table-classifica mb-0" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">';
                 echo '      <thead>';
                 echo '        <tr style="background-color: #f8f9fa; color: #495057;">';
-                echo '          <th style="padding: 8px 4px; text-align: left; border-bottom: 2px solid #dee2e6; width: 40%;">Squadra</th>';
+                echo '          <th style="padding: 8px 4px; text-align: left; border-bottom: 2px solid #dee2e6; width: 40%;">Squadra & Presidenti</th>';
                 echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">PT</th>';
                 echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">G</th>';
                 echo '          <th style="padding: 8px 4px; text-align: center; border-bottom: 2px solid #dee2e6; width: 10%;">V</th>';
@@ -468,24 +603,30 @@
                         $posizione++;
                         // Determina la classe in base alla posizione
                         $rowClass = '';
-                        if ($posizione < 5) {
+                        if ($posizione < 3) {
                             $rowClass = 'primo';
                         } elseif ($posizione >= $num_squadre - 1) {
                             $rowClass = 'retrocessione';
                         }
 
                         echo '<tr class="' . $rowClass . '" style="transition: all 0.2s;">';
-                        echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;"><div style="display: flex; align-items: center;"><img src="' . getLogoPath($row['Nome'], $conn) . '" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $row['Nome'];
+                        echo '  <td style="padding: 8px 4px; text-align: left;">';
+                        echo '    <div style="display: flex; align-items: center;">';
+                        echo '      <img src="' . getLogoPath($row['Nome'], $conn) . '" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">';
+                        echo '      <div>';
+                        echo '        <div style="font-weight: bold;">' . $row['Nome'] . '</div>';
 
                         // Mostra il presidente se presente
                         if (!empty($row['presidente_nome']) || !empty($row['presidente_cognome'])) {
                             $presidente = trim($row['presidente_nome'] . ' ' . $row['presidente_cognome']);
-                            echo '<div class="presidente-info small" style="color: #6c757d; font-size: 0.8rem;">';
-                            echo '<i class="bi bi-person-fill"></i> Presidente: ' . $presidente;
-                            echo '</div>';
+                            echo '        <div style="display: flex; align-items: center; font-size: 0.75rem; color: #6c757d; margin-top: 2px;">';
+                            echo '          <i class="bi bi-person-gear" style="color: #1e3a8a; margin-right: 4px;"></i>';
+                            echo '          <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;">' . $presidente . '</span>';
+                            echo '        </div>';
                         }
-
-                        echo '</div></td>';
+                        echo '      </div>';
+                        echo '    </div>';
+                        echo '  </td>';
                         echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">' . $row['PT'] . '</td>';
                         echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['G'] . '</td>';
                         echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['V'] . '</td>';
@@ -523,7 +664,7 @@
                         GROUP BY giocatori.ID_giocatori
                         ORDER BY gol_totali DESC
                         LIMIT 10";
-                        
+
 
         $result_marcatori = $conn->query($query_marcatori);
 
