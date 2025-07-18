@@ -172,76 +172,19 @@
             </div>
             
             <div class="container py-3">
-                <!-- Notizia 1 -->
-                <div class="news-card animate__animated animate__fadeIn">
-                    <img src="./immagini/news1.jpg" alt="Immagine notizia" class="news-image">
-                    <div class="news-card-header">
-                        <span class="news-date"><i class="bi bi-calendar me-1"></i>10 Luglio 2025</span>
-                        <span class="badge bg-primary">Aggiornamento</span>
-                    </div>
-                    <div class="news-card-body">
-                        <h3 class="news-title">Finale del Torneo: San Giorgio vs Al Baretto</h3>
-                        <div class="news-content">
-                            <p>Dopo un'emozionante stagione, le due squadre si sfideranno nella finale del torneo il prossimo 24 luglio. La partita promette di essere un vero spettacolo, con entrambe le squadre in ottima forma.</p>
-                            <p>Il capitano del San Giorgio, Paolo Serafino, ha dichiarato: "Siamo pronti a dare tutto in campo per portare a casa il trofeo".</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Notizia 2 -->
+                <!-- Messaggio di benvenuto -->
                 <div class="news-card animate__animated animate__fadeIn">
                     <div class="news-card-header">
-                        <span class="news-date"><i class="bi bi-calendar me-1"></i>5 Luglio 2025</span>
-                        <span class="badge bg-success">Nuovo</span>
+                        <span class="news-date"><i class="bi bi-calendar me-1"></i><?php echo date('d F Y'); ?></span>
+                        <span class="badge bg-primary">Benvenuto</span>
                     </div>
                     <div class="news-card-body">
-                        <h3 class="news-title">Classifica Marcatori Aggiornata</h3>
+                        <h3 class="news-title">Benvenuti nella San Giorgio League 2025</h3>
                         <div class="news-content">
-                            <p>Ecco la top 3 dei marcatori del torneo:</p>
-                            <ol>
-                                <li>Serafino (San Giorgio) - 9 gol</li>
-                                <li>Borgo (Al Baretto) - 6 gol</li>
-                                <li>Rossini (74023 FC) - 6 gol</li>
-                            </ol>
-                            <p>La competizione per il titolo di capocannoniere è ancora aperta con due partite rimanenti!</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Notizia 3 -->
-                <div class="news-card animate__animated animate__fadeIn">
-                    <img src="./immagini/news2.jpg" alt="Immagine notizia" class="news-image">
-                    <div class="news-card-header">
-                        <span class="news-date"><i class="bi bi-calendar me-1"></i>1 Luglio 2025</span>
-                        <span class="badge bg-info">Evento</span>
-                    </div>
-                    <div class="news-card-body">
-                        <h3 class="news-title">Festa del Calcio San Giorgio League</h3>
-                        <div class="news-content">
-                            <p>Il 15 luglio si terrà la tradizionale festa di fine stagione presso lo stadio comunale. Tutti i tifosi sono invitati a partecipare per celebrare insieme una stagione indimenticabile.</p>
-                            <p>Programma della serata:</p>
-                            <ul>
-                                <li>18:00 - Apertura cancelli</li>
-                                <li>19:00 - Esibizione delle squadre giovanili</li>
-                                <li>20:30 - Premiazioni ufficiali</li>
-                                <li>21:30 - Buffet e musica</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Notizia 4 -->
-                <div class="news-card animate__animated animate__fadeIn">
-                    <div class="news-card-header">
-                        <span class="news-date"><i class="bi bi-calendar me-1"></i>28 Giugno 2025</span>
-                        <span class="badge bg-warning text-dark">Importante</span>
-                    </div>
-                    <div class="news-card-body">
-                        <h3 class="news-title">Nuovo Sponsor Ufficiale</h3>
-                        <div class="news-content">
-                            <p>La San Giorgio League è lieta di annunciare la partnership con "Beauty Car Autolavaggio" come nuovo sponsor ufficiale del torneo.</p>
-                            <p>"Siamo entusiasti di supportare questo fantastico torneo e la comunità locale", ha dichiarato il proprietario dell'autolavaggio.</p>
-                            <p>Lo sponsor apparirà sulle maglie delle squadre a partire dalla prossima stagione.</p>
+                            <p>La San Giorgio League è lieta di darti il benvenuto nella stagione 2025!</p>
+                            <p>Qui troverai tutte le ultime notizie, aggiornamenti e comunicati ufficiali relativi al nostro torneo.</p>
+                            <p>Segui la tua squadra del cuore, scopri i risultati delle partite e rimani aggiornato su tutte le novità della competizione.</p>
+                            <p>Buona navigazione e che vinca il migliore!</p>
                         </div>
                     </div>
                 </div>
