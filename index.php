@@ -154,7 +154,10 @@
                 <h1 class="display-4 fw-bold text-white mb-3 animate__animated animate__fadeInDown">Benvenuto nella San Giorgio League</h1>
                 <p class="lead text-white mb-4 fs-4 animate__animated animate__fadeInUp">Segui tutte le partite, classifiche, notizie e risultati dei nostri tornei. Vivi la passione del calcio da protagonista!</p>
                 <button class="btn btn-hero text-white btn-lg px-4 animate__animated animate__fadeInUp">
-                    <i class="bi bi-play-circle me-2"></i>Scopri di più
+                    <a href="Notizie.php" class="text-decoration-none text-white">
+                        <i class="bi bi-play-circle me-2"></i>Scopri di più
+                    </a>
+                    
                 </button>
             </div>
         </div>

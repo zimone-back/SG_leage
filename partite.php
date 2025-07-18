@@ -206,21 +206,72 @@
 
         .carousel-control-prev,
         .carousel-control-next {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(30, 58, 138, 0.7);
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
-            opacity: 1;
+            opacity: 0.8;
+            border: 1px solid rgba(30, 58, 138, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
         .carousel-control-prev {
-            left: 10px;
+            left: 15px;
         }
 
         .carousel-control-next {
-            right: 10px;
+            right: 15px;
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background-color: white;
+            opacity: 1;
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-image: none;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-control-prev-icon:after {
+            content: "←";
+            font-size: 1.5rem;
+            color: #1e3a8a;
+            font-weight: bold;
+        }
+
+        .carousel-control-next-icon:after {
+            content: "→";
+            font-size: 1.5rem;
+            color: #1e3a8a;
+            font-weight: bold;
+        }
+
+        /* Nascondi le frecce su mobile quando non serve */
+        @media (max-width: 576px) {
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                display: none;
+            }
+
+            /* Mostra le frecce solo se ci sono più giornate */
+            .carousel-giornate:hover .carousel-control-prev,
+            .carousel-giornate:hover .carousel-control-next {
+                display: flex;
+            }
         }
 
         .carousel-item {
@@ -384,7 +435,7 @@
             position: relative;
             z-index: 1;
         ">
-                    <i class="bi bi-calendar-event"></i> Calendario Partite
+                    Calendario Partite
                 </span>
                 <span style="
             position: absolute;
@@ -422,7 +473,10 @@
             echo '<div class="card shadow-sm mb-4 animate__animated animate__fadeIn">';
             echo '<div class="campionato-header">';
             echo '<div class="campionato-header-content text-center">';
-            echo '<h2 class="campionato-title"><i class="bi bi-trophy me-2"></i>' . $campionato['Nome'] . '</h2>';
+            echo '<h2 class="campionato-title"><img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle border me-2 me-sm-3" style="';
+            echo '            transition: transform 0.3s ease;';
+            echo '            box-shadow: 0 2px 8px rgba(0,0,0,0.2);';
+            echo '          ">' . $campionato['Nome'] . '</h2>';
             echo '<div class="campionato-subtitle">Calendario completo delle partite</div>';
             echo '</div>';
             echo '</div>';
@@ -532,8 +586,6 @@
                     echo '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
                     echo '<span class="visually-hidden">Next</span>';
                     echo '</button>';
-
-                    
                 }
 
                 echo '</div>'; // chiusura carousel-inner
@@ -574,6 +626,30 @@
             }, {
                 passive: true
             });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.getElementById('carouselGiornate');
+            const prevBtn = carousel.querySelector('.carousel-control-prev');
+            const nextBtn = carousel.querySelector('.carousel-control-next');
+
+            // Mostra/nascondi frecce al passaggio del mouse
+            carousel.addEventListener('mouseenter', function() {
+                prevBtn.style.opacity = '1';
+                nextBtn.style.opacity = '1';
+            });
+
+            carousel.addEventListener('mouseleave', function() {
+                prevBtn.style.opacity = '0.7';
+                nextBtn.style.opacity = '0.7';
+            });
+
+            // Inizialmente le frecce sono semi-trasparenti
+            prevBtn.style.opacity = '0.7';
+            nextBtn.style.opacity = '0.7';
+            prevBtn.style.transition = 'opacity 0.3s ease';
+            nextBtn.style.transition = 'opacity 0.3s ease';
         });
     </script>
 
