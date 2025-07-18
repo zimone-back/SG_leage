@@ -508,13 +508,13 @@
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,0.1);
 ">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-                <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
-                San Giorgio League
-            </a>
-        </div>
-    </nav>
+    <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+            <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
+            San Giorgio League
+        </a>
+    </div>
+</nav>
 
     <div class="container mt-4">
         <!-- Hero Section -->
