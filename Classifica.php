@@ -647,7 +647,7 @@
         echo '<div class="hero mt-5">';
         echo '  <div class="container hero-content text-center text-white">';
         echo '    <h1 class="display-5 fw-bold mb-3 animate__animated animate__fadeInDown">Classifica Marcatori</h1>';
-        echo '    <p class="lead fs-4 animate__animated animate__fadeInUp">Scopri i migliori marcatori della San Giorgio League</p>';
+        echo '    <p class="lead fs-4 animate__animated animate__fadeInUp">Scopri i migliori marcatori della San Giorgio Kings League</p>';
         echo '  </div>';
         echo '</div>';
 
