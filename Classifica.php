@@ -502,20 +502,17 @@
 </head>
 
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="
-        background: rgba(30, 58, 138, 0.8);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    ">
+    <nav class="navbar navbar-expand navbar-dark fixed-top shadow" style="
+    background: rgba(30, 58, 138, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+">
         <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-                <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2 hvr-grow-rotate">
+                <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
                 San Giorgio League
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </div>
     </nav>
 

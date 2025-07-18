@@ -11,39 +11,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
-       body {
-        padding-top: 70px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        min-height: 100vh;
-    }
-    
-    body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: url("./immagini/logosgl.jpg");
-        background-repeat: no-repeat;
-        background-position: center center;
-        z-index: -2;
-        background-size: cover;
-        object-fit: cover;
-        background-attachment: scroll;
-        opacity: 0.3; 
-    }
+        body {
+            padding-top: 70px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
 
-    body::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-    }
-        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("./immagini/logosgl.jpg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            z-index: -2;
+            background-size: cover;
+            object-fit: cover;
+            background-attachment: scroll;
+            opacity: 0.3;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
         .hero {
             background: rgba(30, 60, 114, 0.85);
             border-radius: 12px;
@@ -53,7 +53,7 @@
             backdrop-filter: blur(2px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
-        
+
         .hero::before {
             content: "";
             position: absolute;
@@ -64,37 +64,37 @@
             background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%);
             z-index: 1;
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 2;
         }
-        
+
         .btn-hero {
             background-color: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(5px);
             transition: all 0.3s ease;
         }
-        
+
         .btn-hero:hover {
             background-color: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
         }
-        
-        
+
+
         .card {
             transition: all 0.3s ease;
             border: none;
             backdrop-filter: blur(5px);
             background-color: rgba(255, 255, 255, 0.8);
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         @media (max-width: 767.98px) {
             .hero {
                 border-radius: 0;
@@ -102,31 +102,78 @@
                 margin-right: -12px;
             }
         }
-        
-@media (max-width: 767px) and (orientation: portrait) {
-    body::before {
-        background-size: 100% auto; 
-        min-height: 100vh;
-    }
-}
 
-@media (max-width: 767px) and (orientation: landscape) {
-    body::before {
-        background-size: auto 100%; 
-        min-width: 100vw;
-    }
-}
+        @media (max-width: 767px) and (orientation: portrait) {
+            body::before {
+                background-size: 100% auto;
+                min-height: 100vh;
+            }
+        }
 
-/* Regolazione desktop */
-@media (min-width: 768px) {
-    body::before {
-        background-size: contain;
-        background-color: #f8f9fa;
-    }
-    body::after {
-        background: rgba(255,255,255,0.7);
-    }
-}
+        @media (max-width: 767px) and (orientation: landscape) {
+            body::before {
+                background-size: auto 100%;
+                min-width: 100vw;
+            }
+        }
+
+        /* Regolazione desktop */
+        @media (min-width: 768px) {
+            body::before {
+                background-size: contain;
+                background-color: #f8f9fa;
+            }
+
+            body::after {
+                background: rgba(255, 255, 255, 0.7);
+            }
+        }
+
+
+        .dropdown-menu-mobile {
+            background: rgba(30, 58, 138, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-item-mobile {
+            color: white;
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-item-mobile:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding-left: 25px;
+        }
+
+        .dropdown-item-mobile i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Animazione di apertura */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .show .dropdown-menu-mobile {
+            animation: slideDown 0.3s ease forwards;
+        }
     </style>
 </head>
 
@@ -137,16 +184,37 @@
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,0.1);
   ">
-    <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-        <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2 hvr-grow-rotate">
-        San Giorgio League
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </nav>
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2 hvr-grow-rotate">
+                San Giorgio League
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="ms-2 d-none d-sm-inline text-white">Menu</span>
+            </button>
+
+            <!-- Menu a tendina mobile -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="d-lg-none mt-2">
+                    <div class="dropdown-menu-mobile p-0">
+                        <a href="Notizie.php" class="dropdown-item-mobile text-decoration-none">
+                            <i class="bi bi-newspaper"></i> Notizie
+                        </a>
+                        <a href="partite.php" class="dropdown-item-mobile text-decoration-none">
+                            <i class="bi bi-calendar-event"></i> Calendario
+                        </a>
+                        <a href="Classifica.php" class="dropdown-item-mobile text-decoration-none">
+                            <i class="bi bi-list-ol"></i> Classifica
+                        </a>
+                        <a href="Eventi_passati1.php" class="dropdown-item-mobile text-decoration-none">
+                            <i class="bi bi-clock-history"></i> Eventi Passati
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <div class="container mt-4">
         <div class="hero mb-4">
@@ -157,12 +225,12 @@
                     <a href="Notizie.php" class="text-decoration-none text-white">
                         <i class="bi bi-play-circle me-2"></i>Scopri di più
                     </a>
-                    
+
                 </button>
             </div>
         </div>
 
-        
+
         <div class="row g-3">
             <div class="col-12 col-md-6">
                 <a href="partite.php" class="text-decoration-none text-dark">
