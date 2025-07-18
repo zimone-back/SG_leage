@@ -511,7 +511,7 @@
     <div class="container">
         <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
             <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
-            San Giorgio League
+            San Giorgio Kings League
         </a>
     </div>
 </nav>
