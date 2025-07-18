@@ -9,200 +9,211 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="./style.css">
+
+    //qui sta lo sfondo fatto bene
     <style>
         body {
-            padding-top: 70px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding-top: 70px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        }
+
+        body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("./immagini/logosgl.jpg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        z-index: -2;
+        object-fit: cover;
+        background-attachment: scroll;
+        }
+
+        body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        }
+
+        /* REGOLA UGUALE MOBILE E DESKTOP */
+        @media (max-width: 767px) and (orientation: portrait) {
+        body::before {
+            background-size: 100% auto;
             min-height: 100vh;
         }
-        
+        }
+
+        @media (max-width: 767px) and (orientation: landscape) {
         body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("./immagini/logosgl.jpg");
-            background-repeat: no-repeat;
-            background-position: center center;
-            z-index: -2;
-            background-size: cover;
-            opacity: 0.3;
+            background-size: auto 100%;
+            min-width: 100vw;
         }
-        
+        }
+
+        @media (min-width: 768px) {
+        body::before {
+            background-size: contain;
+            background-color: #f8f9fa;
+        }
+
         body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-            background-color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.7);
         }
-        
+        }
+
+        /* Immagini logo */
         .squadra-logo {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-            vertical-align: middle;
-            border-radius: 50%;
-            object-fit: cover;
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        vertical-align: middle;
+        border-radius: 50%;
+        object-fit: cover;
         }
-        
+
         .squadra-nome {
-            vertical-align: middle;
+        vertical-align: middle;
         }
-        
+
+        /* Pulsanti */
         .nav-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .home-btn {
-            background-color: #1e3a8a;
-            color: white;
+        background-color: #1e3a8a;
+        color: white;
         }
-        
+
+        /* Tabelle */
         .table-container {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
         }
-        
+
         .table-container::-webkit-scrollbar {
-            display: none;
+        display: none;
         }
-        
+
         .table-classifica {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-            background-color: rgba(255, 255, 255, 0.9);
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        background-color: rgba(255, 255, 255, 0.9);
         }
-        
+
         .table-classifica th {
-            background-color: #1e3a8a;
-            color: white;
-            padding: 12px;
-            text-align: center;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
+        background-color: #1e3a8a;
+        color: white;
+        padding: 12px;
+        text-align: center;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
         }
-        
+
         .table-classifica td {
-            padding: 10px;
-            text-align: center;
-            vertical-align: middle;
-            border-bottom: 1px solid #dee2e6;
+        padding: 10px;
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid #dee2e6;
         }
-        
+
         .table-classifica tr:hover {
-            background-color: #f1f5ff;
+        background-color: #f1f5ff;
         }
-        
+
+        /* Evidenziazioni */
         .primo {
-            background-color: rgba(40, 167, 69, 0.15) !important;
+        background-color: rgba(40, 167, 69, 0.15) !important;
         }
-        
         .primo td:first-child {
-            position: relative;
+        position: relative;
         }
-        
         .primo td:first-child::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background-color: #28a745;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: #28a745;
         }
-        
+
         .retrocessione {
-            background-color: rgba(220, 53, 69, 0.15) !important;
+        background-color: rgba(220, 53, 69, 0.15) !important;
         }
-        
         .retrocessione td:first-child {
-            position: relative;
+        position: relative;
         }
-        
         .retrocessione td:first-child::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background-color: #dc3545;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: #dc3545;
         }
-        
+
+        /* Legenda */
         .legenda-classifica {
-            background-color: rgba(248, 249, 250, 0.9);
-            border: 1px solid #dee2e6;
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
+        background-color: rgba(248, 249, 250, 0.9);
+        border: 1px solid #dee2e6;
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
         }
-        
         .legenda-classifica h6 {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
         }
-        
         .legenda-color {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            margin-right: 0.5rem;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        margin-right: 0.5rem;
         }
-        
         .legenda-color.primo {
-            background-color: rgba(40, 167, 69, 0.3);
-            border-left: 4px solid #28a745;
+        background-color: rgba(40, 167, 69, 0.3);
+        border-left: 4px solid #28a745;
         }
-        
         .legenda-color.retrocessione {
-            background-color: rgba(220, 53, 69, 0.3);
-            border-left: 4px solid #dc3545;
+        background-color: rgba(220, 53, 69, 0.3);
+        border-left: 4px solid #dc3545;
         }
-        
+
+        /* Card */
         .card {
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
         }
-        
-        .presidente-info {
-            background-color: rgba(30, 58, 138, 0.1);
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            .table-classifica {
-                font-size: 0.8rem;
-            }
-            
-            .table-classifica th, 
-            .table-classifica td {
-                padding: 8px 4px;
-            }
-        }
+
+
+
     </style>
 </head>
 <body>
@@ -214,7 +225,7 @@
     ">
         <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-                <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
+                <img src="./immagini/logoprimario.jpg" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">
                 San Giorgio League
             </a>
         </div>
