@@ -1517,7 +1517,8 @@ require_once 'utility.php';
                           JOIN cont_goal ON giocatori.ID_giocatori = cont_goal.Cod_giocatori
                           WHERE squadre.Cod_campionato = ?
                           GROUP BY giocatori.ID_giocatori
-                          ORDER BY totale_goal DESC";
+                          ORDER BY totale_goal DESC
+                          LIMIT 10";
 
         $stmt = $conn->prepare($query_marcatori);
         $stmt->bind_param("i", $id_campionato);
