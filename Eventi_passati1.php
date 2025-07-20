@@ -17,16 +17,18 @@ require_once 'utility.php';
   <link rel="stylesheet" href="./style.css">
   <style>
     .squadra-logo {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-        vertical-align: middle;
-        border-radius: 50%;
-        object-fit: cover;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      vertical-align: middle;
+      border-radius: 50%;
+      object-fit: cover;
     }
+
     .squadra-nome {
-        vertical-align: middle;
+      vertical-align: middle;
     }
+
     body {
       padding-top: 70px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -323,7 +325,6 @@ require_once 'utility.php';
 
       echo '  </div>';
       echo '</div>';
-
     } elseif (isset($_POST['scelta']) && !isset($_POST['Classifica']) && !isset($_POST['Marcatori']) && !isset($_POST['Partite'])) {
       $scelta = $conn->real_escape_string($_POST['scelta']);
 
@@ -648,7 +649,7 @@ require_once 'utility.php';
           foreach ($gironi as $girone) {
             echo '<div class="classifica-card mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">';
             echo '  <div class="classifica-header py-2 px-3" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white;">';
-           echo '<h5 class="mb-0 font-weight-bold"><img src="./immagini/logoprimario.jpg" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;"> Girone ' . $girone . '</h5>';
+            echo '<h5 class="mb-0 font-weight-bold"><img src="./immagini/logoprimario.jpg" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;"> Girone ' . $girone . '</h5>';
             echo '  </div>';
             echo '  <div class="table-container">';
             echo '    <table class="table-classifica mb-0" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">';
@@ -686,7 +687,7 @@ require_once 'utility.php';
               }
 
               echo '<tr class="' . $rowClass . '" style="transition: all 0.2s;">';
-              echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;"><div style="display: flex; align-items: center;"><img src="'.getLogoPath($row['squadra'], $conn).'" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">'.$row['squadra'].'</div></td>';
+              echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;"><div style="display: flex; align-items: center;"><img src="' . getLogoPath($row['squadra'], $conn) . '" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $row['squadra'] . '</div></td>';
               echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">' . $row['PT'] . '</td>';
               echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['G'] . '</td>';
               echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['V'] . '</td>';
@@ -782,7 +783,6 @@ require_once 'utility.php';
             }
         }
         </style>';
-
     } elseif (isset($_POST['Classifica'])) {
       $scelta = $conn->real_escape_string($_POST['scelta']);
       // Aggiunta della legenda
@@ -1144,7 +1144,7 @@ require_once 'utility.php';
               }
 
               echo '<tr class="' . $rowClass . '" style="transition: all 0.2s;">';
-              echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;"><div style="display: flex; align-items: center;"><img src="'.getLogoPath($row['squadra'], $conn).'" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">'.$row['squadra'].'</div></td>';
+              echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: left;"><div style="display: flex; align-items: center;"><img src="' . getLogoPath($row['squadra'], $conn) . '" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $row['squadra'] . '</div></td>';
               echo '  <td style="padding: 8px 4px; font-weight: bold; text-align: center; color: #1e3a8a;">' . $row['PT'] . '</td>';
               echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['G'] . '</td>';
               echo '  <td style="padding: 8px 4px; text-align: center;">' . $row['V'] . '</td>';
@@ -1556,7 +1556,7 @@ require_once 'utility.php';
        margin: 8px 0;
        line-height: 1.3;
      ">' . $nome_completo . '</div>';
-            echo '      <div class="team-name small" style="color: #6c757d;"> <img src="'.getLogoPath($row['squadra'], $conn).'" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $squadra . '</div>';
+            echo '      <div class="team-name small" style="color: #6c757d;"> <img src="' . getLogoPath($row['squadra'], $conn) . '" style="width: 25px; height: 25px; margin-right: 8px; border-radius: 50%; object-fit: cover;">' . $squadra . '</div>';
             echo '    </div>';
             echo '  </div>';
             echo '  <span class="goals-count fw-bold" style="width: 30%; text-align: right; color: #1e3a8a; font-size: 1.1rem;">' . $row['totale_goal'] . '</span>';
@@ -1566,7 +1566,7 @@ require_once 'utility.php';
           }
 
           echo '</div>'; // chiusura scorers-table
-    
+
 
         } else {
           echo '<div class="alert alert-warning">Nessun marcatore trovato per questo campionato.</div>';
@@ -1577,7 +1577,7 @@ require_once 'utility.php';
 
       echo '  </div>'; // chiusura card-body
       echo '</div>'; // chiusura event-card
-    
+
       echo '<style>
     .filters {
         background-color: rgba(248, 249, 250, 0.8);
@@ -1644,16 +1644,16 @@ require_once 'utility.php';
       }
     </style>';
     } elseif (isset($_POST['Partite'])) {
-    $scelta = $conn->real_escape_string($_POST['scelta']);
+      $scelta = $conn->real_escape_string($_POST['scelta']);
 
-    echo '<div class="event-card animate__animated animate__fadeIn">';
-    echo '<div class="card-header text-center bg-primary text-white">';
-    echo '<h4 class="mb-0">' . $scelta . ' - Calendario Partite</h4>';
-    echo '</div>';
-    echo '<div class="card-body p-1">';
+      echo '<div class="event-card animate__animated animate__fadeIn">';
+      echo '<div class="card-header text-center bg-primary text-white">';
+      echo '<h4 class="mb-0">' . $scelta . ' - Calendario Partite</h4>';
+      echo '</div>';
+      echo '<div class="card-body p-1">';
 
-    // Pulsanti di navigazione
-    echo '
+      // Pulsanti di navigazione
+      echo '
     <form method="POST" class="d-flex justify-content-center gap-1 gap-md-3 mb-2 mb-md-4 flex-wrap pt-3">
       <input type="hidden" name="scelta" value="' . $scelta . '">
       
@@ -1937,16 +1937,16 @@ require_once 'utility.php';
       }
     </style>';
 
-    $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
+      $query_campionato = "SELECT campionati.ID_campionato, campionati.Nome 
                     FROM campionati 
                     WHERE campionati.Nome = ? 
                     LIMIT 1";
-    $stmt = $conn->prepare($query_campionato);
-    $stmt->bind_param("s", $scelta);
-    $stmt->execute();
-    $result_campionato = $stmt->get_result();
+      $stmt = $conn->prepare($query_campionato);
+      $stmt->bind_param("s", $scelta);
+      $stmt->execute();
+      $result_campionato = $stmt->get_result();
 
-    if ($result_campionato->num_rows > 0) {
+      if ($result_campionato->num_rows > 0) {
         $campionato = $result_campionato->fetch_assoc();
 
         $query_giornate = "SELECT giornate.ID_giornata, giornate.Numero, giornate.Data_inizio, giornate.Data_fine 
@@ -1959,105 +1959,108 @@ require_once 'utility.php';
         $result_giornate = $stmt->get_result();
 
         if ($result_giornate->num_rows > 0) {
-            echo '<div id="matchCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">';
-            echo '<div class="carousel-inner">';
+          echo '<div id="matchCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">';
+          echo '<div class="carousel-inner">';
 
-            $first = true;
-            while ($giornata = $result_giornate->fetch_assoc()) {
-                echo '<div class="carousel-item ' . ($first ? 'active' : '') . '">';
-                echo '<div class="match-carousel">';
-                if ($giornata['Numero'] == 8) {
-                    echo '<div class="day-header">Quarti di finale • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
-                } elseif ($giornata['Numero'] == 9) {
-                    echo '<div class="day-header">Semifinali andata • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
-                } elseif ($giornata['Numero'] == 10) {
-                    echo '<div class="day-header">Semifinali ritorno • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
-                } elseif ($giornata['Numero'] == 11) {
-                    echo '<div class="day-header">Finale • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
-                } else {
-                    echo '<div class="day-header">Giornata ' . $giornata['Numero'] . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
-                }
+          $first = true;
+          while ($giornata = $result_giornate->fetch_assoc()) {
+            echo '<div class="carousel-item ' . ($first ? 'active' : '') . '">';
+            echo '<div class="match-carousel">';
+            if ($giornata['Numero'] == 8) {
+              echo '<div class="day-header">Quarti di finale • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+            } elseif ($giornata['Numero'] == 9) {
+              echo '<div class="day-header">Semifinali andata • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+            } elseif ($giornata['Numero'] == 10) {
+              echo '<div class="day-header">Semifinali ritorno • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+            } elseif ($giornata['Numero'] == 11) {
+              echo '<div class="day-header">Finale • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+              echo '<div class="text-center my-3 py-2" style="background: linear-gradient(135deg, #1e3a8a, #2c4fa6); color: white; border-radius: 8px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <i class="bi bi-trophy-fill text-warning me-2"></i>AL BARETTO vince 3-1 ai calci di rigore
+                          </div>';
+            } else {
+              echo '<div class="day-header">Giornata ' . $giornata['Numero'] . ' • ' . date('d/m/y', strtotime($giornata['Data_inizio'])) . '</div>';
+            }
 
-                $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,
+            $query_partite = "SELECT partite.ID_partita, partite.Data, partite.Stato, partite.Gol_casa, partite.Gol_ospite,
                               squadre_casa.Nome AS squadra_casa, squadre_ospite.Nome AS squadra_ospite
                         FROM partite
                         JOIN squadre AS squadre_casa ON partite.Squadra_casa = squadre_casa.ID_squadre
                         JOIN squadre AS squadre_ospite ON partite.Squadra_ospite = squadre_ospite.ID_squadre
                         WHERE partite.Cod_giornata = ?
                         ORDER BY partite.Data";
-                $stmt = $conn->prepare($query_partite);
-                $stmt->bind_param("i", $giornata['ID_giornata']);
-                $stmt->execute();
-                $result_partite = $stmt->get_result();
+            $stmt = $conn->prepare($query_partite);
+            $stmt->bind_param("i", $giornata['ID_giornata']);
+            $stmt->execute();
+            $result_partite = $stmt->get_result();
 
-                if ($result_partite->num_rows > 0) {
-                    echo '<table class="simple-match-table">';
-                    echo '<tbody>';
+            if ($result_partite->num_rows > 0) {
+              echo '<table class="simple-match-table">';
+              echo '<tbody>';
 
-                    while ($partita = $result_partite->fetch_assoc()) {
-                        echo '<tr>';
-                        
-                        // Squadra casa
-                        echo '<td>' . displaySquadraWithLogo($partita['squadra_casa'], $conn) . '</td>';
-                        
-                        // Risultato/Stato
-                        echo '<td>';
-                        if ($partita['Stato'] == 'terminata') {
-                            echo '<span class="text-dark">' . $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite'] . '</span>';
-                        } elseif ($partita['Stato'] == 'in corso') {
-                            echo '<span class="match-status status-in-corso">LIVE</span>';
-                        } else {
-                            echo '<span class="match-status status-programmata">' . date('H:i', strtotime($partita['Data'])) . '</span>';
-                        }
-                        echo '</td>';
-                        
-                        // Squadra ospite
-                        echo '<td>' . displaySquadraWithLogo($partita['squadra_ospite'], $conn) . '</td>';
-                        
-                        echo '</tr>';
-                    }
+              while ($partita = $result_partite->fetch_assoc()) {
+                echo '<tr>';
 
-                    echo '</tbody>';
-                    echo '</table>';
+                // Squadra casa
+                echo '<td>' . displaySquadraWithLogo($partita['squadra_casa'], $conn) . '</td>';
+
+                // Risultato/Stato
+                echo '<td>';
+                if ($partita['Stato'] == 'terminata') {
+                  echo '<span class="text-dark">' . $partita['Gol_casa'] . ' - ' . $partita['Gol_ospite'] . '</span>';
+                } elseif ($partita['Stato'] == 'in corso') {
+                  echo '<span class="match-status status-in-corso">LIVE</span>';
                 } else {
-                    echo '<div class="alert alert-info text-center py-2 my-2">Nessuna partita programmata</div>';
+                  echo '<span class="match-status status-programmata">' . date('H:i', strtotime($partita['Data'])) . '</span>';
                 }
+                echo '</td>';
 
-                echo '</div>'; // match-carousel
-                echo '</div>'; // carousel-item
-                $first = false;
+                // Squadra ospite
+                echo '<td>' . displaySquadraWithLogo($partita['squadra_ospite'], $conn) . '</td>';
+
+                echo '</tr>';
+              }
+
+              echo '</tbody>';
+              echo '</table>';
+            } else {
+              echo '<div class="alert alert-info text-center py-2 my-2">Nessuna partita programmata</div>';
             }
 
-            echo '</div>'; // carousel-inner
-    
-            // Controlli di navigazione
-            echo '<button class="carousel-control-prev" type="button" data-bs-target="#matchCarousel" data-bs-slide="prev">
+            echo '</div>'; // match-carousel
+            echo '</div>'; // carousel-item
+            $first = false;
+          }
+
+          echo '</div>'; // carousel-inner
+
+          // Controlli di navigazione
+          echo '<button class="carousel-control-prev" type="button" data-bs-target="#matchCarousel" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Previous</span>
                     </button>';
-            echo '<button class="carousel-control-next" type="button" data-bs-target="#matchCarousel" data-bs-slide="next">
+          echo '<button class="carousel-control-next" type="button" data-bs-target="#matchCarousel" data-bs-slide="next">
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Next</span>
                     </button>';
 
-            // Indicatori
-            echo '<div class="carousel-indicators mt-2">';
-            for ($i = 0; $i < $result_giornate->num_rows; $i++) {
-                echo '<button type="button" data-bs-target="#matchCarousel" data-bs-slide-to="' . $i . '" ' . ($i == 0 ? 'class="active"' : '') . '></button>';
-            }
-            echo '</div>';
+          // Indicatori
+          echo '<div class="carousel-indicators mt-2">';
+          for ($i = 0; $i < $result_giornate->num_rows; $i++) {
+            echo '<button type="button" data-bs-target="#matchCarousel" data-bs-slide-to="' . $i . '" ' . ($i == 0 ? 'class="active"' : '') . '></button>';
+          }
+          echo '</div>';
 
-            echo '</div>'; // carousel
+          echo '</div>'; // carousel
         } else {
-            echo '<div class="alert alert-warning text-center py-2">Nessuna giornata trovata per questo campionato.</div>';
+          echo '<div class="alert alert-warning text-center py-2">Nessuna giornata trovata per questo campionato.</div>';
         }
-    } else {
+      } else {
         echo '<div class="alert alert-danger text-center py-2">Nessun campionato attivo trovato.</div>';
-    }
+      }
 
-    echo '</div>'; // card-body
-    echo '</div>'; // event-card
-} elseif (isset($_POST['indietro'])) {
+      echo '</div>'; // card-body
+      echo '</div>'; // event-card
+    } elseif (isset($_POST['indietro'])) {
       header("Location: Eventi_passati1.php");
       exit();
     }
