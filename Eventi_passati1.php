@@ -237,17 +237,93 @@ require_once 'utility.php';
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,0.1);
-  ">
+">
     <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-        <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2 hvr-grow-rotate">
-        San Giorgio League
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+            <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
+            San Giorgio League
+        </a>
+        
+        <!-- Bottone hamburger -->
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <span class="ms-2 d-none d-sm-inline text-white">Menu</span>
+        </button>
+
+        <!-- Menu a tendina mobile -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="d-lg-none mt-2">
+                <div class="dropdown-menu-mobile p-0">
+                    <a href="Notizie.php" class="dropdown-item-mobile text-decoration-none">
+                        <i class="bi bi-newspaper"></i> Notizie
+                    </a>
+                    <a href="partite.php" class="dropdown-item-mobile text-decoration-none">
+                        <i class="bi bi-calendar-event"></i> Calendario
+                    </a>
+                    <a href="Classifica.php" class="dropdown-item-mobile text-decoration-none">
+                        <i class="bi bi-list-ol"></i> Classifica
+                    </a>
+                    <a href="Eventi_passati1.php" class="dropdown-item-mobile text-decoration-none">
+                        <i class="bi bi-clock-history"></i> Eventi Passati
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-  </nav>
+</nav>
+
+<!-- Aggiungi questo stile nella sezione <style> del tuo head -->
+<style>
+    /* Stili per il menu mobile */
+    .dropdown-menu-mobile {
+        background-color: rgba(30, 58, 138, 0.95);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+    }
+    
+    .dropdown-item-mobile {
+        display: block;
+        padding: 12px 16px;
+        color: white;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .dropdown-item-mobile:last-child {
+        border-bottom: none;
+    }
+    
+    .dropdown-item-mobile:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding-left: 20px;
+    }
+    
+    .dropdown-item-mobile i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+    }
+    
+    /* Miglioramenti per il toggler */
+    .navbar-toggler {
+        border: none;
+        padding: 8px 12px;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+    
+    /* Animazione per l'icona hamburger */
+    .navbar-toggler.collapsed .navbar-toggler-icon {
+        transition: transform 0.3s ease;
+    }
+    
+    .navbar-toggler:not(.collapsed) .navbar-toggler-icon {
+        transform: rotate(90deg);
+    }
+</style>
 
   <div class="container mt-4">
     <!-- Hero Section -->
