@@ -1,0 +1,31 @@
+RewriteEngine On
+
+# === Reindirizzamenti ESTERNI (301) ===
+# index.php → /
+RewriteCond %{THE_REQUEST} /index\.php [NC]
+RewriteRule ^(.*?)index\.php$ /$1 [L,R=301,NC,NE]
+
+# Notizie.php → /Notizie
+RewriteCond %{THE_REQUEST} /Notizie\.php [NC]
+RewriteRule ^(.*?)Notizie\.php$ /$1Notizie [L,R=301,NC,NE]
+
+# partite.php → /partite
+RewriteCond %{THE_REQUEST} /partite\.php [NC]
+RewriteRule ^(.*?)partite\.php$ /$1partite [L,R=301,NC,NE]
+
+# Classifica.php → /Classifica
+RewriteCond %{THE_REQUEST} /Classifica\.php [NC]
+RewriteRule ^(.*?)Classifica\.php$ /$1Classifica [L,R=301,NC,NE]
+
+# Eventi_passati1.php → /Eventi_passati1
+RewriteCond %{THE_REQUEST} /Eventi_passati\.php [NC]
+RewriteRule ^(.*?)Eventi_passati\.php$ /$1Eventi_passati [L,R=301,NC,NE]
+
+# === Riscrittura INTERNA ===
+# Risolve gli URL puliti (senza .php) internamente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(Notizie|partite|Classifica|Eventi_passati)/?$ $1.php [L]
+
+# Homepage (root)
+RewriteRule ^$ index.php [L]

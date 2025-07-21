@@ -435,7 +435,7 @@
                     <a href="Classifica.php" class="dropdown-item-mobile text-decoration-none">
                         <i class="bi bi-list-ol"></i> Classifica
                     </a>
-                    <a href="Eventi_passati1.php" class="dropdown-item-mobile text-decoration-none">
+                    <a href="Eventi_passati.php" class="dropdown-item-mobile text-decoration-none">
                         <i class="bi bi-clock-history"></i> Eventi Passati
                     </a>
                 </div>
@@ -585,15 +585,11 @@
                     echo '<div class="giornata-header">';
 
                     // Titolo giornata (mantieni il tuo codice esistente)
-                    if ($giornata['Numero'] == 8) {
-                        echo '<i class="bi bi-trophy me-2"></i>Quarti di finale • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
-                    } elseif ($giornata['Numero'] == 9) {
-                        echo '<i class="bi bi-trophy me-2"></i>Semifinali andata • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
-                    } elseif ($giornata['Numero'] == 10) {
-                        echo '<i class="bi bi-trophy me-2"></i>Semifinali ritorno • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
-                    } elseif ($giornata['Numero'] == 11) {
-                        echo '<i class="bi bi-trophy-fill me-2"></i>Finale • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
-                    } else {
+                    if ($giornata['Numero'] == 3) {
+                        echo '<i class="bi bi-trophy me-2"></i>Semifinali • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
+                    }elseif($giornata['Numero'] == 4) {
+                        echo '<i class="bi bi-trophy me-2"></i>Finale • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
+                    }else{
                         echo '<i class="bi bi-calendar3 me-2"></i>Giornata ' . $giornata['Numero'] . ' • ' . date('d/m/Y', strtotime($giornata['Data_inizio']));
                     }
 

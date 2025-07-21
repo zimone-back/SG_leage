@@ -209,7 +209,7 @@
                     <a href="Classifica.php" class="dropdown-item-mobile text-decoration-none">
                         <i class="bi bi-list-ol"></i> Classifica
                     </a>
-                    <a href="Eventi_passati1.php" class="dropdown-item-mobile text-decoration-none">
+                    <a href="Eventi_passati.php" class="dropdown-item-mobile text-decoration-none">
                         <i class="bi bi-clock-history"></i> Eventi Passati
                     </a>
                 </div>
@@ -312,7 +312,7 @@
                 </a>
             </div>
             <div class="col-12 col-md-6">
-                <a href="Eventi_passati1.php" class="text-decoration-none text-dark">
+                <a href="Eventi_passati.php" class="text-decoration-none text-dark">
                     <div class="card shadow-sm p-3 h-100">
                         <h5><i class="bi bi-clock-history me-2"></i>Eventi Passati</h5>
                         <p class="mb-0">Rivivi le competizioni concluse e i vincitori.</p>

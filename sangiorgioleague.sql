@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Creato il: Lug 18, 2025 alle 00:20
--- Versione del server: 10.4.32-MariaDB
--- Versione PHP: 8.2.12
+-- Host: 31.11.39.235
+-- Creato il: Lug 21, 2025 alle 16:24
+-- Versione del server: 8.0.42-33
+-- Versione PHP: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sangiorgioleague`
+-- Database: `Sql1878611_1`
 --
 
 -- --------------------------------------------------------
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `campionati` (
-  `ID_campionato` int(11) NOT NULL,
-  `Nome` varchar(50) DEFAULT NULL,
-  `Nazione` varchar(50) DEFAULT NULL
+  `ID_campionato` int NOT NULL,
+  `Nome` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Nazione` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -48,11 +48,11 @@ INSERT INTO `campionati` (`ID_campionato`, `Nome`, `Nazione`) VALUES
 --
 
 CREATE TABLE `cont_goal` (
-  `ID_cont_goal` int(11) NOT NULL,
-  `Cod_giocatori` int(11) DEFAULT NULL,
-  `Goal` int(11) DEFAULT NULL,
+  `ID_cont_goal` int NOT NULL,
+  `Cod_giocatori` int DEFAULT NULL,
+  `Goal` int DEFAULT NULL,
   `Data` date DEFAULT NULL,
-  `Cod_campionato` int(11) DEFAULT NULL
+  `Cod_campionato` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -200,10 +200,10 @@ INSERT INTO `cont_goal` (`ID_cont_goal`, `Cod_giocatori`, `Goal`, `Data`, `Cod_c
 --
 
 CREATE TABLE `giocatori` (
-  `ID_giocatori` int(11) NOT NULL,
-  `Nome` varchar(30) DEFAULT NULL,
-  `Cognome` varchar(30) DEFAULT NULL,
-  `Cod_squadre` int(11) DEFAULT NULL
+  `ID_giocatori` int NOT NULL,
+  `Nome` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Cognome` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Cod_squadre` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -319,9 +319,9 @@ INSERT INTO `giocatori` (`ID_giocatori`, `Nome`, `Cognome`, `Cod_squadre`) VALUE
 --
 
 CREATE TABLE `giornate` (
-  `ID_giornata` int(11) NOT NULL,
-  `Numero` int(11) DEFAULT NULL,
-  `Cod_campionato` int(11) DEFAULT NULL,
+  `ID_giornata` int NOT NULL,
+  `Numero` int DEFAULT NULL,
+  `Cod_campionato` int DEFAULT NULL,
   `Data_inizio` date DEFAULT NULL,
   `Data_fine` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -343,7 +343,9 @@ INSERT INTO `giornate` (`ID_giornata`, `Numero`, `Cod_campionato`, `Data_inizio`
 (10, 10, 1, '2025-06-13', '2025-07-13'),
 (11, 11, 1, '2025-06-24', '2025-07-24'),
 (12, 1, 2, '2025-07-14', '2025-07-14'),
-(13, 2, 2, '2025-07-16', '2025-07-16');
+(13, 2, 2, '2025-07-16', '2025-07-16'),
+(14, 3, 2, '2025-07-18', '2025-07-18'),
+(15, 4, 2, '2025-07-18', '2025-07-18');
 
 -- --------------------------------------------------------
 
@@ -352,15 +354,15 @@ INSERT INTO `giornate` (`ID_giornata`, `Numero`, `Cod_campionato`, `Data_inizio`
 --
 
 CREATE TABLE `partite` (
-  `ID_partita` int(11) NOT NULL,
-  `Cod_giornata` int(11) DEFAULT NULL,
-  `Squadra_casa` int(11) DEFAULT NULL,
-  `Squadra_ospite` int(11) DEFAULT NULL,
-  `Gol_casa` int(11) DEFAULT NULL,
-  `Gol_ospite` int(11) DEFAULT NULL,
+  `ID_partita` int NOT NULL,
+  `Cod_giornata` int DEFAULT NULL,
+  `Squadra_casa` int DEFAULT NULL,
+  `Squadra_ospite` int DEFAULT NULL,
+  `Gol_casa` int DEFAULT NULL,
+  `Gol_ospite` int DEFAULT NULL,
   `Data` datetime DEFAULT NULL,
-  `Stato` enum('da giocare','in corso','terminata') DEFAULT 'da giocare',
-  `Cod_campionato` int(11) DEFAULT NULL
+  `Stato` enum('da giocare','in corso','terminata') COLLATE utf8mb4_general_ci DEFAULT 'da giocare',
+  `Cod_campionato` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -408,7 +410,10 @@ INSERT INTO `partite` (`ID_partita`, `Cod_giornata`, `Squadra_casa`, `Squadra_os
 (38, 13, 14, 11, 2, 5, '2025-07-16 03:47:51', 'terminata', 2),
 (39, 13, 18, 15, 7, 1, '2025-07-16 03:47:51', 'terminata', 2),
 (40, 13, 11, 18, 4, 3, '2025-07-16 03:47:51', 'terminata', 2),
-(41, 13, 14, 15, 5, 2, '2025-07-16 03:47:51', 'terminata', 2);
+(41, 13, 14, 15, 5, 2, '2025-07-16 03:47:51', 'terminata', 2),
+(42, 14, 18, 16, 10, 1, '2025-07-18 00:00:00', 'terminata', 2),
+(43, 14, 12, 11, 3, 0, '2025-07-18 00:00:00', 'terminata', 2),
+(44, 15, 18, 12, 4, 3, '2025-07-18 00:00:00', 'terminata', 2);
 
 -- --------------------------------------------------------
 
@@ -417,12 +422,12 @@ INSERT INTO `partite` (`ID_partita`, `Cod_giornata`, `Squadra_casa`, `Squadra_os
 --
 
 CREATE TABLE `premi` (
-  `ID_premio` int(11) NOT NULL,
-  `Tipo` varchar(50) NOT NULL,
-  `Cod_giocatore` int(11) DEFAULT NULL,
-  `Cod_squadra` int(11) DEFAULT NULL,
-  `Stagione` varchar(20) DEFAULT NULL,
-  `Cod_campionato` int(11) DEFAULT NULL
+  `ID_premio` int NOT NULL,
+  `Tipo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `Cod_giocatore` int DEFAULT NULL,
+  `Cod_squadra` int DEFAULT NULL,
+  `Stagione` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Cod_campionato` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -441,9 +446,9 @@ INSERT INTO `premi` (`ID_premio`, `Tipo`, `Cod_giocatore`, `Cod_squadra`, `Stagi
 --
 
 CREATE TABLE `presidenti` (
-  `ID_presidenti` int(11) NOT NULL,
-  `Nome` varchar(30) DEFAULT NULL,
-  `Cognome` varchar(30) DEFAULT NULL
+  `ID_presidenti` int NOT NULL,
+  `Nome` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Cognome` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -467,18 +472,18 @@ INSERT INTO `presidenti` (`ID_presidenti`, `Nome`, `Cognome`) VALUES
 --
 
 CREATE TABLE `squadre` (
-  `ID_squadre` int(11) NOT NULL,
-  `Nome` varchar(30) DEFAULT NULL,
-  `immagini_loghi` varchar(30) NOT NULL,
-  `Cod_presidenti` int(11) DEFAULT NULL,
-  `Cod_campionato` int(11) DEFAULT NULL,
-  `PT` int(11) DEFAULT 0,
-  `G` int(11) DEFAULT 0,
-  `V` int(11) DEFAULT 0,
-  `N` int(11) DEFAULT 0,
-  `P` int(11) DEFAULT 0,
-  `DR` int(11) DEFAULT 0,
-  `Girone` varchar(10) DEFAULT NULL
+  `ID_squadre` int NOT NULL,
+  `Nome` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `immagini_loghi` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `Cod_presidenti` int DEFAULT NULL,
+  `Cod_campionato` int DEFAULT NULL,
+  `PT` int DEFAULT '0',
+  `G` int DEFAULT '0',
+  `V` int DEFAULT '0',
+  `N` int DEFAULT '0',
+  `P` int DEFAULT '0',
+  `DR` int DEFAULT '0',
+  `Girone` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -497,12 +502,12 @@ INSERT INTO `squadre` (`ID_squadre`, `Nome`, `immagini_loghi`, `Cod_presidenti`,
 (9, 'BLACKROSE', 'BlaskRoseFC.png', NULL, 1, 4, 4, 1, 1, 2, -10, 'B'),
 (10, 'CORTO MUSO', 'Ac_corto_muso.png', NULL, 1, 1, 3, 0, 1, 2, -2, 'B'),
 (11, 'Casi Italia', 'casi_italia.png', 1, 2, 6, 3, 2, 0, 1, 5, 'B'),
-(12, 'Coffee world', 'Coffe_world.jpg', 2, 2, 9, 21, 3, 0, 0, 5, 'A'),
-(13, 'King-REX', 'King_REX.png', 3, 2, 3, 5, 1, 0, 2, 10, 'A'),
+(12, 'Coffee world', 'Coffe_world.jpg', 2, 2, 9, 3, 3, 0, 0, 16, 'A'),
+(13, 'King-REX', 'King_REX.png', 3, 2, 3, 3, 1, 0, 2, -5, 'A'),
 (14, 'Seleção x Autoscuola di cuia', 'SeleçãoxAutoscuola.jpg', 4, 2, 3, 3, 1, 0, 2, -3, 'B'),
 (15, 'B.G.manager', 'BG_menager.png', 5, 2, 0, 3, 0, 0, 3, -9, 'B'),
-(16, 'IL GRILLO FC ', 'Grillo_fc.png', 6, 2, 6, 7, 2, 0, 1, 11, 'A'),
-(17, 'Autolavaggio beautycar', 'Beauty_car.jpg', 7, 2, 0, 9, 0, 0, 3, 16, 'A'),
+(16, 'IL GRILLO FC ', 'Grillo_fc.png', 6, 2, 6, 3, 2, 0, 1, -4, 'A'),
+(17, 'Autolavaggio beautycar', 'Beauty_car.jpg', 7, 2, 0, 3, 0, 0, 3, -7, 'A'),
 (18, 'Lucky squad', '', 8, 2, 6, 3, 2, 0, 1, 7, 'B');
 
 --
@@ -578,96 +583,49 @@ ALTER TABLE `squadre`
 -- AUTO_INCREMENT per la tabella `campionati`
 --
 ALTER TABLE `campionati`
-  MODIFY `ID_campionato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_campionato` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `cont_goal`
 --
 ALTER TABLE `cont_goal`
-  MODIFY `ID_cont_goal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `ID_cont_goal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT per la tabella `giocatori`
 --
 ALTER TABLE `giocatori`
-  MODIFY `ID_giocatori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `ID_giocatori` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT per la tabella `giornate`
 --
 ALTER TABLE `giornate`
-  MODIFY `ID_giornata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID_giornata` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT per la tabella `partite`
 --
 ALTER TABLE `partite`
-  MODIFY `ID_partita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `ID_partita` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT per la tabella `premi`
 --
 ALTER TABLE `premi`
-  MODIFY `ID_premio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_premio` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `presidenti`
 --
 ALTER TABLE `presidenti`
-  MODIFY `ID_presidenti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_presidenti` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `squadre`
 --
 ALTER TABLE `squadre`
-  MODIFY `ID_squadre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- Limiti per le tabelle scaricate
---
-
---
--- Limiti per la tabella `cont_goal`
---
-ALTER TABLE `cont_goal`
-  ADD CONSTRAINT `cont_goal_ibfk_1` FOREIGN KEY (`Cod_giocatori`) REFERENCES `giocatori` (`ID_giocatori`),
-  ADD CONSTRAINT `cont_goal_ibfk_2` FOREIGN KEY (`Cod_campionato`) REFERENCES `campionati` (`ID_campionato`);
-
---
--- Limiti per la tabella `giocatori`
---
-ALTER TABLE `giocatori`
-  ADD CONSTRAINT `giocatori_ibfk_1` FOREIGN KEY (`Cod_squadre`) REFERENCES `squadre` (`ID_squadre`);
-
---
--- Limiti per la tabella `giornate`
---
-ALTER TABLE `giornate`
-  ADD CONSTRAINT `giornate_ibfk_1` FOREIGN KEY (`Cod_campionato`) REFERENCES `campionati` (`ID_campionato`);
-
---
--- Limiti per la tabella `partite`
---
-ALTER TABLE `partite`
-  ADD CONSTRAINT `partite_ibfk_1` FOREIGN KEY (`Cod_giornata`) REFERENCES `giornate` (`ID_giornata`),
-  ADD CONSTRAINT `partite_ibfk_2` FOREIGN KEY (`Squadra_casa`) REFERENCES `squadre` (`ID_squadre`),
-  ADD CONSTRAINT `partite_ibfk_3` FOREIGN KEY (`Squadra_ospite`) REFERENCES `squadre` (`ID_squadre`),
-  ADD CONSTRAINT `partite_ibfk_4` FOREIGN KEY (`Cod_campionato`) REFERENCES `campionati` (`ID_campionato`);
-
---
--- Limiti per la tabella `premi`
---
-ALTER TABLE `premi`
-  ADD CONSTRAINT `premi_ibfk_1` FOREIGN KEY (`Cod_giocatore`) REFERENCES `giocatori` (`ID_giocatori`),
-  ADD CONSTRAINT `premi_ibfk_2` FOREIGN KEY (`Cod_squadra`) REFERENCES `squadre` (`ID_squadre`),
-  ADD CONSTRAINT `premi_ibfk_3` FOREIGN KEY (`Cod_campionato`) REFERENCES `campionati` (`ID_campionato`);
-
---
--- Limiti per la tabella `squadre`
---
-ALTER TABLE `squadre`
-  ADD CONSTRAINT `squadre_ibfk_1` FOREIGN KEY (`Cod_presidenti`) REFERENCES `presidenti` (`ID_presidenti`),
-  ADD CONSTRAINT `squadre_ibfk_2` FOREIGN KEY (`Cod_campionato`) REFERENCES `campionati` (`ID_campionato`);
+  MODIFY `ID_squadre` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -263,7 +263,7 @@ require_once 'utility.php';
                     <a href="Classifica.php" class="dropdown-item-mobile text-decoration-none">
                         <i class="bi bi-list-ol"></i> Classifica
                     </a>
-                    <a href="Eventi_passati1.php" class="dropdown-item-mobile text-decoration-none">
+                    <a href="Eventi_passati.php" class="dropdown-item-mobile text-decoration-none">
                         <i class="bi bi-clock-history"></i> Eventi Passati
                     </a>
                 </div>
