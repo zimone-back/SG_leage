@@ -1,328 +1,153 @@
-<!DOCTYPE html>
+<?php
+// Costanti di configurazione: navbar, opzioni in basso, sponsor
+const BOTTOM_TABS = [
+    ['id' => 'partite', 'label' => 'Partite', 'icon' => '⚽'],
+    ['id' => 'notizie', 'label' => 'Notizie', 'icon' => '📰'],
+    ['id' => 'classifica', 'label' => 'Classifica', 'icon' => '🏆'],
+];
+
+// Dati sponsor
+$sponsors = [
+    [
+        'image' => 'immagini/sponsor1.JPG',
+        'title' => 'Ringraziamo Acme Sports',
+        'message' => 'Per aver reso possibile questo torneo con il loro supporto logistico e finanziario.',
+    ],
+    [
+        'image' => 'immagini/sponsor2.jpeg',
+        'title' => 'Un grazie speciale a BallMaster',
+        'message' => 'Per aver fornito palloni e attrezzature di alta qualità per tutte le partite.',
+    ],
+    [
+        'image' => 'immagini/sponsor3.jpeg',
+        'title' => 'Apprezziamo GoalZone',
+        'message' => 'Per la promozione del calcio locale e il sostegno alla comunità sportiva.',
+    ],
+];
+?>
+<!doctype html>
 <html lang="it">
-
 <head>
-    <meta charset="UTF-8">
-    <title>San Giorgio League</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/svg+xml" href="./immagini/logosgl.jpg" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Serie A - Sangiorgio League</title>
     <style>
-        body {
-            padding-top: 70px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("./immagini/logosgl.jpg");
-            background-repeat: no-repeat;
-            background-position: center center;
-            z-index: -2;
-            background-size: cover;
-            object-fit: cover;
-            background-attachment: scroll;
-            opacity: 0.3;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-        }
-
-        .hero {
-            background: rgba(30, 60, 114, 0.85);
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-            border: none;
-            backdrop-filter: blur(2px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .btn-hero {
-            background-color: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-
-        .btn-hero:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-
-        .card {
-            transition: all 0.3s ease;
-            border: none;
-            backdrop-filter: blur(5px);
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        @media (max-width: 767.98px) {
-            .hero {
-                border-radius: 0;
-                margin-left: -12px;
-                margin-right: -12px;
-            }
-        }
-
-        @media (max-width: 767px) and (orientation: portrait) {
-            body::before {
-                background-size: 100% auto;
-                min-height: 100vh;
-            }
-        }
-
-        @media (max-width: 767px) and (orientation: landscape) {
-            body::before {
-                background-size: auto 100%;
-                min-width: 100vw;
-            }
-        }
-
-        /* Regolazione desktop */
-        @media (min-width: 768px) {
-            body::before {
-                background-size: contain;
-                background-color: #f8f9fa;
-            }
-
-            body::after {
-                background: rgba(255, 255, 255, 0.7);
-            }
-        }
-
-
-        .dropdown-menu-mobile {
-            background: rgba(30, 58, 138, 0.95);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .dropdown-item-mobile {
-            color: white;
-            padding: 12px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
-
-        .dropdown-item-mobile:hover {
-            background: rgba(255, 255, 255, 0.1);
-            padding-left: 25px;
-        }
-
-        .dropdown-item-mobile i {
-            margin-right: 10px;
-            font-size: 1.1rem;
-        }
-
-        /* Animazione di apertura */
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .show .dropdown-menu-mobile {
-            animation: slideDown 0.3s ease forwards;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; color: #fff; }
+        .app { min-height: 100vh; display: flex; flex-direction: column; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #101010; border-bottom: 1px solid #333; }
+        .topbar .brand { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; font-weight: 700; }
+        .topbar .brand span { font-size: .85rem; color: #8f8; }
+        .content { flex: 1; overflow-y: auto; padding: 12px; }
+        .block { margin-bottom: 12px; border-radius: 16px; overflow: hidden; background: #121212; border: 1px solid #333; }
+        .block img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+        .block .text { padding: 10px; }
+        .block .title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .block .subtitle { font-size: .86rem; color: #ccc; }
+        .grid { display: grid; gap: 10px; }
+        .bottom-tabs { position: sticky; bottom: 0; display: flex; background: rgba(15,15,15,.96); border-top: 1px solid #222; }
+        .bottom-tabs button { flex: 1; border: 0; background: transparent; color: #aaa; padding: 9px 4px; font-size: .75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+        .bottom-tabs button.active { color: #fff; font-weight: 700; }
+        .toast { position: fixed; inset: 0; background: rgba(0,0,0,.7); display: flex; align-items: center; justify-content: center; z-index: 30; }
+        .toast .card { background: #111; border: 1px solid #444; border-radius: 14px; padding: 16px; width: min(92vw, 360px); }
+        .toast .card p { margin-bottom: 12px; color: #ddd; font-size: .95rem; }
+        .toast .card button { margin-right: 8px; padding: 9px 12px; border: none; border-radius: 8px; font-weight: 700; }
+        .toast .card button.accept { background: #2a9d2f; color: #fff; }
+        .splash { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #000; z-index: 90; color: #fff; font-size: 1.2rem; letter-spacing: .5px; }
+        .hidden { display: none !important; }
+        .hidden-while { visibility: hidden; }
     </style>
 </head>
+<body>
+<div class="app">
+    <!-- Navbar top -->
+    <header class="topbar">
+        <div class="brand">San Giorgio League</div>
+        <div>🏆</div>
+    </header>
 
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="
-    background: rgba(30, 58, 138, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-">
-    <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-            <img src="./immagini/logosgl.jpg" alt="Logo" width="30" height="30" class="rounded-circle me-2">
-            San Giorgio League
-        </a>
-        
-        <!-- Bottone hamburger -->
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            <span class="ms-2 d-none d-sm-inline text-white">Menu</span>
-        </button>
-
-        <!-- Menu a tendina mobile -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="d-lg-none mt-2">
-                <div class="dropdown-menu-mobile p-0">
-                    <a href="Notizie.php" class="dropdown-item-mobile text-decoration-none">
-                        <i class="bi bi-newspaper"></i> Notizie
-                    </a>
-                    <a href="partite.php" class="dropdown-item-mobile text-decoration-none">
-                        <i class="bi bi-calendar-event"></i> Calendario
-                    </a>
-                    <a href="Classifica.php" class="dropdown-item-mobile text-decoration-none">
-                        <i class="bi bi-list-ol"></i> Classifica
-                    </a>
-                    <a href="Eventi_passati.php" class="dropdown-item-mobile text-decoration-none">
-                        <i class="bi bi-clock-history"></i> Eventi Passati
-                    </a>
-                </div>
-            </div>
+    <!-- Contenuto principale -->
+    <main id="mainContent" class="content hidden-while">
+        <h2 style="padding:8px 0 4px; font-size:1rem;">I nostri sponsor</h2>
+        <div class="grid">
+            <?php foreach ($sponsors as $sponsor) : ?>
+                <article class="block">
+                    <img src="<?php echo htmlspecialchars($sponsor['image']); ?>" alt="<?php echo htmlspecialchars($sponsor['title']); ?>">
+                    <div class="text">
+                        <div class="title"><?php echo htmlspecialchars($sponsor['title']); ?></div>
+                        <div class="subtitle"><?php echo htmlspecialchars($sponsor['message']); ?></div>
+                    </div>
+                </article>
+            <?php endforeach; ?>
         </div>
+    </main>
+
+    <!-- Bottom tabs -->
+    <nav class="bottom-tabs" id="bottomTabs">
+        <?php foreach (BOTTOM_TABS as $tab) : ?>
+            <button data-id="<?php echo htmlspecialchars($tab['id']); ?>">
+                <span><?php echo $tab['icon']; ?></span>
+                <span><?php echo htmlspecialchars($tab['label']); ?></span>
+            </button>
+        <?php endforeach; ?>
+    </nav>
+</div>
+
+<div id="splash" class="splash">Caricamento in corso…</div>
+<div id="cookieToast" class="toast hidden">
+    <div class="card">
+        <p>Questo sito usa cookie per migliorare l'esperienza. Accetti l'utilizzo dei cookie?</p>
+        <button class="accept" id="acceptCookies">Accetta</button>
+        <button id="denyCookies">Rifiuta</button>
     </div>
-</nav>
+</div>
 
-<!-- Aggiungi questo stile nella sezione <style> del tuo head -->
-<style>
-    /* Stili per il menu mobile */
-    .dropdown-menu-mobile {
-        background-color: rgba(30, 58, 138, 0.95);
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        overflow: hidden;
-    }
-    
-    .dropdown-item-mobile {
-        display: block;
-        padding: 12px 16px;
-        color: white;
-        transition: all 0.2s ease;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .dropdown-item-mobile:last-child {
-        border-bottom: none;
-    }
-    
-    .dropdown-item-mobile:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        padding-left: 20px;
-    }
-    
-    .dropdown-item-mobile i {
-        margin-right: 10px;
-        width: 20px;
-        text-align: center;
-    }
-    
-    /* Miglioramenti per il toggler */
-    .navbar-toggler {
-        border: none;
-        padding: 8px 12px;
-    }
-    
-    .navbar-toggler:focus {
-        box-shadow: none;
-    }
-    
-    /* Animazione per l'icona hamburger */
-    .navbar-toggler.collapsed .navbar-toggler-icon {
-        transition: transform 0.3s ease;
-    }
-    
-    .navbar-toggler:not(.collapsed) .navbar-toggler-icon {
-        transform: rotate(90deg);
-    }
-</style>
+<script>
+    const splash = document.getElementById('splash');
+    const cookieToast = document.getElementById('cookieToast');
+    const mainContent = document.getElementById('mainContent');
+    const bottomTabs = document.getElementById('bottomTabs');
 
-    <div class="container mt-4">
-        <div class="hero mb-4">
-            <div class="container py-5 hero-content">
-                <h1 class="display-4 fw-bold text-white mb-3 animate__animated animate__fadeInDown">Benvenuto nella San Giorgio League</h1>
-                <p class="lead text-white mb-4 fs-4 animate__animated animate__fadeInUp">Segui tutte le partite, classifiche, notizie e risultati dei nostri tornei. Vivi la passione del calcio da protagonista!</p>
-                <button class="btn btn-hero text-white btn-lg px-4 animate__animated animate__fadeInUp">
-                    <a href="Notizie.php" class="text-decoration-none text-white">
-                        <i class="bi bi-play-circle me-2"></i>Scopri di più
-                    </a>
+    function showMain() {
+        splash.classList.add('hidden');
+        mainContent.classList.remove('hidden-while');
+    }
 
-                </button>
-            </div>
-        </div>
+    function setActiveTab(tabId) {
+        bottomTabs.querySelectorAll('button').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.id === tabId);
+        });
+        // Per ora la sola tab cambia solo testo; in un'app reale qui carico dati specifici
+        if (tabId === 'notizie') {
+            document.getElementById('mainContent').scrollIntoView({behavior:'smooth'});
+        }
+    }
 
+    document.querySelectorAll('#bottomTabs button').forEach(button => {
+        button.addEventListener('click', () => {
+            setActiveTab(button.dataset.id);
+        });
+    });
 
-        <div class="row g-3">
-            <div class="col-12 col-md-6">
-                <a href="partite.php" class="text-decoration-none text-dark">
-                    <div class="card shadow-sm p-3 h-100">
-                        <h5><i class="bi bi-calendar-event me-2"></i>Calendario Kings League 2025</h5>
-                        <p class="mb-0">Scopri il calendario completo e i risultati delle partite.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-12 col-md-6">
-                <a href="Notizie.php" class="text-decoration-none text-dark">
-                    <div class="card shadow-sm p-3 h-100">
-                        <h5><i class="bi bi-newspaper me-2"></i>Notizie</h5>
-                        <p class="mb-0">Aggiornamenti, interviste e comunicati ufficiali.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-12 col-md-6">
-                <a href="Classifica.php" class="text-decoration-none text-dark">
-                    <div class="card shadow-sm p-3 h-100">
-                        <h5><i class="bi bi-list-ol me-2"></i>Classifica Kings League 2025</h5>
-                        <p class="mb-0">Consulta la classifica aggiornata dei gironi.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-12 col-md-6">
-                <a href="Eventi_passati.php" class="text-decoration-none text-dark">
-                    <div class="card shadow-sm p-3 h-100">
-                        <h5><i class="bi bi-clock-history me-2"></i>Eventi Passati</h5>
-                        <p class="mb-0">Rivivi le competizioni concluse e i vincitori.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
+    document.getElementById('acceptCookies').addEventListener('click', () => {
+        localStorage.setItem('cookieAccepted', '1');
+        cookieToast.classList.add('hidden');
+    });
+    document.getElementById('denyCookies').addEventListener('click', () => {
+        localStorage.setItem('cookieAccepted', '0');
+        cookieToast.classList.add('hidden');
+    });
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            showMain();
+            const accepted = localStorage.getItem('cookieAccepted');
+            if (accepted === null) {
+                cookieToast.classList.remove('hidden');
+            }
+            setActiveTab('notizie');
+        }, 1100);
+    });
+</script>
 </body>
-
 </html>
